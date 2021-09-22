@@ -1,0 +1,45 @@
+@import "../../assets//styles/colors.scss";
+
+.header {
+  &__nav {
+    background-color: $black-color;
+    padding: 0;
+    align-items: center;
+    justify-content: space-between;
+
+    //Container
+    div {
+      padding: 0;
+    }
+  }
+
+  &__brand {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: $white-color;
+    text-transform: uppercase;
+
+    span {
+      color: $red-color;
+    }
+  }
+
+  &__link {
+    display: block;
+    padding: 28px 8px 10px;
+    margin: 0 12px;
+
+    color: $white-color;
+    text-decoration: none;
+
+    transition: all 0.3s linear;
+
+    &.active,
+    &:hover {
+      color: $white-color;
+
+      padding-bottom: 18px;
+      border-bottom: 3px solid $red-color;
+    }
+  }
+}
