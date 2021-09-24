@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
   Collapse,
@@ -29,24 +29,24 @@ function Header(props) {
           <Collapse className="justify-content-end" isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar>
               <NavItem>
-                <Link className="header__link active" to="/">
+                <NavLink className="header__link" to="/">
                   Home
-                </Link>
+                </NavLink>
               </NavItem>
               <NavItem>
-                <Link className="header__link" to="/">
+                <NavLink className="header__link" to="/1">
                   Our Products
-                </Link>
+                </NavLink>
               </NavItem>
               <NavItem>
-                <Link className="header__link" to="/">
+                <NavLink className="header__link" to="/1">
                   About Us
-                </Link>
+                </NavLink>
               </NavItem>
               <NavItem>
-                <Link className="header__link" to="/">
+                <NavLink className="header__link" to="/1">
                   Contact Us
-                </Link>
+                </NavLink>
               </NavItem>
             </Nav>
           </Collapse>

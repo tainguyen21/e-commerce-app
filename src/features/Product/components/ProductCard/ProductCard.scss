@@ -1,0 +1,57 @@
+@import "../../../../assets/styles/colors.scss";
+
+.product {
+  border: 1px solid $gray-color;
+  border-radius: 4px;
+  overflow: hidden;
+
+  &__image {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    height: 200px;
+  }
+
+  &__content {
+    padding: 26px;
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__name,
+  &__price {
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+
+  &__name {
+    color: $blue-color;
+  }
+
+  &__desc {
+    margin-top: 16px;
+    font-size: 1.4rem;
+    color: $gray-text-color;
+    line-height: 1.6;
+  }
+
+  &__review {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+
+    color: $red-color;
+    font-size: 1.4rem;
+  }
+
+  &__star {
+    &:not(:last-child) {
+      margin-right: 4px;
+    }
+  }
+}
