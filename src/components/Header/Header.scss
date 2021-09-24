@@ -19,6 +19,10 @@
     color: $white-color;
     text-transform: uppercase;
 
+    &:hover {
+      color: $white-color;
+    }
+
     span {
       color: $red-color;
     }
