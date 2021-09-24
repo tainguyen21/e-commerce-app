@@ -29,7 +29,7 @@ const items = [
 ];
 
 function Banner(props) {
-  const settings = {
+  const sliderSettings = {
     dots: true,
     infinite: true,
     speed: 500,
@@ -41,7 +41,7 @@ function Banner(props) {
 
   return (
     <section className="banner">
-      <Slider {...settings}>
+      <Slider {...sliderSettings}>
         {items.map((item, index) => (
           <div key={index}>
             <div className="banner__slide">

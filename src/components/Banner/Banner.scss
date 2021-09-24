@@ -1,4 +1,4 @@
-@import "../../assets//styles/colors.scss";
+@import "../../assets/styles/colors.scss";
 
 .banner {
   &__slide {
@@ -19,7 +19,7 @@
     top: 0;
 
     z-index: -1;
-    background-color: rgba($color: $white-color, $alpha: 0.25);
+    background-color: rgba($color: $black-color, $alpha: 0.3);
   }
 
   &__image {
@@ -47,7 +47,7 @@
     font-size: 6.2rem;
     font-weight: medium;
 
-    margin-top: 12px;
+    margin-top: 16px;
     letter-spacing: 6px;
   }
 }

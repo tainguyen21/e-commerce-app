@@ -1,12 +1,17 @@
-import { BrowserRouter } from "react-router-dom";
-import Banner from "./components/Banner";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
+import NotFound from "./components/NotFound";
+import Product from "./features/Product";
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
-      <Banner />
+      <Switch>
+        <Route exact path="/" component={Product} />
+
+        <Route component={NotFound} />
+      </Switch>
     </BrowserRouter>
   );
 }
