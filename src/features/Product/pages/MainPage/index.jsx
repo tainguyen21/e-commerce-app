@@ -5,6 +5,9 @@ import ProductList from "features/Product/components/ProductList";
 import Banner from "components/Banner";
 import Info from "components/Info";
 import Purchase from "components/Purchase";
+import Footer from "components/Footer";
+import { Link } from "react-router-dom";
+import { Container } from "reactstrap";
 
 MainPage.propTypes = {};
 
@@ -18,7 +21,13 @@ function MainPage(props) {
       <Banner />
 
       <section className="lastest-product-section">
-        <ProductList title="Lastest Product" view="View all products" />
+        <Container>
+          <div className="lastest-product-section__heading">
+            <h3>Lastest Product</h3>
+            <Link to="/">View all products</Link>
+          </div>
+        </Container>
+        <ProductList />
       </section>
 
       <section className="info-section">
@@ -28,6 +37,8 @@ function MainPage(props) {
       <section className="purchase-section">
         <Purchase />
       </section>
+
+      <Footer />
     </div>
   );
 }

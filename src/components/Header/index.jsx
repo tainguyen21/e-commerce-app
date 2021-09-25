@@ -48,6 +48,11 @@ function Header(props) {
                   Contact Us
                 </NavLink>
               </NavItem>
+              <NavItem>
+                <NavLink className="header__link" to="/1">
+                  Sign in
+                </NavLink>
+              </NavItem>
             </Nav>
           </Collapse>
         </Container>

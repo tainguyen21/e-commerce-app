@@ -13,34 +13,26 @@ function ProductList(props) {
   return (
     <div className="product-list">
       <Container>
-        {title && view && (
-          <div className="product-list__heading">
-            <h3>{title}</h3>
-            <Link to="/">{view}</Link>
-          </div>
-        )}
-        <div className="product-list__content">
-          <Row>
-            <Col lg="4">
-              <ProductCard />
-            </Col>
-            <Col lg="4">
-              <ProductCard />
-            </Col>
-            <Col lg="4">
-              <ProductCard />
-            </Col>
-            <Col lg="4">
-              <ProductCard />
-            </Col>
-            <Col lg="4">
-              <ProductCard />
-            </Col>
-            <Col lg="4">
-              <ProductCard />
-            </Col>
-          </Row>
-        </div>
+        <Row>
+          <Col lg="4">
+            <ProductCard />
+          </Col>
+          <Col lg="4">
+            <ProductCard />
+          </Col>
+          <Col lg="4">
+            <ProductCard />
+          </Col>
+          <Col lg="4">
+            <ProductCard />
+          </Col>
+          <Col lg="4">
+            <ProductCard />
+          </Col>
+          <Col lg="4">
+            <ProductCard />
+          </Col>
+        </Row>
       </Container>
     </div>
   );

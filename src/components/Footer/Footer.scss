@@ -1,0 +1,74 @@
+@import "assets/styles/colors.scss";
+
+$gray-color: #d0d0d0;
+$blue-color: #5d85c4;
+
+.footer {
+  background-color: $black-color;
+  color: $white-color;
+  padding: 64px 0 48px 0;
+
+  &__address,
+  &__phone,
+  &__mail {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    p {
+      margin: 0 0 0 22px;
+    }
+
+    i {
+      font-size: 2.2rem;
+    }
+  }
+
+  &__address {
+    p {
+      span {
+        display: block;
+        font-weight: bold;
+      }
+    }
+  }
+
+  &__mail {
+    p {
+      color: $blue-color;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  }
+
+  &__about {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 32px;
+  }
+
+  &__desc {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: $gray-color;
+  }
+
+  &__social {
+    padding: 0;
+    list-style-type: none;
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+  }
+
+  &-social {
+    &__item {
+      font-size: 2.8rem;
+      cursor: pointer;
+
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+    }
+  }
+}

@@ -1,5 +1,31 @@
+@import "assets/styles/colors.scss";
+
 .lastest-product-section {
   margin-top: 100px;
+
+  &__heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 62px;
+
+    padding-bottom: 20px;
+    border-bottom: 1px solid $gray-color;
+
+    font-weight: bold;
+
+    h3 {
+      font-size: 2.8rem;
+      font-weight: 400;
+    }
+
+    a {
+      color: $red-color;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-size: 1.4rem;
+    }
+  }
 }
 
 .info-section {
