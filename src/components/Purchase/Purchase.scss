@@ -1,0 +1,35 @@
+@import "assets/styles/colors.scss";
+
+.purchase {
+  &__inner {
+    padding: 56px 0;
+    border-bottom: 1px solid $gray-color;
+    border-top: 1px solid $gray-color;
+  }
+
+  &__content {
+    background: $gray-background-color;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+    padding: 30px;
+  }
+
+  &__heading {
+    h3 {
+      color: $blue-color;
+
+      span {
+        font-weight: bold;
+      }
+    }
+
+    p {
+      margin-top: 16px;
+      font-size: 1.4rem;
+      color: $gray-text-color;
+    }
+  }
+}

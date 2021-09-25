@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { Container } from "reactstrap";
 import "./MainPage.scss";
 import ProductList from "features/Product/components/ProductList";
 import Banner from "components/Banner";
 import Info from "components/Info";
+import Purchase from "components/Purchase";
 
 MainPage.propTypes = {};
 
@@ -17,16 +17,16 @@ function MainPage(props) {
     <div>
       <Banner />
 
-      <section className="lastest-product">
-        <Container>
-          <ProductList title="Lastest Product" view="View all products" />
-        </Container>
+      <section className="lastest-product-section">
+        <ProductList title="Lastest Product" view="View all products" />
       </section>
 
-      <section className="info">
-        <Container>
-          <Info />
-        </Container>
+      <section className="info-section">
+        <Info />
+      </section>
+
+      <section className="purchase-section">
+        <Purchase />
       </section>
     </div>
   );

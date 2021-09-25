@@ -1,25 +1,13 @@
 @import "assets/styles/colors.scss";
 
 .info {
-  $left-right-space: 24px;
-
   &__heading {
     font-size: 2.8rem;
     font-weight: 400;
 
     padding-bottom: 18px;
+    margin-bottom: 48px;
     border-bottom: 1px solid $gray-color;
-  }
-
-  &__content {
-    margin-top: 48px;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &__left,
-  &__right {
-    width: calc(100% / 2 - #{$left-right-space});
   }
 
   &__left {
@@ -35,7 +23,6 @@
     }
 
     ul {
-      //   padding: 0;
       margin-top: 20px;
       list-style-type: square;
       li {
@@ -45,15 +32,7 @@
     }
 
     button {
-      padding: 10px 20px;
       margin-top: 24px;
-      font-size: 1.4rem;
-      border-radius: 4px;
-      background-color: $red-color;
-
-      border: none;
-      outline: none;
-      box-shadow: none;
     }
   }
 
