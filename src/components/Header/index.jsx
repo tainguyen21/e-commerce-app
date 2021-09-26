@@ -39,7 +39,7 @@ function Header(props) {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink className="header__link" to="/1">
+                <NavLink className="header__link" to="/about">
                   About Us
                 </NavLink>
               </NavItem>

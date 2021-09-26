@@ -1,0 +1,48 @@
+@import "assets/styles/colors.scss";
+
+.about-info {
+  &__heading {
+    font-size: 2.8rem;
+    margin-bottom: 62px;
+  }
+
+  &__image {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 4px;
+
+    height: 330px;
+  }
+
+  &__right {
+    padding-left: 16px;
+
+    h3 {
+      color: $blue-color;
+    }
+
+    p {
+      margin-top: 24px;
+      line-height: 1.6;
+      font-size: 1.4rem;
+      color: $gray-text-color;
+    }
+  }
+
+  &-social {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    margin-top: 24px;
+
+    &__item {
+      margin-right: 18px;
+      cursor: pointer;
+
+      i {
+        font-size: 2.8rem;
+      }
+    }
+  }
+}

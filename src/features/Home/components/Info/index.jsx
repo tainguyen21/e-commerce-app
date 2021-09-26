@@ -9,7 +9,7 @@ function Info(props) {
   return (
     <div className="info">
       <Container>
-        <h3 className="info__heading">About Sixteen Clothing</h3>
+        <h3 className="info__heading border-bottom">About Sixteen Clothing</h3>
         <Row>
           <Col lg="6">
             <div className="info__left">

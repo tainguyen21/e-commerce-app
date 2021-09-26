@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import "./MainPage.scss";
 import ProductList from "features/Product/components/ProductList";
 import Banner from "components/Banner";
-import Info from "components/Info";
-import Purchase from "components/Purchase";
+import Info from "features/Home/components/Info";
+import Purchase from "features/Home/components/Purchase";
 import Footer from "components/Footer";
 import { Link } from "react-router-dom";
 import { Container } from "reactstrap";
@@ -22,7 +22,7 @@ function MainPage(props) {
 
       <section className="lastest-product-section">
         <Container>
-          <div className="lastest-product-section__heading">
+          <div className="lastest-product-section__heading border-bottom">
             <h3>Lastest Product</h3>
             <Link to="/">View all products</Link>
           </div>
