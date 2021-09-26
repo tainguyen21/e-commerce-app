@@ -1,0 +1,31 @@
+@import "assets/styles/colors.scss";
+
+.products-section {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.products-filter {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 62px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid $gray-color;
+
+  &__item {
+    margin: 0 12px;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    font-weight: bold;
+
+    transition: all 0.25s linear;
+    cursor: pointer;
+
+    &.active {
+      color: $red-color;
+    }
+  }
+}

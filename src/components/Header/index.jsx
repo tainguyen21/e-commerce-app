@@ -29,12 +29,12 @@ function Header(props) {
           <Collapse className="justify-content-end" isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar>
               <NavItem>
-                <NavLink className="header__link" to="/">
+                <NavLink exact className="header__link" to="/">
                   Home
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink className="header__link" to="/1">
+                <NavLink className="header__link" to="/products">
                   Our Products
                 </NavLink>
               </NavItem>
@@ -51,6 +51,11 @@ function Header(props) {
               <NavItem>
                 <NavLink className="header__link" to="/1">
                   Sign in
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink className="header__link" to="/1">
+                  Upload
                 </NavLink>
               </NavItem>
             </Nav>

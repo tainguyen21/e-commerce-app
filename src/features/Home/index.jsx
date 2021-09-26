@@ -1,22 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Route, Switch, useRouteMatch } from "react-router";
-import MainPage from "../Home/pages/MainPage";
 import NotFound from "components/NotFound";
-import AllProductsPage from "./pages/AllProductsPage";
+import MainPage from "./pages/MainPage";
 
-Product.propTypes = {};
+Home.propTypes = {};
 
-function Product(props) {
+function Home(props) {
   const match = useRouteMatch();
 
   return (
     <Switch>
-      <Route exact path={match.url} component={AllProductsPage} />
+      <Route exact path={match.url} component={MainPage} />
 
       <Route component={NotFound} />
     </Switch>
   );
 }
 
-export default Product;
+export default Home;
