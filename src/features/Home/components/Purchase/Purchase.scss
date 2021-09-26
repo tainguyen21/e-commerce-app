@@ -1,8 +1,9 @@
 @import "assets/styles/colors.scss";
+@import "assets/styles/space.scss";
 
 .purchase {
   &__inner {
-    padding: 56px 0;
+    padding: $heading-content-spacing 0;
     border-bottom: 1px solid $gray-color;
     border-top: 1px solid $gray-color;
   }

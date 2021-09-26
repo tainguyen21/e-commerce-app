@@ -1,8 +1,8 @@
 @import "assets/styles/colors.scss";
+@import "assets/styles/space.scss";
 
 .products-section {
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin: $section-spacing 0;
 }
 
 .products-filter {
@@ -11,7 +11,7 @@
   justify-content: center;
   align-items: center;
 
-  margin-bottom: 62px;
+  margin-bottom: $heading-content-spacing;
   padding-bottom: 20px;
   border-bottom: 1px solid $gray-color;
 
