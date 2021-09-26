@@ -12,13 +12,15 @@ import { Container } from "reactstrap";
 MainPage.propTypes = {};
 
 function MainPage(props) {
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
 
   return (
     <div>
-      <Banner />
+      <div className="banner-section">
+        <Banner />
+      </div>
 
       <section className="lastest-product-section">
         <Container>

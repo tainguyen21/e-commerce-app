@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import Banner from "components/Banner";
 import ProductList from "features/Product/components/ProductList";
@@ -9,9 +9,15 @@ import Footer from "components/Footer";
 AllProductsPage.propTypes = {};
 
 function AllProductsPage(props) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
+
   return (
     <div>
-      <Banner />
+      <div className="products-banner">
+        <Banner />
+      </div>
       <section className="products-section">
         <Container>
           <div className="products-filter">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import "./MainPage.scss";
 import AboutBanner from "features/AboutUs/components/AboutBanner";
@@ -8,9 +8,9 @@ import AboutMember from "features/AboutUs/components/AboutMember";
 MainPage.propTypes = {};
 
 function MainPage(props) {
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
 
   return (
     <div>
