@@ -1,0 +1,98 @@
+@import "assets/styles/colors.scss";
+
+.member-card {
+  text-align: center;
+  border: 1px solid $gray-color;
+  border-radius: 4px;
+  overflow: hidden;
+
+  &__top {
+    height: 220px;
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover div {
+      opacity: 1;
+    }
+
+    &:hover ul {
+      opacity: 1;
+    }
+  }
+
+  &__avatar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+    z-index: -2;
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba($color: $gray-text-color, $alpha: 0.6);
+    z-index: -1;
+    transition: all 0.25s linear;
+  }
+
+  &__social {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+
+    transition: all 0.25s linear;
+    li {
+      padding: 8px;
+      background-color: #eee;
+      margin: 0 8px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $white-color;
+      }
+
+      &:hover i {
+        color: $red-color;
+      }
+
+      i {
+        font-size: 2.8rem;
+      }
+    }
+  }
+
+  &__overlay,
+  &__social {
+    opacity: 0;
+  }
+
+  &__info {
+    padding: 24px;
+    h3 {
+      color: $blue-color;
+    }
+
+    span {
+      font-size: 1.4rem;
+      color: $red-color;
+    }
+
+    p {
+      font-size: 1.4rem;
+      color: $gray-text-color;
+      margin-top: 18px;
+    }
+  }
+}

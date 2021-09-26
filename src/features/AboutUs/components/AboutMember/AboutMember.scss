@@ -1,0 +1,12 @@
+@import "assets/styles/colors.scss";
+@import "assets/styles/space.scss";
+
+.about-member {
+  &__heading {
+    h3 {
+      font-size: $heading-size;
+      font-weight: $heading-weight;
+      margin-bottom: $heading-content-spacing;
+    }
+  }
+}

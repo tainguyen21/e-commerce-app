@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "./MainPage.scss";
 import AboutBanner from "features/AboutUs/components/AboutBanner";
 import AboutInfo from "features/AboutUs/components/AboutInfo";
+import AboutMember from "features/AboutUs/components/AboutMember";
 
 MainPage.propTypes = {};
 
@@ -19,6 +20,10 @@ function MainPage(props) {
 
       <section className="about-info-section">
         <AboutInfo />
+      </section>
+
+      <section className="about-member-section">
+        <AboutMember />
       </section>
     </div>
   );
