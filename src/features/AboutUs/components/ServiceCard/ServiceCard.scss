@@ -1,0 +1,47 @@
+@import "assets/styles/colors.scss";
+
+.service-card {
+  text-align: center;
+  border: 1px solid $gray-color;
+
+  &__icon {
+    display: flex;
+    justify-content: center;
+    padding: 48px 0;
+    border-radius: 4px;
+
+    background-color: $gray-color;
+
+    i {
+      width: 10rem;
+      height: 10rem;
+      border-radius: 4px;
+      background-color: $red-color;
+      font-size: 3.2rem;
+
+      color: $white-color;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &__content {
+    padding: 32px;
+    background-color: $white-color;
+
+    h3 {
+      color: $blue-color;
+    }
+
+    p {
+      font-size: 1.4rem;
+      color: $gray-text-color;
+      margin-top: 24px;
+    }
+
+    button {
+      margin-top: 24px;
+    }
+  }
+}

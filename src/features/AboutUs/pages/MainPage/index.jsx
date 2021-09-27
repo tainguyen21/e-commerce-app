@@ -4,13 +4,15 @@ import "./MainPage.scss";
 import AboutBanner from "features/AboutUs/components/AboutBanner";
 import AboutInfo from "features/AboutUs/components/AboutInfo";
 import AboutMember from "features/AboutUs/components/AboutMember";
+import AboutService from "features/AboutUs/components/AboutService";
+import Footer from "components/Footer";
 
 MainPage.propTypes = {};
 
 function MainPage(props) {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  });
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // });
 
   return (
     <div>
@@ -25,6 +27,12 @@ function MainPage(props) {
       <section className="about-member-section">
         <AboutMember />
       </section>
+
+      <section className="about-service-section">
+        <AboutService />
+      </section>
+
+      <Footer />
     </div>
   );
 }
