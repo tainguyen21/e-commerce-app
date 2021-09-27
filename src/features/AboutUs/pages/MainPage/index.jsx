@@ -15,7 +15,7 @@ function MainPage(props) {
   // });
 
   return (
-    <div>
+    <div style={{ paddingTop: "80px" }}>
       <section className="about-banner-section">
         <AboutBanner />
       </section>

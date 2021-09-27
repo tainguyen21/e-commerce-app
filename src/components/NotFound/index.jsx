@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 NotFound.propTypes = {};
 
 function NotFound(props) {
-  return <div>Not found</div>;
+  return <div style={{ paddingTop: "80px" }}>Not found</div>;
 }
 
 export default NotFound;

@@ -1,4 +1,5 @@
 import AboutUs from "features/AboutUs";
+import Contact from "features/Contact";
 import Home from "features/Home";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
@@ -13,6 +14,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route path="/about" component={AboutUs} />
         <Route path="/products" component={Product} />
+        <Route path="/contact" component={Contact} />
 
         <Route component={NotFound} />
       </Switch>

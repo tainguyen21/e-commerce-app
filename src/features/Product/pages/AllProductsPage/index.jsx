@@ -14,7 +14,7 @@ function AllProductsPage(props) {
   });
 
   return (
-    <div>
+    <div style={{ paddingTop: "80px" }}>
       <div className="products-banner">
         <Banner />
       </div>

@@ -17,7 +17,7 @@ function MainPage(props) {
   });
 
   return (
-    <div>
+    <div style={{ paddingTop: "80px" }}>
       <div className="banner-section">
         <Banner />
       </div>

@@ -1,0 +1,30 @@
+@import "assets/styles/colors.scss";
+
+.collapse-info {
+  &__item {
+    &:last-child {
+      p {
+        border-bottom: 1px solid $gray-color;
+      }
+    }
+
+    &.active {
+      p {
+        color: $red-color;
+      }
+    }
+  }
+
+  &__label {
+    cursor: pointer;
+    padding: 15px 0;
+    border-top: 1px solid $gray-color;
+    margin: 0;
+    color: $blue-color;
+    font-size: 1.7rem;
+
+    &:hover {
+      color: $red-color;
+    }
+  }
+}
