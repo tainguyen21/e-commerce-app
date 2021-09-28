@@ -1,0 +1,19 @@
+.contact-form {
+  &__input {
+    font-size: 1.4rem;
+    padding: 6px 12px;
+    margin-bottom: 8px;
+  }
+
+  &__field {
+    &:not(:first-child) {
+      .contact-form__input {
+        margin-top: 32px;
+      }
+    }
+  }
+
+  button {
+    margin-top: 32px;
+  }
+}
