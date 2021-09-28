@@ -6,6 +6,7 @@ import AboutInfo from "features/AboutUs/components/AboutInfo";
 import AboutMember from "features/AboutUs/components/AboutMember";
 import AboutService from "features/AboutUs/components/AboutService";
 import Footer from "components/Footer";
+import Header from "components/Header";
 
 MainPage.propTypes = {};
 
@@ -19,19 +20,15 @@ function MainPage(props) {
       <section className="about-banner-section">
         <AboutBanner />
       </section>
-
       <section className="about-info-section">
         <AboutInfo />
       </section>
-
       <section className="about-member-section">
         <AboutMember />
       </section>
-
       <section className="about-service-section">
         <AboutService />
       </section>
-
       <Footer />
     </div>
   );

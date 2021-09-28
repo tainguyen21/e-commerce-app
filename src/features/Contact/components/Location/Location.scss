@@ -1,0 +1,55 @@
+@import "assets/styles/space.scss";
+@import "assets/styles/colors.scss";
+
+.contact-location {
+  &__heading {
+    margin-bottom: $heading-content-spacing;
+    font-size: $heading-size;
+    font-weight: $heading-weight;
+  }
+
+  &__right {
+    padding-left: 32px;
+
+    h3 {
+      font-size: 1.7rem;
+      color: $blue-color;
+    }
+
+    p {
+      font-size: 1.4rem;
+      color: $gray-text-color;
+      padding: 24px 0;
+      border-bottom: 1px solid $gray-color;
+    }
+  }
+
+  &__social {
+    list-style: none;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    padding: 0;
+
+    transition: all 0.25s linear;
+
+    li {
+      margin-right: 16px;
+      padding: 8px;
+      border-radius: 4px;
+      background-color: $gray-color;
+
+      transition: all 0.25s linear;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $red-color;
+        color: $white-color;
+      }
+
+      i {
+        font-size: 2.6rem;
+      }
+    }
+  }
+}

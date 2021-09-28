@@ -5,6 +5,7 @@ import ProductList from "features/Product/components/ProductList";
 import "./AllProductsPage.scss";
 import { Container } from "reactstrap";
 import Footer from "components/Footer";
+import Header from "components/Header";
 
 AllProductsPage.propTypes = {};
 
@@ -29,7 +30,6 @@ function AllProductsPage(props) {
         </Container>
         <ProductList />
       </section>
-
       <Footer />
     </div>
   );

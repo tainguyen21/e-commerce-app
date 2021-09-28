@@ -96,7 +96,11 @@ function Header(props) {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink style={style.navLink} className="header__link" to="/1">
+                <NavLink
+                  style={style.navLink}
+                  className="header__link"
+                  to="/sign-in"
+                >
                   Sign in
                 </NavLink>
               </NavItem>

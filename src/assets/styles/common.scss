@@ -9,14 +9,14 @@
   border: none;
   outline: none;
   box-shadow: none;
-}
-
-.button.button--red {
-  background-color: $red-color;
 
   &:hover {
     background-color: $black-color;
   }
+}
+
+.button.button--red {
+  background-color: $red-color;
 }
 
 .border-bottom {

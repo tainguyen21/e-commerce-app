@@ -1,5 +1,10 @@
 @import "assets/styles/space.scss";
 
-.contact-info-section {
+.contact-info-section,
+.contact-location-section {
   margin-top: $section-spacing;
+}
+
+.contact-info-section {
+  margin-bottom: $section-spacing;
 }

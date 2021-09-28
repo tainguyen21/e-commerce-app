@@ -33,8 +33,14 @@ function ContactForm(props) {
 
   const onSubmit = (data) => console.log(data);
 
+  console.log(errors);
+
   return (
-    <Form className="contact-form" onSubmit={handleSubmit(onSubmit)}>
+    <Form
+      className="contact-form"
+      onSubmit={handleSubmit(onSubmit)}
+      autoComplete="off"
+    >
       <FormGroup className="contact-form__field">
         <Input
           className="contact-form__input"
@@ -88,7 +94,7 @@ function ContactForm(props) {
         <FormFeedback>{errors.message && errors.message.message}</FormFeedback>
       </FormGroup>
       <Button className="button button--red" type="submit">
-        Send message
+        Send Message
       </Button>
     </Form>
   );

@@ -1,0 +1,135 @@
+@import "assets/styles/colors.scss";
+
+.signin-form {
+  max-width: 550px;
+  margin: 0 auto;
+  padding: 38px 48px;
+
+  overflow: hidden;
+  border: 1px solid $gray-color;
+  border-radius: 4px;
+
+  box-shadow: 0 0 24px 16px $gray-color;
+
+  &__heading {
+    text-decoration: none;
+    color: $black-color;
+    font-size: 2.8rem;
+    font-weight: bold;
+
+    margin-bottom: 24px;
+    display: block;
+    text-align: center;
+
+    &:hover {
+      color: $black-color;
+    }
+
+    span {
+      text-transform: uppercase;
+      color: $red-color;
+    }
+  }
+
+  &__label {
+    font-weight: 500;
+    margin: 4px 0 8px 0;
+  }
+
+  &__input {
+    font-size: 1.4rem;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+
+  &__forgot {
+    font-size: 1.4rem;
+    color: $red-color;
+    text-align: right;
+    margin: 16px 0;
+
+    cursor: pointer;
+  }
+
+  button {
+    padding: 8px 56px;
+    border-radius: 24px;
+    letter-spacing: 1px;
+
+    display: block;
+    margin: 0 auto;
+
+    box-shadow: 0 0 3px $red-color;
+
+    &:hover {
+      background-color: $red-color;
+    }
+  }
+
+  &__line {
+    text-align: center;
+    margin: 12px 0;
+    position: relative;
+
+    span {
+      padding: 0 18px;
+      background-color: $white-color;
+      position: relative;
+    }
+
+    &::before {
+      content: "";
+
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      top: 50%;
+      left: 0;
+
+      transform: translateY(-50%);
+      background-color: #c7c7c7;
+    }
+  }
+
+  ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+
+    li {
+      padding: 12px 24px;
+      border-radius: 24px;
+      background-color: $gray-color;
+      font-size: 1.2rem;
+      font-weight: 500;
+
+      display: flex;
+      align-items: center;
+      transition: all 0.25s linear;
+      cursor: pointer;
+
+      &:hover {
+        color: $red-color;
+      }
+
+      i {
+        font-size: 1.8rem;
+        margin-left: 8px;
+      }
+    }
+  }
+
+  &__register {
+    font-size: 1.4rem;
+    margin-top: 24px;
+    text-align: right;
+
+    span {
+      cursor: pointer;
+      color: $red-color;
+    }
+  }
+}
