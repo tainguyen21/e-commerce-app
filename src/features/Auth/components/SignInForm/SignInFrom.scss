@@ -47,9 +47,17 @@
     font-size: 1.4rem;
     color: $red-color;
     text-align: right;
-    margin: 16px 0;
+    margin-top: 16px;
 
     cursor: pointer;
+  }
+
+  &__error {
+    font-size: 1.4rem;
+    color: $red-color;
+    text-align: right;
+    font-weight: 500;
+    margin: 12px;
   }
 
   button {
@@ -58,7 +66,7 @@
     letter-spacing: 1px;
 
     display: block;
-    margin: 0 auto;
+    margin: 16px auto 0 auto;
 
     box-shadow: 0 0 3px $red-color;
 
@@ -127,9 +135,10 @@
     margin-top: 24px;
     text-align: right;
 
-    span {
+    a {
       cursor: pointer;
       color: $red-color;
+      text-decoration: none;
     }
   }
 }

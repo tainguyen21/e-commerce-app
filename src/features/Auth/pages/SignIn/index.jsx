@@ -6,11 +6,15 @@ import Footer from "components/Footer";
 
 SignIn.propTypes = {};
 
+const handleSubmit = (data) => {
+  console.log(data);
+};
+
 function SignIn(props) {
   return (
     <div>
       <div className="sign-in">
-        <SignInForm />
+        <SignInForm onSubmit={handleSubmit} />
       </div>
       <Footer />
     </div>

@@ -42,6 +42,7 @@
     display: block;
     padding: 28px 8px 10px;
     margin: 0 12px;
+    font-size: 1.6rem;
 
     color: $white-color;
     text-decoration: none;
@@ -52,7 +53,7 @@
     &:hover {
       color: $white-color;
 
-      padding-bottom: 18px;
+      padding-bottom: 25px;
       border-bottom: 3px solid $red-color;
     }
   }

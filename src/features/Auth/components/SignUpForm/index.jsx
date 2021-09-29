@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import "./SignInFrom.scss";
 import {
   Button,
   Form,
@@ -14,12 +13,14 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 
-SignInForm.propTypes = {
+SignUpForm.propTypes = {
   onSubmit: PropTypes.func,
+  error: PropTypes.string,
 };
 
-SignInForm.defaultProps = {
-  onSbumit: null,
+SignUpForm.defaultProps = {
+  onSubmit: null,
+  error: "",
 };
 
 const schema = yup.object({
@@ -32,9 +33,14 @@ const schema = yup.object({
     .string()
     .required("This field is required")
     .min(6, "Password must at least 6 characters"),
+  re_password: yup
+    .string()
+    .required("This field is required")
+    .min(6, "Password must at least 6 characters")
+    .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 
-function SignInForm(props) {
+function SignUpForm(props) {
   const {
     register,
     handleSubmit,
@@ -43,11 +49,18 @@ function SignInForm(props) {
     resolver: yupResolver(schema),
   });
 
-  const { onSubmit } = props;
+  const { onSubmit, error, onResetError } = props;
 
   const name = register("name");
   const email = register("email");
   const password = register("password");
+  const re_password = register("re_password");
+
+  useEffect(() => {
+    window.onkeydown = () => {
+      if (error) onResetError();
+    };
+  });
 
   return (
     <div className="signin-form">
@@ -106,8 +119,27 @@ function SignInForm(props) {
             {errors.password && errors.password.message}
           </FormFeedback>
         </FormGroup>
-        <div className="signin-form__forgot">Forgot password?</div>
-        <Button className="button button--red">Login</Button>
+        <FormGroup>
+          <Label className="signin-form__label" for="re_password">
+            Re_Password
+          </Label>
+          <Input
+            id="re_password"
+            className="signin-form__input"
+            placeholder="6+ characters"
+            type="password"
+            name={re_password.name}
+            onChange={re_password.onChange}
+            onBlur={re_password.onBlur}
+            innerRef={re_password.ref}
+            invalid={errors.re_password && true}
+          />
+          <FormFeedback>
+            {errors.re_password && errors.re_password.message}
+          </FormFeedback>
+        </FormGroup>
+        {error && <div className="signin-form__error">{error}</div>}
+        <Button className="button button--red">Sign up</Button>
       </Form>
       <div className="signin-form__line">
         <span>or</span>
@@ -123,10 +155,10 @@ function SignInForm(props) {
         </li>
       </ul>
       <div className="signin-form__register">
-        Don't have account? <Link to="/sign-up">Sign up now</Link>
+        Already have account? <Link to="/sign-in">Sign in now</Link>
       </div>
     </div>
   );
 }
 
-export default SignInForm;
+export default SignUpForm;

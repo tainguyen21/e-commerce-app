@@ -11,9 +11,9 @@ import Header from "components/Header";
 MainPage.propTypes = {};
 
 function MainPage(props) {
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // });
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
 
   return (
     <div style={{ paddingTop: "80px" }}>
