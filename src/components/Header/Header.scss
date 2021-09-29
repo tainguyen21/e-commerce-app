@@ -44,10 +44,17 @@
     margin: 0 12px;
     font-size: 1.6rem;
 
+    max-width: 12rem;
+    overflow: hidden;
+
     color: $white-color;
     text-decoration: none;
 
     transition: all 0.3s linear;
+
+    i {
+      margin-right: 16px;
+    }
 
     &.active,
     &:hover {

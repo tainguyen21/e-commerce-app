@@ -8,8 +8,29 @@ import Home from "features/Home";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import NotFound from "./components/NotFound";
 import Product from "./features/Product";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setUser } from "features/Auth/userSlice";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const userInfo = {
+          name: user.displayName,
+          email: user.email,
+        };
+        dispatch(setUser(userInfo));
+      } else {
+        // User is signed out
+      }
+    });
+  }, []);
+
   return (
     <BrowserRouter>
       <Header />

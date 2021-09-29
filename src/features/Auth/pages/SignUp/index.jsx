@@ -7,11 +7,14 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { setUser } from "features/Auth/userSlice";
 
 const auth = getAuth();
 
 function SignUp(props) {
   const [error, setError] = useState("");
+  const dispatch = useDispatch();
 
   const handleSubmit = async (data) => {
     try {
@@ -24,6 +27,12 @@ function SignUp(props) {
       updateProfile(userCredential.user.auth.currentUser, {
         displayName: name,
       });
+
+      const user = {
+        name: name,
+        email: email,
+      };
+      dispatch(setUser(user));
     } catch (error) {
       if (error.code === "auth/email-already-in-use")
         setError("Email is already in use ");
@@ -31,7 +40,6 @@ function SignUp(props) {
   };
 
   const resetError = () => {
-    console.log(2);
     setError("");
   };
 

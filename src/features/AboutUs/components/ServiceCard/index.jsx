@@ -9,7 +9,7 @@ function ServiceCard(props) {
   return (
     <div className="service-card">
       <div className="service-card__icon">
-        <i class="fas fa-cog"></i>
+        <i className="fas fa-cog"></i>
       </div>
       <div className="service-card__content">
         <h3>Product Management</h3>

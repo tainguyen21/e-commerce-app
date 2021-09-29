@@ -10,12 +10,14 @@ import {
   NavItem,
 } from "reactstrap";
 import "./Header.scss";
+import { useSelector } from "react-redux";
 
 Header.propTypes = {};
 
 function Header(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [style, setStyle] = useState({});
+  const user = useSelector((state) => state.user);
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -96,13 +98,24 @@ function Header(props) {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink
-                  style={style.navLink}
-                  className="header__link"
-                  to="/sign-in"
-                >
-                  Sign in
-                </NavLink>
+                {Object.keys(user).length ? (
+                  <NavLink
+                    style={style.navLink}
+                    className="header__link"
+                    to="/"
+                  >
+                    <i className="far fa-user"></i>
+                    {user.name}
+                  </NavLink>
+                ) : (
+                  <NavLink
+                    style={style.navLink}
+                    className="header__link"
+                    to="/sign-in"
+                  >
+                    Sign in
+                  </NavLink>
+                )}
               </NavItem>
               <NavItem>
                 <NavLink style={style.navLink} className="header__link" to="/1">
