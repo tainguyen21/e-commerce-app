@@ -1,8 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
-import "./MemberList.scss";
 import { Col, Container, Row } from "reactstrap";
 import MemberCard from "../MemberCard";
+import "./MemberList.scss";
 
 MemberList.propTypes = {};
 

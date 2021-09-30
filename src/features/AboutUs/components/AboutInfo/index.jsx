@@ -1,7 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
-import "./AboutInfo.scss";
 import { Col, Container, Row } from "reactstrap";
+import "./AboutInfo.scss";
 
 AboutInfo.propTypes = {};
 
@@ -15,7 +14,7 @@ function AboutInfo(props) {
             <img
               className="about-info__image"
               src="https://images.unsplash.com/photo-1628191081676-8f40d4ce6c44?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
-              alt="about-info-image"
+              alt="about-info"
             />
           </Col>
           <Col>

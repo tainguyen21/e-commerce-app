@@ -1,5 +1,4 @@
 import Footer from "components/Footer";
-import Header from "components/Header";
 import ContactInfo from "features/Contact/components/ContactInfo";
 import Location from "features/Contact/components/Location";
 import React, { useEffect } from "react";

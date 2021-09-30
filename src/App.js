@@ -18,18 +18,20 @@ function App() {
 
   useEffect(() => {
     const auth = getAuth();
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const userInfo = {
           name: user.displayName,
           email: user.email,
         };
+
         dispatch(setUser(userInfo));
       } else {
         dispatch(setUser({}));
       }
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <BrowserRouter>

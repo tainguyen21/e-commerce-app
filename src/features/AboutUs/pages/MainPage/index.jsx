@@ -1,12 +1,10 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import "./MainPage.scss";
+import Footer from "components/Footer";
 import AboutBanner from "features/AboutUs/components/AboutBanner";
 import AboutInfo from "features/AboutUs/components/AboutInfo";
 import AboutMember from "features/AboutUs/components/AboutMember";
 import AboutService from "features/AboutUs/components/AboutService";
-import Footer from "components/Footer";
-import Header from "components/Header";
+import React, { useEffect } from "react";
+import "./MainPage.scss";
 
 MainPage.propTypes = {};
 

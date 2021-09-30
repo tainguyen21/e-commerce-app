@@ -1,14 +1,12 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import "./MainPage.scss";
-import ProductList from "features/Product/components/ProductList";
 import Banner from "components/Banner";
+import Footer from "components/Footer";
 import Info from "features/Home/components/Info";
 import Purchase from "features/Home/components/Purchase";
-import Footer from "components/Footer";
+import ProductList from "features/Product/components/ProductList";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Container } from "reactstrap";
-import Header from "components/Header";
+import "./MainPage.scss";
 
 MainPage.propTypes = {};
 

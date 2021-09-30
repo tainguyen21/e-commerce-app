@@ -1,7 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
-import "./Footer.scss";
 import { Col, Container, Row } from "reactstrap";
+import "./Footer.scss";
 
 Footer.propTypes = {};
 

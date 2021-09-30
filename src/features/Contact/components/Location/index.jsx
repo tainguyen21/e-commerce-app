@@ -1,8 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Col, Container, Row } from "reactstrap";
-import "./Location.scss";
 import ContactMap from "../ContactMap";
+import "./Location.scss";
 
 Location.propTypes = {};
 

@@ -1,8 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
-import "./AboutService.scss";
 import { Col, Container, Row } from "reactstrap";
 import ServiceCard from "../ServiceCard";
+import "./AboutService.scss";
 
 AboutService.propTypes = {};
 

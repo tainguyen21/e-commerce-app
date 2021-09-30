@@ -1,25 +1,27 @@
 import Footer from "components/Footer";
 import SignUpForm from "features/Auth/components/SignUpForm";
-import React, { useState } from "react";
-import "./SignUp.scss";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
+  FacebookAuthProvider,
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
   updateProfile,
 } from "firebase/auth";
-import { useDispatch } from "react-redux";
-import { setUser } from "features/Auth/userSlice";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
+import "./SignUp.scss";
 
-const auth = getAuth();
+const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
 
 function SignUp(props) {
   const [error, setError] = useState("");
-  const dispatch = useDispatch();
   const history = useHistory();
 
   const handleSubmit = async (data) => {
     try {
+      const auth = getAuth();
       const { name, email, password } = data;
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -30,16 +32,34 @@ function SignUp(props) {
         displayName: name,
       });
 
-      const user = {
-        name: name,
-        email: email,
-      };
-
-      dispatch(setUser(user));
       history.push("/");
     } catch (error) {
       if (error.code === "auth/email-already-in-use")
         setError("Email is already in use ");
+    }
+  };
+
+  const onFacebookClick = async () => {
+    try {
+      const auth = getAuth();
+      signInWithPopup(auth, facebookProvider);
+
+      history.push("/");
+    } catch (error) {
+      const errorCode = error.code;
+      setError(errorCode);
+    }
+  };
+
+  const onGoogleClick = async () => {
+    try {
+      const auth = getAuth();
+      signInWithPopup(auth, googleProvider);
+
+      history.push("/");
+    } catch (error) {
+      const errorCode = error.code;
+      setError(errorCode);
     }
   };
 
@@ -54,6 +74,8 @@ function SignUp(props) {
           onSubmit={handleSubmit}
           error={error}
           onResetError={resetError}
+          onFacebookClick={onFacebookClick}
+          onGoogleClick={onGoogleClick}
         />
       </div>
       <Footer />

@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import PropTypes from "prop-types";
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import {
   Button,
   Form,
@@ -8,21 +11,22 @@ import {
   Input,
   Label,
 } from "reactstrap";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
 
 SignUpForm.propTypes = {
   onSubmit: PropTypes.func,
   error: PropTypes.string,
   onResetError: PropTypes.func,
+  onFacebookClick: PropTypes.func,
+  onGoogleClick: PropTypes.func,
 };
 
 SignUpForm.defaultProps = {
   onSubmit: null,
   error: "",
   onResetError: null,
+  onFacebookClick: null,
+  onGoogleClick: null,
 };
 
 const schema = yup.object({
@@ -51,12 +55,21 @@ function SignUpForm(props) {
     resolver: yupResolver(schema),
   });
 
-  const { onSubmit, error, onResetError } = props;
+  const { onSubmit, error, onResetError, onFacebookClick, onGoogleClick } =
+    props;
 
   const name = register("name");
   const email = register("email");
   const password = register("password");
   const re_password = register("re_password");
+
+  const handleFacebookClick = () => {
+    if (onFacebookClick) onFacebookClick();
+  };
+
+  const handleGoogleClick = () => {
+    if (onGoogleClick) onGoogleClick();
+  };
 
   useEffect(() => {
     window.onkeydown = () => {
@@ -147,11 +160,11 @@ function SignUpForm(props) {
         <span>or</span>
       </div>
       <ul>
-        <li>
+        <li onClick={handleGoogleClick}>
           Sign in with Google
           <i className="fab fa-facebook"></i>
         </li>
-        <li>
+        <li onClick={handleFacebookClick}>
           Sign in with Facebook
           <i className="fab fa-google"></i>
         </li>

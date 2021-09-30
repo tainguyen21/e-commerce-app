@@ -1,15 +1,11 @@
 import React from "react";
-import PropTypes from "prop-types";
-import "./ProductList.scss";
-import ProductCard from "../ProductCard";
-import { Link } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
+import ProductCard from "../ProductCard";
+import "./ProductList.scss";
 
 ProductList.propTypes = {};
 
 function ProductList(props) {
-  const { title, view } = props;
-
   return (
     <div className="product-list">
       <Container>

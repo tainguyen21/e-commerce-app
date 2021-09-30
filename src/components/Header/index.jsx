@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
-import PropTypes from "prop-types";
 import {
   Collapse,
   Container,
@@ -10,7 +10,6 @@ import {
   NavItem,
 } from "reactstrap";
 import "./Header.scss";
-import { useSelector } from "react-redux";
 
 Header.propTypes = {};
 
@@ -102,7 +101,7 @@ function Header(props) {
                   <NavLink
                     style={style.navLink}
                     className="header__link"
-                    to="/"
+                    to="/profile"
                   >
                     <i className="far fa-user"></i>
                     {user.name}
@@ -116,11 +115,6 @@ function Header(props) {
                     Sign in
                   </NavLink>
                 )}
-              </NavItem>
-              <NavItem>
-                <NavLink style={style.navLink} className="header__link" to="/1">
-                  Upload
-                </NavLink>
               </NavItem>
             </Nav>
           </Collapse>

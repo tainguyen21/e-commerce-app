@@ -1,7 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Route, Switch, useRouteMatch } from "react-router";
 import NotFound from "components/NotFound";
+import React from "react";
+import { Route, Switch, useRouteMatch } from "react-router";
 import MainPage from "./pages/MainPage";
 
 AboutUs.propTypes = {};

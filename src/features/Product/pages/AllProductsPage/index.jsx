@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
 import Banner from "components/Banner";
-import ProductList from "features/Product/components/ProductList";
-import "./AllProductsPage.scss";
-import { Container } from "reactstrap";
 import Footer from "components/Footer";
-import Header from "components/Header";
+import ProductList from "features/Product/components/ProductList";
+import React, { useEffect } from "react";
+import { Container } from "reactstrap";
+import "./AllProductsPage.scss";
 
 AllProductsPage.propTypes = {};
 

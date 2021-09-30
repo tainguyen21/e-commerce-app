@@ -18,12 +18,16 @@ SignInForm.propTypes = {
   onSubmit: PropTypes.func,
   error: PropTypes.string,
   onResetError: PropTypes.func,
+  onFacebookClick: PropTypes.func,
+  onGoogleClick: PropTypes.func,
 };
 
 SignInForm.defaultProps = {
   onSubmit: null,
   error: "",
   onResetError: null,
+  onFacebookClick: null,
+  onGoogleClick: null,
 };
 
 const schema = yup.object({
@@ -46,10 +50,19 @@ function SignInForm(props) {
     resolver: yupResolver(schema),
   });
 
-  const { onSubmit, error, onResetError } = props;
+  const { onSubmit, error, onResetError, onFacebookClick, onGoogleClick } =
+    props;
 
   const email = register("email");
   const password = register("password");
+
+  const handleFacebookClick = () => {
+    if (onFacebookClick) onFacebookClick();
+  };
+
+  const handleGoogleClick = () => {
+    if (onGoogleClick) onGoogleClick();
+  };
 
   useEffect(() => {
     window.onkeydown = () => {
@@ -106,11 +119,11 @@ function SignInForm(props) {
         <span>or</span>
       </div>
       <ul>
-        <li>
+        <li onClick={handleGoogleClick}>
           Sign in with Google
           <i className="fab fa-facebook"></i>
         </li>
-        <li>
+        <li onClick={handleFacebookClick}>
           Sign in with Facebook
           <i className="fab fa-google"></i>
         </li>

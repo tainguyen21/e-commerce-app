@@ -1,36 +1,32 @@
 import Footer from "components/Footer";
 import SignInForm from "features/Auth/components/SignInForm";
-import { setUser } from "features/Auth/userSlice";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  FacebookAuthProvider,
+  getAuth,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import "./SignIn.scss";
 
 SignIn.propTypes = {};
 
+const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
+
 function SignIn(props) {
   const [error, setError] = useState("");
-  const dispatch = useDispatch();
   const history = useHistory();
 
   const handleSubmit = async (data) => {
     try {
       const auth = getAuth();
       const { email, password } = data;
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
 
-      const name = userCredential.user.displayName;
-      const userInfo = {
-        name,
-        email,
-      };
+      signInWithEmailAndPassword(auth, email, password);
 
-      setUser(userInfo);
       history.push("/");
     } catch (error) {
       const errorCode = error.code;
@@ -50,6 +46,30 @@ function SignIn(props) {
     }
   };
 
+  const onFacebookClick = async () => {
+    try {
+      const auth = getAuth();
+      signInWithPopup(auth, facebookProvider);
+
+      history.push("/");
+    } catch (error) {
+      const errorCode = error.code;
+      setError(errorCode);
+    }
+  };
+
+  const onGoogleClick = async () => {
+    try {
+      const auth = getAuth();
+      signInWithPopup(auth, googleProvider);
+
+      history.push("/");
+    } catch (error) {
+      const errorCode = error.code;
+      setError(errorCode);
+    }
+  };
+
   const resetError = () => {
     setError("");
   };
@@ -61,6 +81,8 @@ function SignIn(props) {
           onSubmit={handleSubmit}
           error={error}
           onResetError={resetError}
+          onFacebookClick={onFacebookClick}
+          onGoogleClick={onGoogleClick}
         />
       </div>
       <Footer />

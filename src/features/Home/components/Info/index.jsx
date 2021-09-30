@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Button, Col, Container, Row } from "reactstrap";
 import "./Info.scss";
 

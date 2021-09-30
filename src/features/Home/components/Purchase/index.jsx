@@ -1,6 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Button, Col, Container, Row } from "reactstrap";
+import { Button, Container } from "reactstrap";
 import "./Purchase.scss";
 
 Purchase.propTypes = {};

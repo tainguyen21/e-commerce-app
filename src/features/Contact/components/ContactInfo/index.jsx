@@ -1,9 +1,8 @@
+import CollapseInfo from "features/Contact/components/CollapseInfo";
 import React from "react";
-import PropTypes from "prop-types";
-import "./ContactInfo.scss";
 import { Col, Container, Row } from "reactstrap";
 import ContactForm from "../ContactForm";
-import CollapseInfo from "features/Contact/components/CollapseInfo";
+import "./ContactInfo.scss";
 
 ContactInfo.propTypes = {};
 

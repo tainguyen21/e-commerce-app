@@ -1,8 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Route, Switch, useRouteMatch } from "react-router";
-import MainPage from "../Home/pages/MainPage";
 import NotFound from "components/NotFound";
+import React from "react";
+import { Route, Switch, useRouteMatch } from "react-router";
 import AllProductsPage from "./pages/AllProductsPage";
 
 Product.propTypes = {};
