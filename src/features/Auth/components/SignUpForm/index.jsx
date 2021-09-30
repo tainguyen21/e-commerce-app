@@ -16,11 +16,13 @@ import { Link } from "react-router-dom";
 SignUpForm.propTypes = {
   onSubmit: PropTypes.func,
   error: PropTypes.string,
+  onResetError: PropTypes.func,
 };
 
 SignUpForm.defaultProps = {
   onSubmit: null,
   error: "",
+  onResetError: null,
 };
 
 const schema = yup.object({

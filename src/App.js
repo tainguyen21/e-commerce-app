@@ -26,7 +26,7 @@ function App() {
         };
         dispatch(setUser(userInfo));
       } else {
-        // User is signed out
+        dispatch(setUser({}));
       }
     });
   }, []);

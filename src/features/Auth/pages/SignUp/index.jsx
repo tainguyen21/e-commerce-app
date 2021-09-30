@@ -9,12 +9,14 @@ import {
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { setUser } from "features/Auth/userSlice";
+import { useHistory } from "react-router";
 
 const auth = getAuth();
 
 function SignUp(props) {
   const [error, setError] = useState("");
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleSubmit = async (data) => {
     try {
@@ -32,7 +34,9 @@ function SignUp(props) {
         name: name,
         email: email,
       };
+
       dispatch(setUser(user));
+      history.push("/");
     } catch (error) {
       if (error.code === "auth/email-already-in-use")
         setError("Email is already in use ");

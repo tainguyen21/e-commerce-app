@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import "./SignInFrom.scss";
 import {
@@ -16,14 +16,17 @@ import { Link } from "react-router-dom";
 
 SignInForm.propTypes = {
   onSubmit: PropTypes.func,
+  error: PropTypes.string,
+  onResetError: PropTypes.func,
 };
 
 SignInForm.defaultProps = {
-  onSbumit: null,
+  onSubmit: null,
+  error: "",
+  onResetError: null,
 };
 
 const schema = yup.object({
-  name: yup.string().required("This field is required"),
   email: yup
     .string()
     .required("This field is required")
@@ -43,11 +46,16 @@ function SignInForm(props) {
     resolver: yupResolver(schema),
   });
 
-  const { onSubmit } = props;
+  const { onSubmit, error, onResetError } = props;
 
-  const name = register("name");
   const email = register("email");
   const password = register("password");
+
+  useEffect(() => {
+    window.onkeydown = () => {
+      if (error) onResetError();
+    };
+  });
 
   return (
     <div className="signin-form">
@@ -55,22 +63,6 @@ function SignInForm(props) {
         Welcome to <span>Sixteen</span>
       </Link>
       <Form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-        <FormGroup>
-          <Label className="signin-form__label" for="name">
-            Name
-          </Label>
-          <Input
-            id="name"
-            className="signin-form__input"
-            placeholder="Your name here"
-            name={name.name}
-            onChange={name.onChange}
-            onBlur={name.onBlur}
-            innerRef={name.ref}
-            invalid={errors.name && true}
-          />
-          <FormFeedback>{errors.name && errors.name.message}</FormFeedback>
-        </FormGroup>
         <FormGroup>
           <Label className="signin-form__label" for="email">
             Email
@@ -107,6 +99,7 @@ function SignInForm(props) {
           </FormFeedback>
         </FormGroup>
         <div className="signin-form__forgot">Forgot password?</div>
+        {error && <div className="signin-form__error">{error}</div>}
         <Button className="button button--red">Login</Button>
       </Form>
       <div className="signin-form__line">
