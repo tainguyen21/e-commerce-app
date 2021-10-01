@@ -21,7 +21,7 @@ function Header(props) {
   const toggle = () => setIsOpen(!isOpen);
 
   function handleScroll() {
-    if (window.scrollY >= 600) {
+    if (window.scrollY >= 500) {
       setStyle({
         header: {
           backgroundColor: "white",

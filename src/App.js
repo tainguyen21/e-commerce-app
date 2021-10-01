@@ -12,9 +12,11 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "features/Auth/userSlice";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
 
 function App() {
   const dispatch = useDispatch();
+  const db = getFirestore();
 
   useEffect(() => {
     const auth = getAuth();
@@ -32,6 +34,28 @@ function App() {
       }
     });
   }, [dispatch]);
+
+  useEffect(() => {
+    const getAllProducts = async () => {
+      const productsRef = await collection(db, "products");
+      const productsSnapShot = await getDocs(productsRef);
+      const products = [];
+
+      productsSnapShot.forEach((product) => {
+        const data = product.data();
+        const id = product.id;
+
+        products.push({
+          ...data,
+          id,
+        });
+      });
+
+      console.log(products);
+    };
+
+    getAllProducts();
+  }, [db]);
 
   return (
     <BrowserRouter>
