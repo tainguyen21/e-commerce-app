@@ -1,23 +1,21 @@
-import "utils/firebase";
 import Header from "components/Header";
 import AboutUs from "features/AboutUs";
 import SignIn from "features/Auth/pages/SignIn";
 import SignUp from "features/Auth/pages/SignUp";
+import { setUser } from "features/Auth/userSlice";
 import Contact from "features/Contact";
 import Home from "features/Home";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import NotFound from "./components/NotFound";
-import Product from "./features/Product";
+import "utils/firebase";
+import { fetchProducts } from "features/Product/productsSlice";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setUser } from "features/Auth/userSlice";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
-import { setProducts } from "features/Product/productsSlice";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import NotFound from "./components/NotFound";
+import Product from "./features/Product";
 
 function App() {
   const dispatch = useDispatch();
-  const db = getFirestore();
 
   useEffect(() => {
     const auth = getAuth();
@@ -37,26 +35,8 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    const getAllProducts = async () => {
-      const productsRef = await collection(db, "products");
-      const productsSnapShot = await getDocs(productsRef);
-      const products = [];
-
-      productsSnapShot.forEach((product) => {
-        const data = product.data();
-        const id = product.id;
-
-        products.push({
-          ...data,
-          id,
-        });
-      });
-
-      dispatch(setProducts(products));
-    };
-
-    getAllProducts();
-  }, [db, dispatch]);
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
