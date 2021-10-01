@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "features/Auth/userSlice";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { setProducts } from "features/Product/productsSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -51,11 +52,11 @@ function App() {
         });
       });
 
-      console.log(products);
+      dispatch(setProducts(products));
     };
 
     getAllProducts();
-  }, [db]);
+  }, [db, dispatch]);
 
   return (
     <BrowserRouter>
