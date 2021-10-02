@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import NotFound from "./components/NotFound";
 import Product from "./features/Product";
+import ProfilePage from "features/Auth/pages/ProfilePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ function App() {
         <Route path="/contact" component={Contact} />
         <Route path="/sign-in" component={SignIn} />
         <Route path="/sign-up" component={SignUp} />
+        <Route path="/profile" component={ProfilePage} />
 
         <Route component={NotFound} />
       </Switch>
