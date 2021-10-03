@@ -20,7 +20,7 @@ function Profile(props) {
                   alt="profile avatar"
                 />
                 <div className="profile__content">
-                  <h3>My name</h3>
+                  <h3 className="profile__name">My name</h3>
                   <div className="profile__follow">
                     <div className="profile__follower">
                       <span>0</span> Follower
@@ -37,19 +37,19 @@ function Profile(props) {
             </Col>
             <Col lg="6">
               <div className="profile__right">
-                <div className="profile__rating">
-                  <i class="far fa-star"></i> Rating: <span>4.5</span>
+                <div className="profile-other">
+                  <i className="far fa-star"></i> Rating: <span>4.5</span>
                 </div>
-                <div className="profile__join">
-                  <i class="fas fa-calendar-week"></i> Member from:{" "}
+                <div className="profile-other">
+                  <i className="fas fa-calendar-week"></i> Member from:{" "}
                   <span>01/01/2021</span>
                 </div>
-                <div className="profile__address">
-                  <i class="fas fa-map-marker-alt"></i> Address:{" "}
+                <div className="profile-other">
+                  <i className="fas fa-map-marker-alt"></i> Address:{" "}
                   <span>Tien Giang</span>
                 </div>
-                <div className="profile__response">
-                  <i class="far fa-comments"></i> Address: <span>100</span>%
+                <div className="profile-other">
+                  <i className="far fa-comments"></i> Address: <span>100</span>%
                 </div>
               </div>
             </Col>

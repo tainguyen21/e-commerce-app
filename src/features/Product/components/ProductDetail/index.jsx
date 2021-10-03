@@ -63,7 +63,7 @@ function ProductDetail(props) {
                 </div>
                 <div className="product-detail__right">
                   <Link to="/">
-                    Save <i class="far fa-heart"></i>
+                    Save <i className="far fa-heart"></i>
                   </Link>
                 </div>
               </div>

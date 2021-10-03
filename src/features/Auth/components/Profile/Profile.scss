@@ -1,0 +1,100 @@
+@import "assets/styles/colors.scss";
+
+.profile {
+  &-info {
+    border: 1px solid $gray-color;
+    border-radius: 8px;
+    padding: 64px 32px;
+    box-shadow: 0 0 16px 16px $gray-color;
+  }
+
+  &__left {
+    border-right: 1px solid $gray-color;
+
+    display: flex;
+    align-items: center;
+  }
+
+  &__avatar {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+  }
+
+  &__content {
+    margin-left: 24px;
+    flex-basis: 100%;
+  }
+
+  &__name {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  &__follow {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  &__follower,
+  &__following {
+    font-size: 1.4rem;
+
+    span {
+      font-weight: bold;
+      margin-right: 4px;
+    }
+  }
+
+  &__following {
+    margin: 0 auto;
+  }
+
+  &__update {
+    display: inline-block;
+    border-radius: 16px;
+    border: 1px solid $red-color;
+    padding: 8px 16px;
+
+    text-decoration: none;
+    color: $red-color;
+    font-size: 1.4rem;
+
+    transition: all 0.2s linear;
+
+    &:hover {
+      background-color: $red-color;
+      color: $white-color;
+    }
+  }
+
+  &__right {
+    padding-left: 32px;
+  }
+
+  &-other {
+    display: flex;
+    align-items: center;
+    color: $gray-text-color;
+
+    &:not(:last-child) {
+      margin-bottom: 12px;
+    }
+
+    i {
+      width: 3.2rem;
+    }
+
+    span {
+      margin-left: 8px;
+      font-weight: 500;
+      color: $black-color;
+    }
+  }
+
+  &-product {
+    margin-top: 64px;
+  }
+}
