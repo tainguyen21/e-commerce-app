@@ -1,0 +1,65 @@
+@import "assets/styles/colors.scss";
+.product-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  transition: all 0.25s linear;
+
+  &__left {
+    display: flex;
+    align-items: center;
+    max-width: 70%;
+  }
+
+  &__avatar {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 8px;
+  }
+
+  &__info {
+    margin-left: 32px;
+
+    h3 {
+      font-size: 1.8rem;
+      font-weight: 500;
+    }
+
+    p {
+      margin-top: 8px;
+      margin-bottom: 8px;
+      font-size: 1.4rem;
+      color: $gray-text-color;
+    }
+
+    span {
+      font-size: 1.4rem;
+      color: $red-color;
+    }
+  }
+
+  &__price {
+    display: flex;
+    color: $red-color;
+
+    span {
+      margin-left: 6px;
+    }
+  }
+
+  &__right {
+    a {
+      text-decoration: none;
+      color: $white-color;
+
+      &.update {
+        background-color: #6d6dfb;
+      }
+
+      &:not(:last-child) {
+        margin-right: 16px;
+      }
+    }
+  }
+}

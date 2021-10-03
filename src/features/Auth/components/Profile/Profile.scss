@@ -5,7 +5,7 @@
     border: 1px solid $gray-color;
     border-radius: 8px;
     padding: 64px 32px;
-    box-shadow: 0 0 16px 16px $gray-color;
+    box-shadow: 0 0 16px 8px $gray-color;
   }
 
   &__left {
@@ -94,7 +94,45 @@
     }
   }
 
+  &-add-product {
+    text-decoration: none;
+    color: $white-color;
+    display: inline-block;
+    margin-top: 32px;
+
+    &:hover {
+      color: $white-color;
+    }
+  }
+
   &-product {
-    margin-top: 64px;
+    margin-top: 32px;
+    border: 1px solid $gray-color;
+    border-radius: 8px;
+    padding: 32px;
+    box-shadow: 0 0 16px 8px $gray-color;
+
+    h2 {
+      span {
+        margin-left: 12px;
+      }
+    }
+
+    &__content {
+      margin-top: 32px;
+    }
+
+    &__message {
+      color: $red-color;
+      text-align: center;
+      font-weight: 500;
+      font-size: 1.8rem;
+    }
+  }
+}
+
+.product-item {
+  &:not(:last-child) {
+    margin-bottom: 32px;
   }
 }

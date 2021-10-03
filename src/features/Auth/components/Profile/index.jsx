@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./Profile.scss";
-import { Col, Container, Row } from "reactstrap";
+import { Button, Col, Container, Row } from "reactstrap";
 import { Link } from "react-router-dom";
+import ProductItem from "../ProductItem";
 
 Profile.propTypes = {};
 
@@ -56,10 +57,22 @@ function Profile(props) {
           </Row>
         </div>
 
+        <Link to="/" className="button button--red profile-add-product">
+          Add product
+        </Link>
+
         <div className="profile-product">
-          <h2>
+          <h2 className="border-bottom">
             Products: <span>0</span>
           </h2>
+          <div className="profile-product__content">
+            {/* <p className="profile-product__message">
+              You have not posted product yet
+            </p> */}
+            <ProductItem />
+            <ProductItem />
+            <ProductItem />
+          </div>
         </div>
       </Container>
     </div>
