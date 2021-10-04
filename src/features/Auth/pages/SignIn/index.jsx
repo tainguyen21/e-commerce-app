@@ -7,7 +7,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import "./SignIn.scss";
 
@@ -19,6 +19,10 @@ const facebookProvider = new FacebookAuthProvider();
 function SignIn(props) {
   const [error, setError] = useState("");
   const history = useHistory();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
 
   const handleSubmit = async (data) => {
     try {

@@ -13,19 +13,21 @@ import {
 } from "reactstrap";
 import Select from "react-select";
 
-AddProductForm.propTypes = {};
+AddProductForm.propTypes = {
+  onSubmit: PropTypes.func,
+};
+
+AddProductForm.defaultProps = {
+  obSubmit: () => {},
+};
 
 const schema = yup.object({
   type: yup.object().required("123"),
   name: yup.string().required("This field is required"),
+  address: yup.string().required("This field is required"),
   description: yup.string().required("This field is required"),
-  price: yup.string().required("This field is required"),
+  price: yup.number().required(""),
 });
-
-const selectErrorStyle = {
-  border: "1px solid red",
-  borderRadius: "4px",
-};
 
 function AddProductForm(props) {
   const {
@@ -37,20 +39,22 @@ function AddProductForm(props) {
     resolver: yupResolver(schema),
   });
 
+  const { onSubmit } = props;
+
   const name = register("name");
   const description = register("description");
   const image = register("image");
   const price = register("price");
+  const address = register("address");
 
   const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
+    { value: "pet", label: "Pets" },
+    { value: "fashion", label: "Fashion" },
+    { value: "sport", label: "Sport" },
+    { value: "houseware", label: "Houseware" },
+    { value: "technology", label: "Technology" },
+    { value: "other", label: "Other" },
   ];
-
-  const onSubmit = (data) => {
-    console.log(data);
-  };
 
   console.log(errors);
 
@@ -147,8 +151,30 @@ function AddProductForm(props) {
             onBlur={price.onBlur}
             innerRef={price.ref}
             invalid={errors.price && true}
+            type="number"
           />
-          <FormFeedback>{errors.price && errors.price.message}</FormFeedback>
+          <FormFeedback>
+            {errors.price && "This field is required"}
+          </FormFeedback>
+        </FormGroup>
+
+        <FormGroup>
+          <Label className="signin-form__label" htmlFor="address">
+            Address
+          </Label>
+          <Input
+            id="address"
+            className="signin-form__input"
+            placeholder="Ho Chi Minh City"
+            name={address.name}
+            onChange={address.onChange}
+            onBlur={address.onBlur}
+            innerRef={address.ref}
+            invalid={errors.address && true}
+          />
+          <FormFeedback>
+            {errors.address && errors.address.message}
+          </FormFeedback>
         </FormGroup>
 
         <Button className="button button--red">Add</Button>

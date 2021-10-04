@@ -4,10 +4,22 @@ import "./Profile.scss";
 import { Col, Container, Row } from "reactstrap";
 import { Link } from "react-router-dom";
 import ProductItem from "../ProductItem";
+import { calculateRating, calculateResponse, formatDate } from "utils/common";
 
-Profile.propTypes = {};
+Profile.propTypes = {
+  user: PropTypes.object,
+};
+
+Profile.defaultProps = {
+  user: {},
+};
 
 function Profile(props) {
+  const { user } = props;
+  const rating = calculateRating(user.rating);
+  const response = calculateResponse(user.response);
+  const memberFrom = formatDate(user.memberFrom);
+
   return (
     <div>
       <Container>
@@ -21,13 +33,13 @@ function Profile(props) {
                   alt="profile avatar"
                 />
                 <div className="profile__content">
-                  <h3 className="profile__name">My name</h3>
+                  <h3 className="profile__name">{user.name}</h3>
                   <div className="profile__follow">
                     <div className="profile__follower">
-                      <span>0</span> Follower
+                      <span>{user.follower}</span> Follower
                     </div>
                     <div className="profile__following">
-                      <span>0</span> Following
+                      <span>{user.following}</span> Following
                     </div>
                   </div>
                   <Link to="/" className="profile__update">
@@ -39,19 +51,21 @@ function Profile(props) {
             <Col lg="6">
               <div className="profile__right">
                 <div className="profile-other">
-                  <i className="far fa-star"></i> Rating: <span>4.5</span>
+                  <i className="far fa-star"></i> Rating: <span>{rating}</span>
                 </div>
                 <div className="profile-other">
                   <i className="fas fa-calendar-week"></i> Member from:{" "}
-                  <span>01/01/2021</span>
+                  <span>{memberFrom}</span>
                 </div>
                 <div className="profile-other">
                   <i className="fas fa-map-marker-alt"></i> Address:{" "}
-                  <span>Tien Giang</span>
+                  <span>{user.address ? user.address : "Not update"}</span>
                 </div>
                 <div className="profile-other">
-                  <i className="far fa-comments"></i> Response: <span>100</span>
-                  %
+                  <i className="far fa-comments"></i> Response:{" "}
+                  <span>
+                    {response ? `${response}%` : "Don't have message"}
+                  </span>
                 </div>
               </div>
             </Col>
