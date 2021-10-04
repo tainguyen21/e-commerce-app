@@ -35,6 +35,10 @@ function SignUp(props) {
         password
       );
       const id = userCredential.user.uid;
+      const createAt = userCredential.user.metadata.creationTime;
+      const createAtDate = new Date(createAt);
+
+      console.log(userCredential);
 
       updateProfile(userCredential.user.auth.currentUser, {
         displayName: name,
@@ -45,6 +49,7 @@ function SignUp(props) {
           name,
           email,
           id,
+          memberFrom: createAtDate.toLocaleString().split(",")[0],
         })
       );
 
@@ -63,6 +68,7 @@ function SignUp(props) {
         },
         following: 0,
         follower: 0,
+        saving: [],
       });
 
       history.push("/");

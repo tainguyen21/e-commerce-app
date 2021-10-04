@@ -1,3 +1,4 @@
+import "utils/firebase";
 import Header from "components/Header";
 import { setUser } from "features/Auth/userSlice";
 import { fetchProducts } from "features/Product/productsSlice";
@@ -5,7 +6,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import "utils/firebase";
 import routes from "routes";
 
 function App() {
