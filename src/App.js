@@ -1,19 +1,12 @@
 import Header from "components/Header";
-import AboutUs from "features/AboutUs";
-import SignIn from "features/Auth/pages/SignIn";
-import SignUp from "features/Auth/pages/SignUp";
 import { setUser } from "features/Auth/userSlice";
-import Contact from "features/Contact";
-import Home from "features/Home";
-import "utils/firebase";
 import { fetchProducts } from "features/Product/productsSlice";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import NotFound from "./components/NotFound";
-import Product from "./features/Product";
-import ProfilePage from "features/Auth/pages/ProfilePage";
+import "utils/firebase";
+import routes from "routes";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,9 +16,14 @@ function App() {
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        const createAt = user.metadata.creationTime;
+        const createAtDate = new Date(createAt);
+
         const userInfo = {
           name: user.displayName,
           email: user.email,
+          id: user.uid,
+          memberFrom: createAtDate.toLocaleString().split(",")[0], // -> mm/dd/yyy
         };
 
         dispatch(setUser(userInfo));
@@ -43,15 +41,14 @@ function App() {
     <BrowserRouter>
       <Header />
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/about" component={AboutUs} />
-        <Route path="/products" component={Product} />
-        <Route path="/contact" component={Contact} />
-        <Route path="/sign-in" component={SignIn} />
-        <Route path="/sign-up" component={SignUp} />
-        <Route path="/profile" component={ProfilePage} />
-
-        <Route component={NotFound} />
+        {routes.map((item, index) => (
+          <Route
+            key={index}
+            exact={item.exact}
+            path={item.route}
+            component={item.component}
+          />
+        ))}
       </Switch>
     </BrowserRouter>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./Profile.scss";
-import { Button, Col, Container, Row } from "reactstrap";
+import { Col, Container, Row } from "reactstrap";
 import { Link } from "react-router-dom";
 import ProductItem from "../ProductItem";
 
@@ -50,14 +50,18 @@ function Profile(props) {
                   <span>Tien Giang</span>
                 </div>
                 <div className="profile-other">
-                  <i className="far fa-comments"></i> Address: <span>100</span>%
+                  <i className="far fa-comments"></i> Response: <span>100</span>
+                  %
                 </div>
               </div>
             </Col>
           </Row>
         </div>
 
-        <Link to="/" className="button button--red profile-add-product">
+        <Link
+          to="/products/add"
+          className="button button--red profile-add-product"
+        >
           Add product
         </Link>
 

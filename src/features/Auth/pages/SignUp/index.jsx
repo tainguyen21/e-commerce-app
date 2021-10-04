@@ -1,5 +1,7 @@
+import { doc, getFirestore, setDoc } from "@firebase/firestore";
 import Footer from "components/Footer";
 import SignUpForm from "features/Auth/components/SignUpForm";
+import { setUser } from "features/Auth/userSlice";
 import {
   createUserWithEmailAndPassword,
   FacebookAuthProvider,
@@ -9,15 +11,19 @@ import {
   updateProfile,
 } from "firebase/auth";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import "./SignUp.scss";
 
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
 
+const db = getFirestore();
+
 function SignUp(props) {
   const [error, setError] = useState("");
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (data) => {
     try {
@@ -28,12 +34,41 @@ function SignUp(props) {
         email,
         password
       );
+      const id = userCredential.user.uid;
+
       updateProfile(userCredential.user.auth.currentUser, {
         displayName: name,
       });
 
+      dispatch(
+        setUser({
+          name,
+          email,
+          id,
+        })
+      );
+
+      await setDoc(doc(db, `users/${id}`), {
+        products: [],
+        rating: {
+          1: 0,
+          2: 0,
+          3: 0,
+          4: 0,
+          5: 0,
+        },
+        response: {
+          rep: 0,
+          total: 0,
+        },
+        following: 0,
+        follower: 0,
+      });
+
       history.push("/");
     } catch (error) {
+      console.log(error);
+
       if (error.code === "auth/email-already-in-use")
         setError("Email is already in use ");
     }

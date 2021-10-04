@@ -1,6 +1,7 @@
 import NotFound from "components/NotFound";
 import React from "react";
 import { Route, Switch, useRouteMatch } from "react-router";
+import AddProductPage from "./pages/AddProductPage";
 import AllProductsPage from "./pages/AllProductsPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 
@@ -12,6 +13,7 @@ function Product(props) {
   return (
     <Switch>
       <Route exact path={match.url} component={AllProductsPage} />
+      <Route path={`${match.url}/add`} component={AddProductPage} />
       <Route path={`${match.url}/:id`} component={ProductDetailPage} />
 
       <Route component={NotFound} />

@@ -9,7 +9,7 @@
   &__left {
     display: flex;
     align-items: center;
-    max-width: 70%;
+    width: 70%;
   }
 
   &__avatar {
@@ -41,7 +41,11 @@
 
   &__price {
     display: flex;
+    justify-content: flex-end;
     color: $red-color;
+    margin-left: 16px;
+
+    flex-grow: 1;
 
     span {
       margin-left: 6px;
@@ -53,12 +57,22 @@
       text-decoration: none;
       color: $white-color;
 
+      transition: all 0.25s linear;
+
       &.update {
         background-color: #6d6dfb;
+
+        &:hover {
+          background-color: blue;
+        }
       }
 
       &:not(:last-child) {
         margin-right: 16px;
+      }
+
+      &:hover {
+        background-color: #ef6161;
       }
     }
   }
