@@ -14,7 +14,7 @@ import { useHistory } from "react-router";
 import { converFileListToArray } from "utils/common";
 import db from "utils/db";
 import "./AddProductPage.scss";
-import storage from "utils/storage";
+import storage, { uploadImagesToStorage } from "utils/storage";
 
 AddProductPage.propTypes = {};
 
@@ -28,7 +28,7 @@ function AddProductPage(props) {
 
   const handleSubmit = async (data) => {
     try {
-      const image = converFileListToArray(data.image);
+      const images = converFileListToArray(data.image);
 
       const productData = {
         ...data,
@@ -44,14 +44,7 @@ function AddProductPage(props) {
         products: arrayUnion(docId),
       });
 
-      const imagesUrl = [];
-
-      for (let i = 0; i < image.length; i++) {
-        const fileRef = ref(storage, `products/${userId}/${docId}/${i}`);
-        await uploadBytes(fileRef, image[i]);
-        const downloadUrl = await getDownloadURL(fileRef);
-        imagesUrl.push(downloadUrl);
-      }
+      const imagesUrl = await uploadImagesToStorage(images, userId, docId);
 
       await updateDoc(docRef, {
         image: imagesUrl,
