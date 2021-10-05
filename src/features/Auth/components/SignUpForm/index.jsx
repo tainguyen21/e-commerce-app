@@ -35,6 +35,11 @@ const schema = yup.object({
     .string()
     .required("This field is required")
     .email("Email is invalid"),
+  phone: yup
+    .number()
+    .required("")
+    .min(1000000000, "Invalid phone number")
+    .max(99999999999, "Invalid phone number"),
   password: yup
     .string()
     .required("This field is required")
@@ -60,6 +65,7 @@ function SignUpForm(props) {
 
   const name = register("name");
   const email = register("email");
+  const phone = register("phone");
   const password = register("password");
   const re_password = register("re_password");
 
@@ -114,6 +120,29 @@ function SignUpForm(props) {
             invalid={errors.email && true}
           />
           <FormFeedback>{errors.email && errors.email.message}</FormFeedback>
+        </FormGroup>
+        <FormGroup>
+          <Label className="signin-form__label" for="phone">
+            Phone Number
+          </Label>
+          <Input
+            id="phone"
+            className="signin-form__input"
+            placeholder="Price here"
+            name={phone.name}
+            onChange={phone.onChange}
+            onBlur={phone.onBlur}
+            innerRef={phone.ref}
+            invalid={errors.phone && true}
+            type="number"
+          />
+          <FormFeedback>
+            {errors.phone
+              ? errors.phone.type === "typeError"
+                ? "This field is required"
+                : errors.phone.message
+              : ""}
+          </FormFeedback>
         </FormGroup>
         <FormGroup>
           <Label className="signin-form__label" for="password">

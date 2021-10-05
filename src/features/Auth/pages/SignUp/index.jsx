@@ -31,16 +31,14 @@ function SignUp(props) {
   const handleSubmit = async (data) => {
     try {
       const auth = getAuth();
-      const { name, email, password } = data;
+      const { name, email, password, phone } = data;
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      const id = userCredential.user.uid;
-      const createAt = userCredential.user.metadata.creationTime;
-      const createAtDate = new Date(createAt);
 
+      const id = userCredential.user.uid;
       const extraInfo = {
         products: [],
         rating: {
@@ -57,28 +55,17 @@ function SignUp(props) {
         following: 0,
         follower: 0,
         saving: [],
+        phoneNumber: phone,
       };
 
       updateProfile(userCredential.user.auth.currentUser, {
         displayName: name,
       });
 
-      dispatch(
-        setUser({
-          name,
-          email,
-          id,
-          memberFrom: createAtDate.toLocaleString().split(",")[0],
-          ...extraInfo,
-        })
-      );
-
       await setDoc(doc(db, `users/${id}`), extraInfo);
-
       history.push("/");
     } catch (error) {
       console.log(error);
-
       if (error.code === "auth/email-already-in-use")
         setError("Email is already in use ");
     }
@@ -119,6 +106,7 @@ function SignUp(props) {
         following: 0,
         follower: 0,
         saving: [],
+        phoneNumber: null,
       };
 
       await setDoc(doc(db, `users/${id}`), extraInfo);

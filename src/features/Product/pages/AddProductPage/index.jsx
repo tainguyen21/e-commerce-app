@@ -5,7 +5,6 @@ import {
   doc,
   updateDoc,
 } from "@firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "@firebase/storage";
 import Footer from "components/Footer";
 import AddProductForm from "features/Product/components/AddProductForm";
 import React, { useEffect } from "react";
@@ -13,8 +12,8 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { converFileListToArray } from "utils/common";
 import db from "utils/db";
+import { uploadImagesToStorage } from "utils/storage";
 import "./AddProductPage.scss";
-import storage, { uploadImagesToStorage } from "utils/storage";
 
 AddProductPage.propTypes = {};
 
