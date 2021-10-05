@@ -12,6 +12,7 @@ import {
   Label,
 } from "reactstrap";
 import Select from "react-select";
+import { options } from "constants/product";
 
 AddProductForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -34,6 +35,7 @@ function AddProductForm(props) {
     register,
     control,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -47,23 +49,27 @@ function AddProductForm(props) {
   const price = register("price");
   const address = register("address");
 
-  const options = [
-    { value: "pet", label: "Pets" },
-    { value: "fashion", label: "Fashion" },
-    { value: "sport", label: "Sport" },
-    { value: "houseware", label: "Houseware" },
-    { value: "technology", label: "Technology" },
-    { value: "other", label: "Other" },
-  ];
+  const submitForm = (data) => {
+    for (let i = 0; i < data.image.length; i++) {
+      if (data.image[i].type.split("/")[0] !== "image") {
+        setError("image", {
+          type: "typeError",
+          message: "This field must be image",
+        });
 
-  console.log(errors);
+        return;
+      }
+    }
+
+    onSubmit(data);
+  };
 
   return (
     <div className="signin-form">
       <h2 className="signin-form__heading">
         Add <span>Product</span>
       </h2>
-      <Form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+      <Form onSubmit={handleSubmit(submitForm)} autoComplete="off">
         <FormGroup>
           <Label className="signin-form__label" htmlFor="type">
             Type

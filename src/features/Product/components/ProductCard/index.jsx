@@ -14,8 +14,6 @@ ProductCard.defaultProps = {
 function ProductCard(props) {
   const { product } = props;
 
-  // console.log(product);
-
   return (
     <div className="product">
       <Link to={`/products/${product.id}`}>

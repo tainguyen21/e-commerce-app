@@ -22,3 +22,13 @@ export const formatDate = (date) => {
   result[1] = temp;
   return result.join("/");
 };
+
+export const converFileListToArray = (image) => {
+  const images = [];
+
+  for (let i = 0; i < image.length; i++) {
+    images.push(image[i]);
+  }
+
+  return images;
+};

@@ -5,6 +5,7 @@ import AboutMember from "features/AboutUs/components/AboutMember";
 import AboutService from "features/AboutUs/components/AboutService";
 import React, { useEffect } from "react";
 import "./MainPage.scss";
+import { members, services } from "constants/about";
 
 MainPage.propTypes = {};
 
@@ -22,10 +23,10 @@ function MainPage(props) {
         <AboutInfo />
       </section>
       <section className="about-member-section">
-        <AboutMember />
+        <AboutMember members={members} />
       </section>
       <section className="about-service-section">
-        <AboutService />
+        <AboutService services={services} />
       </section>
       <Footer />
     </div>

@@ -6,28 +6,17 @@ import "./MemberList.scss";
 MemberList.propTypes = {};
 
 function MemberList(props) {
+  const { members } = props;
+
   return (
     <div className="member-list">
       <Container>
         <Row>
-          <Col lg="4">
-            <MemberCard />
-          </Col>
-          <Col lg="4">
-            <MemberCard />
-          </Col>
-          <Col lg="4">
-            <MemberCard />
-          </Col>
-          <Col lg="4">
-            <MemberCard />
-          </Col>
-          <Col lg="4">
-            <MemberCard />
-          </Col>
-          <Col lg="4">
-            <MemberCard />
-          </Col>
+          {members.map((item, index) => (
+            <Col lg="4" key={index}>
+              <MemberCard member={item} />
+            </Col>
+          ))}
         </Row>
       </Container>
     </div>

@@ -40,7 +40,10 @@
       margin-top: 24px;
     }
 
-    button {
+    a {
+      display: inline-block;
+      color: $white-color;
+      text-decoration: none;
       margin-top: 24px;
     }
   }

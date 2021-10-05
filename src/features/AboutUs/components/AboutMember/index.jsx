@@ -6,6 +6,7 @@ import "./AboutMember.scss";
 AboutMember.propTypes = {};
 
 function AboutMember(props) {
+  const { members } = props;
   return (
     <div className="about-member">
       <Container>
@@ -13,7 +14,7 @@ function AboutMember(props) {
           <h3 className="border-bottom">Out Team Members</h3>
         </div>
       </Container>
-      <MemberList />
+      <MemberList members={members} />
     </div>
   );
 }

@@ -6,19 +6,17 @@ import "./AboutService.scss";
 AboutService.propTypes = {};
 
 function AboutService(props) {
+  const { services } = props;
+
   return (
     <div className="about-service">
       <Container>
         <Row>
-          <Col lg="4">
-            <ServiceCard />
-          </Col>
-          <Col lg="4">
-            <ServiceCard />
-          </Col>
-          <Col lg="4">
-            <ServiceCard />
-          </Col>
+          {services.map((item, index) => (
+            <Col lg="4" key={index}>
+              <ServiceCard service={item} />
+            </Col>
+          ))}
         </Row>
       </Container>
     </div>

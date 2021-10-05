@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Container } from "reactstrap";
 import "./AllProductsPage.scss";
+import { options } from "constants/product";
 
 AllProductsPage.propTypes = {};
 
@@ -23,10 +24,11 @@ function AllProductsPage(props) {
       <section className="products-section">
         <Container>
           <div className="products-filter">
-            <li className="products-filter__item active">All Products</li>
-            <li className="products-filter__item">Featured</li>
-            <li className="products-filter__item">Flash deals</li>
-            <li className="products-filter__item">Last minute</li>
+            {options.map((item, index) => (
+              <li className="products-filter__item" key={index}>
+                {item.label}
+              </li>
+            ))}
           </div>
         </Container>
         <ProductList products={allProducts} />
