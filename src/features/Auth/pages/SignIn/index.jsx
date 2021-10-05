@@ -53,7 +53,7 @@ function SignIn(props) {
   const onFacebookClick = async () => {
     try {
       const auth = getAuth();
-      signInWithPopup(auth, facebookProvider);
+      await signInWithPopup(auth, facebookProvider);
 
       history.push("/");
     } catch (error) {
@@ -65,7 +65,7 @@ function SignIn(props) {
   const onGoogleClick = async () => {
     try {
       const auth = getAuth();
-      signInWithPopup(auth, googleProvider);
+      await signInWithPopup(auth, googleProvider);
 
       history.push("/");
     } catch (error) {

@@ -1,7 +1,6 @@
 import { doc, setDoc } from "@firebase/firestore";
 import Footer from "components/Footer";
 import SignUpForm from "features/Auth/components/SignUpForm";
-import { setUser } from "features/Auth/userSlice";
 import {
   createUserWithEmailAndPassword,
   FacebookAuthProvider,
@@ -11,7 +10,6 @@ import {
   updateProfile,
 } from "firebase/auth";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import db from "utils/db";
 import "./SignUp.scss";
@@ -22,7 +20,6 @@ const facebookProvider = new FacebookAuthProvider();
 function SignUp(props) {
   const [error, setError] = useState("");
   const history = useHistory();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     window.scrollTo(0, 0);

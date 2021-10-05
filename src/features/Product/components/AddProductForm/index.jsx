@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
@@ -10,6 +10,7 @@ import {
   FormGroup,
   Input,
   Label,
+  Spinner,
 } from "reactstrap";
 import Select from "react-select";
 import { options } from "constants/product";
@@ -49,18 +50,20 @@ function AddProductForm(props) {
   const price = register("price");
   const address = register("address");
 
-  const submitForm = (data) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const submitForm = async (data) => {
+    if (!isSubmitting) setIsSubmitting(true);
+
     for (let i = 0; i < data.image.length; i++) {
       if (data.image[i].type.split("/")[0] !== "image") {
         setError("image", {
           type: "typeError",
           message: "This field must be image",
         });
-
         return;
       }
     }
-
     onSubmit(data);
   };
 
@@ -183,7 +186,12 @@ function AddProductForm(props) {
           </FormFeedback>
         </FormGroup>
 
-        <Button className="button button--red">Add</Button>
+        <Button className="button button--red" disabled={isSubmitting}>
+          {isSubmitting && (
+            <Spinner color="light" style={{ marginRight: "12px" }} />
+          )}
+          Add
+        </Button>
       </Form>
     </div>
   );
