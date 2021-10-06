@@ -17,10 +17,10 @@ function ProductCard(props) {
   return (
     <div className="product">
       <Link to={`/products/${product.id}`}>
-        <img src={product.avatar} alt="product" className="product__image" />
+        <img src={product.image[0]} alt="product" className="product__image" />
         <div className="product__content">
           <div className="product__info">
-            <span className="product__name">{product.title}</span>
+            <span className="product__name">{product.name}</span>
             <span className="product__price">${product.price}</span>
           </div>
           <p className="product__desc">{product.description}</p>

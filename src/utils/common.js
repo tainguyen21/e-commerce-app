@@ -1,4 +1,6 @@
 export const calculateRating = (rating) => {
+  if (!rating) return null;
+
   let stars = 0,
     totalRating = 0;
   for (let i in rating) {
@@ -10,12 +12,16 @@ export const calculateRating = (rating) => {
 };
 
 export const calculateResponse = (response) => {
+  if (!response) return null;
+
   let { rep, total } = response;
 
   return total === 0 ? null : (rep / total) * 100;
 };
 
 export const formatDate = (date) => {
+  if (!date) return null;
+
   const result = date.split("/");
   const temp = result[0];
   result[0] = result[1];
@@ -24,6 +30,8 @@ export const formatDate = (date) => {
 };
 
 export const converFileListToArray = (image) => {
+  if (!image) return null;
+
   const images = [];
 
   for (let i = 0; i < image.length; i++) {

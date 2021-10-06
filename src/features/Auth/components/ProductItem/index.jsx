@@ -3,27 +3,32 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import "./ProductItem.scss";
 
-ProductItem.propTypes = {};
+ProductItem.propTypes = {
+  product: PropTypes.object,
+};
+
+ProductItem.defaultProps = {
+  product: {},
+};
 
 function ProductItem(props) {
+  const { product } = props;
+
   return (
     <div className="product-item">
       <div className="product-item__left">
         <img
           className="product-item__avatar"
-          src="https://images.unsplash.com/photo-1633103895674-48112c9d5349?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=759&q=80"
+          src={product.image[0]}
           alt="product"
         />
         <div className="product-item__info">
-          <h3>Name is here</h3>
-          <p>
-            Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis
-            nulla aspernatur.
-          </p>
-          <span>Cai Lay, Tien Giang</span>
+          <h3>{product.name}</h3>
+          <p>{product.description}</p>
+          <span>{product.address}</span>
         </div>
         <div className="product-item__price">
-          $ <span>25.75</span>
+          $ <span>{product.price}</span>
         </div>
       </div>
 

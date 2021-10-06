@@ -6,9 +6,11 @@ import {
   updateDoc,
 } from "@firebase/firestore";
 import Footer from "components/Footer";
+import { addUserProduct } from "features/Auth/userSlice";
 import AddProductForm from "features/Product/components/AddProductForm";
+import { addProduct } from "features/Product/productsSlice";
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { converFileListToArray } from "utils/common";
 import db from "utils/db";
@@ -20,6 +22,7 @@ AddProductPage.propTypes = {};
 function AddProductPage(props) {
   const userId = useSelector((state) => state.user.id);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -39,6 +42,7 @@ function AddProductPage(props) {
       const docRef = await addDoc(collection(db, "products"), productData);
       const docId = docRef.id;
       const userRef = doc(db, `users/${userId}`);
+
       await updateDoc(userRef, {
         products: arrayUnion(docId),
       });
@@ -48,6 +52,15 @@ function AddProductPage(props) {
       await updateDoc(docRef, {
         image: imagesUrl,
       });
+
+      const completeProductData = {
+        ...productData,
+        image: imagesUrl,
+        id: docId,
+      };
+
+      dispatch(addProduct(completeProductData));
+      dispatch(addUserProduct(docId));
 
       history.push("/profile");
     } catch (error) {

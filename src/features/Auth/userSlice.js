@@ -9,9 +9,12 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       return action.payload;
     },
+    addUserProduct: (state, action) => {
+      state.products.push(action.payload);
+    },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, addUserProduct } = userSlice.actions;
 
 export default userSlice.reducer;
