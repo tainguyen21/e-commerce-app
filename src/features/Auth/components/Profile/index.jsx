@@ -20,7 +20,6 @@ function Profile(props) {
   const { user, productsOfUser } = props;
   const rating = calculateRating(user.rating);
   const response = calculateResponse(user.response);
-  console.log(user.memberFrom);
   const memberFrom = formatDate(user.memberFrom);
 
   return (

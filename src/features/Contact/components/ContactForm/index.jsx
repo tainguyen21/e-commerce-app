@@ -33,8 +33,6 @@ function ContactForm(props) {
 
   const onSubmit = (data) => console.log(data);
 
-  console.log(errors);
-
   return (
     <Form
       className="contact-form"

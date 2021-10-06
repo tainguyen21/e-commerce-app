@@ -57,6 +57,13 @@
       margin-right: 16px;
     }
 
+    &.sign-out {
+      background-color: transparent;
+      border: none;
+      display: none;
+      box-shadow: none;
+    }
+
     &.active,
     &:hover {
       color: $white-color;

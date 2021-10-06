@@ -1,4 +1,4 @@
-import { doc, setDoc } from "@firebase/firestore";
+import { doc, getDoc, setDoc } from "@firebase/firestore";
 import Footer from "components/Footer";
 import SignInForm from "features/Auth/components/SignInForm";
 import {
@@ -53,48 +53,51 @@ function SignIn(props) {
   };
 
   const onFacebookClick = async () => {
-    try {
-      const auth = getAuth();
-      await signInWithPopup(auth, facebookProvider);
-
-      history.push("/");
-    } catch (error) {
-      const errorCode = error.code;
-      setError(errorCode);
-    }
+    // try {
+    //   const auth = getAuth();
+    //   await signInWithPopup(auth, facebookProvider);
+    //   history.push("/");
+    // } catch (error) {
+    //   const errorCode = error.code;
+    //   setError(errorCode);
+    // }
   };
 
   const onGoogleClick = async () => {
     try {
       const auth = getAuth();
       const userCredential = await signInWithPopup(auth, googleProvider);
-
-      const createAt = userCredential.user.metadata.creationTime;
-      const createAtDate = new Date(createAt);
       const id = userCredential.user.uid;
+      const userSnapshot = await getDoc(doc(db, `users/${id}`));
+      const user = userSnapshot.data();
 
-      const extraInfo = {
-        products: [],
-        rating: {
-          1: 0,
-          2: 0,
-          3: 0,
-          4: 0,
-          5: 0,
-        },
-        response: {
-          rep: 0,
-          total: 0,
-        },
-        following: 0,
-        follower: 0,
-        saving: [],
-        phoneNumber: null,
-        name: userCredential.user.displayName,
-        memberFrom: createAtDate.toLocaleString().split(",")[0],
-      };
+      if (!user) {
+        const createAt = userCredential.user.metadata.creationTime;
+        const createAtDate = new Date(createAt);
 
-      await setDoc(doc(db, `users/${id}`), extraInfo);
+        const extraInfo = {
+          products: [],
+          rating: {
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0,
+          },
+          response: {
+            rep: 0,
+            total: 0,
+          },
+          following: 0,
+          follower: 0,
+          saving: [],
+          phoneNumber: null,
+          name: userCredential.user.displayName,
+          memberFrom: createAtDate.toLocaleString().split(",")[0],
+        };
+
+        await setDoc(doc(db, `users/${id}`), extraInfo);
+      }
 
       history.push("/");
     } catch (error) {
