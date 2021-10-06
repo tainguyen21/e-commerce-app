@@ -20,6 +20,7 @@ function Profile(props) {
   const { user, productsOfUser } = props;
   const rating = calculateRating(user.rating);
   const response = calculateResponse(user.response);
+  console.log(user.memberFrom);
   const memberFrom = formatDate(user.memberFrom);
 
   return (
@@ -83,7 +84,7 @@ function Profile(props) {
 
         <div className="profile-product">
           <h2 className="border-bottom">
-            Products: <span>0</span>
+            Products: <span>{productsOfUser ? productsOfUser.length : 0}</span>
           </h2>
           <div className="profile-product__content">
             {productsOfUser ? (

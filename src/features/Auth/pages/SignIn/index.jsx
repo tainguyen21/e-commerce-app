@@ -1,3 +1,4 @@
+import { doc, setDoc } from "@firebase/firestore";
 import Footer from "components/Footer";
 import SignInForm from "features/Auth/components/SignInForm";
 import {
@@ -9,6 +10,7 @@ import {
 } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import db from "utils/db";
 import "./SignIn.scss";
 
 SignIn.propTypes = {};
@@ -65,7 +67,34 @@ function SignIn(props) {
   const onGoogleClick = async () => {
     try {
       const auth = getAuth();
-      await signInWithPopup(auth, googleProvider);
+      const userCredential = await signInWithPopup(auth, googleProvider);
+
+      const createAt = userCredential.user.metadata.creationTime;
+      const createAtDate = new Date(createAt);
+      const id = userCredential.user.uid;
+
+      const extraInfo = {
+        products: [],
+        rating: {
+          1: 0,
+          2: 0,
+          3: 0,
+          4: 0,
+          5: 0,
+        },
+        response: {
+          rep: 0,
+          total: 0,
+        },
+        following: 0,
+        follower: 0,
+        saving: [],
+        phoneNumber: null,
+        name: userCredential.user.displayName,
+        memberFrom: createAtDate.toLocaleString().split(",")[0],
+      };
+
+      await setDoc(doc(db, `users/${id}`), extraInfo);
 
       history.push("/");
     } catch (error) {

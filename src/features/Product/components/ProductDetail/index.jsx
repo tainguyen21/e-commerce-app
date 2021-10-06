@@ -5,21 +5,18 @@ import Slider from "react-slick";
 import { Col, Container, Row } from "reactstrap";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
+import { calculateRating, calculateResponse } from "utils/common";
 import "./ProductDetail.scss";
 
 ProductDetail.propTypes = {
   product: PropTypes.object,
+  user: PropTypes.object,
 };
 
 ProductDetail.defaultProps = {
   product: {},
+  user: {},
 };
-
-const images = [
-  "https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80",
-  "https://images.unsplash.com/photo-1593642702909-dec73df255d7?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=869&q=80",
-  "https://images.unsplash.com/photo-1612630874598-0aa7bc569f53?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=435&q=80",
-];
 
 function ProductDetail(props) {
   const sliderSettings = {
@@ -31,7 +28,12 @@ function ProductDetail(props) {
     arrows: false,
   };
 
-  const { product } = props;
+  const { product, user } = props;
+
+  const rating = calculateRating(user.rating);
+  const response = calculateResponse(user.response);
+
+  console.log(product);
 
   return (
     <div>
@@ -40,7 +42,7 @@ function ProductDetail(props) {
           <Row>
             <Col lg="8">
               <Slider {...sliderSettings}>
-                {images.map((image, index) => (
+                {product.image.map((image, index) => (
                   <div key={index}>
                     <img
                       className="product-detail__image"
@@ -75,7 +77,9 @@ function ProductDetail(props) {
                   <div className="product-detail-user__info">
                     <i className="far fa-user product-detail-user__avatar"></i>
                     <div>
-                      <span className="product-detail-user__name">Tai</span>
+                      <span className="product-detail-user__name">
+                        {user.name}
+                      </span>
                       <span className="product-detail-user__status">
                         <i className="fas fa-circle"></i>Active
                       </span>
@@ -86,16 +90,21 @@ function ProductDetail(props) {
                 <div className="product-detail-user__review">
                   <div className="product-detail-user__rating">
                     Rating
-                    <span>4.5</span>
+                    <span>{rating}</span>
                   </div>
                   <div className="product-detail-user__response">
                     Chat response
-                    <span>100%</span>
+                    <span>
+                      {response ? `${response}%` : "Don't have message"}
+                    </span>
                   </div>
                 </div>
                 <div className="product-detail-user__contact">
                   <div className="product-detail-user__phone">
-                    <i className="fas fa-phone-alt"></i>0123456789
+                    <i className="fas fa-phone-alt"></i>
+                    {user.phoneNumber
+                      ? user.phoneNumber
+                      : "Don't have phone number"}
                   </div>
                   <div className="product-detail-user__chat">
                     <i className="far fa-comments"></i>

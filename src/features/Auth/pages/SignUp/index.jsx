@@ -35,6 +35,8 @@ function SignUp(props) {
         password
       );
 
+      const createAt = userCredential.user.metadata.creationTime;
+      const createAtDate = new Date(createAt);
       const id = userCredential.user.uid;
       const extraInfo = {
         products: [],
@@ -53,6 +55,8 @@ function SignUp(props) {
         follower: 0,
         saving: [],
         phoneNumber: phone,
+        name: name,
+        memberFrom: createAtDate.toLocaleString().split(",")[0],
       };
 
       updateProfile(userCredential.user.auth.currentUser, {
@@ -85,6 +89,8 @@ function SignUp(props) {
     try {
       const auth = getAuth();
       const userCredential = await signInWithPopup(auth, googleProvider);
+      const createAt = userCredential.user.metadata.creationTime;
+      const createAtDate = new Date(createAt);
       const id = userCredential.user.uid;
 
       const extraInfo = {
@@ -104,6 +110,8 @@ function SignUp(props) {
         follower: 0,
         saving: [],
         phoneNumber: null,
+        name: userCredential.user.displayName,
+        memberFrom: createAtDate.toLocaleString().split(",")[0],
       };
 
       await setDoc(doc(db, `users/${id}`), extraInfo);

@@ -6,7 +6,7 @@ MemberCard.propTypes = {};
 
 function MemberCard(props) {
   const { member } = props;
-  console.log(member);
+
   return (
     <div className="member-card">
       <div className="member-card__top">
