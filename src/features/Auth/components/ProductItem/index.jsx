@@ -5,14 +5,18 @@ import "./ProductItem.scss";
 
 ProductItem.propTypes = {
   product: PropTypes.object,
+  otherUser: PropTypes.bool,
+  productId: PropTypes.string,
 };
 
 ProductItem.defaultProps = {
   product: {},
+  otherUser: false,
+  productId: null,
 };
 
 function ProductItem(props) {
-  const { product } = props;
+  const { product, otherUser, productId } = props;
 
   return (
     <div className="product-item">
@@ -32,14 +36,25 @@ function ProductItem(props) {
         </div>
       </div>
 
-      <div className="product-item__right">
-        <Link to="/" className="button button--red update">
-          Update
-        </Link>
-        <Link to="/" className="button button--red">
-          Delete
-        </Link>
-      </div>
+      {otherUser ? (
+        <div className="product-item__right">
+          <Link
+            to={`/products/${productId}`}
+            className="button button--red update"
+          >
+            See post
+          </Link>
+        </div>
+      ) : (
+        <div className="product-item__right">
+          <Link to="/" className="button button--red update">
+            Update
+          </Link>
+          <Link to="/" className="button button--red">
+            Delete
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./Profile.scss";
-import { Col, Container, Row } from "reactstrap";
+import { Button, Col, Container, Row } from "reactstrap";
 import { Link } from "react-router-dom";
 import ProductItem from "../ProductItem";
 import { calculateRating, calculateResponse, formatDate } from "utils/common";
@@ -10,16 +10,21 @@ Profile.propTypes = {
   user: PropTypes.object,
   productsOfUser: PropTypes.array,
   productsSaving: PropTypes.array,
+  otherUser: PropTypes.bool,
+  productsIdOfUser: PropTypes.array,
 };
 
 Profile.defaultProps = {
   user: {},
   productsOfUser: [],
   productsSaving: [],
+  otherUser: false,
+  productsIdOfUser: [],
 };
 
 function Profile(props) {
-  const { user, productsOfUser, productsSaving } = props;
+  const { user, productsOfUser, productsSaving, otherUser, productsIdOfUser } =
+    props;
   const rating = calculateRating(user.rating);
   const response = calculateResponse(user.response);
   const memberFrom = formatDate(user.memberFrom);
@@ -46,9 +51,13 @@ function Profile(props) {
                       <span>{user.following}</span> Following
                     </div>
                   </div>
-                  <Link to="/" className="profile__update">
-                    Update profile
-                  </Link>
+                  {otherUser ? (
+                    <Button className="profile__update">Follow</Button>
+                  ) : (
+                    <Link to="/" className="profile__update">
+                      Update profile
+                    </Link>
+                  )}
                 </div>
               </div>
             </Col>
@@ -76,12 +85,14 @@ function Profile(props) {
           </Row>
         </div>
 
-        <Link
-          to="/products/add"
-          className="button button--red profile-add-product"
-        >
-          Add product
-        </Link>
+        {!otherUser && (
+          <Link
+            to="/products/add"
+            className="button button--red profile-add-product"
+          >
+            Add product
+          </Link>
+        )}
 
         <div className="profile-product">
           <h2 className="border-bottom">
@@ -90,7 +101,12 @@ function Profile(props) {
           <div className="profile-product__content">
             {productsOfUser ? (
               productsOfUser.map((product, index) => (
-                <ProductItem key={index} product={product} />
+                <ProductItem
+                  key={index}
+                  product={product}
+                  otherUser={otherUser}
+                  productId={productsIdOfUser[index]}
+                />
               ))
             ) : (
               <p className="profile-product__message">
@@ -100,23 +116,25 @@ function Profile(props) {
           </div>
         </div>
 
-        <div className="profile-product">
-          <h2 className="border-bottom">
-            Saving post:{" "}
-            <span>{productsSaving ? productsSaving.length : 0}</span>
-          </h2>
-          <div className="profile-product__content">
-            {productsSaving ? (
-              productsSaving.map((product, index) => (
-                <ProductItem key={index} product={product} />
-              ))
-            ) : (
-              <p className="profile-product__message">
-                You have not posted product yet
-              </p>
-            )}
+        {!otherUser && (
+          <div className="profile-product">
+            <h2 className="border-bottom">
+              Saving post:{" "}
+              <span>{productsSaving ? productsSaving.length : 0}</span>
+            </h2>
+            <div className="profile-product__content">
+              {productsSaving ? (
+                productsSaving.map((product, index) => (
+                  <ProductItem key={index} product={product} />
+                ))
+              ) : (
+                <p className="profile-product__message">
+                  You have not posted product yet
+                </p>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </Container>
     </div>
   );

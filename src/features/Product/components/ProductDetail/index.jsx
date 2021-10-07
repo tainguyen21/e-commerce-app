@@ -89,7 +89,7 @@ function ProductDetail(props) {
                       </span>
                     </div>
                   </div>
-                  <Link to="/">See detail</Link>
+                  <Link to={`/user/${product.userId}`}>See detail</Link>
                 </div>
                 <div className="product-detail-user__review">
                   <div className="product-detail-user__rating">

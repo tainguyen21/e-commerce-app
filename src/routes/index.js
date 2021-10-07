@@ -7,6 +7,7 @@ import SignIn from "features/Auth/pages/SignIn";
 import SignUp from "features/Auth/pages/SignUp";
 import ProfilePage from "features/Auth/pages/ProfilePage";
 import NotFound from "components/NotFound";
+import UserPage from "features/Auth/pages/UserPage";
 
 const routes = [
   {
@@ -43,6 +44,11 @@ const routes = [
     exact: false,
     route: "/profile",
     component: () => <ProfilePage />,
+  },
+  {
+    exact: false,
+    route: "/user/:id",
+    component: () => <UserPage />,
   },
   {
     exact: false,
