@@ -3,7 +3,7 @@ import Footer from "components/Footer";
 import SignInForm from "features/Auth/components/SignInForm";
 import { setUser } from "features/Auth/userSlice";
 import {
-  FacebookAuthProvider,
+  //FacebookAuthProvider,
   getAuth,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
@@ -18,7 +18,7 @@ import "./SignIn.scss";
 SignIn.propTypes = {};
 
 const googleProvider = new GoogleAuthProvider();
-const facebookProvider = new FacebookAuthProvider();
+// const facebookProvider = new FacebookAuthProvider();
 
 function SignIn(props) {
   const [error, setError] = useState("");

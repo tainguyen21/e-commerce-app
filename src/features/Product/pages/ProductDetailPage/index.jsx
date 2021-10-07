@@ -39,7 +39,7 @@ function ProductDetailPage(props) {
   };
 
   useEffect(() => {
-    const fetchUserInfo = async (product) => {
+    const fetchUserInfo = async () => {
       if (!product) return;
 
       const userSnapshot = await getDoc(doc(db, `users/${product.userId}`));
@@ -47,8 +47,8 @@ function ProductDetailPage(props) {
       setUser(userSnapshot.data());
     };
 
-    fetchUserInfo(product);
-  }, [id]);
+    fetchUserInfo();
+  }, [id, product]);
 
   useEffect(() => {
     window.scrollTo(0, 0);

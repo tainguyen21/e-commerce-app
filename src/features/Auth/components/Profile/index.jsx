@@ -1,10 +1,10 @@
-import React from "react";
 import PropTypes from "prop-types";
-import "./Profile.scss";
-import { Button, Col, Container, Row } from "reactstrap";
+import React from "react";
 import { Link } from "react-router-dom";
-import ProductItem from "../ProductItem";
+import { Col, Container, Row } from "reactstrap";
 import { calculateRating, calculateResponse, formatDate } from "utils/common";
+import ProductItem from "../ProductItem";
+import "./Profile.scss";
 
 Profile.propTypes = {
   user: PropTypes.object,
@@ -74,7 +74,7 @@ function Profile(props) {
                       {isFollowing ? "Unfollow" : "Follow"}
                     </span>
                   ) : (
-                    <Link to="/" className="profile__update">
+                    <Link to="/profile/update" className="profile__update">
                       Update profile
                     </Link>
                   )}
@@ -98,6 +98,14 @@ function Profile(props) {
                   <i className="far fa-comments"></i> Response:{" "}
                   <span>
                     {response ? `${response}%` : "Don't have message"}
+                  </span>
+                </div>
+                <div className="profile-other">
+                  <i className="fas fa-phone"></i> Phone number:{" "}
+                  <span>
+                    {user.phoneNumber
+                      ? user.phoneNumber
+                      : "Don't have phone number"}
                   </span>
                 </div>
               </div>

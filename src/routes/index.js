@@ -8,6 +8,7 @@ import SignUp from "features/Auth/pages/SignUp";
 import ProfilePage from "features/Auth/pages/ProfilePage";
 import NotFound from "components/NotFound";
 import UserPage from "features/Auth/pages/UserPage";
+import UpdateProfile from "features/Auth/pages/UpdateProfile";
 
 const routes = [
   {
@@ -41,7 +42,7 @@ const routes = [
     component: () => <SignUp />,
   },
   {
-    exact: false,
+    exact: true,
     route: "/profile",
     component: () => <ProfilePage />,
   },
@@ -49,6 +50,11 @@ const routes = [
     exact: false,
     route: "/user/:id",
     component: () => <UserPage />,
+  },
+  {
+    exact: false,
+    route: "/profile/update",
+    component: () => <UpdateProfile />,
   },
   {
     exact: false,

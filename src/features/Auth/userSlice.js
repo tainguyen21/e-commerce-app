@@ -29,6 +29,13 @@ export const userSlice = createSlice({
       }
     },
 
+    updateUser: (state, action) => {
+      return {
+        ...state,
+        ...action.payload,
+      };
+    },
+
     addUserProduct: (state, action) => {
       state.products.push(action.payload);
     },
@@ -41,6 +48,7 @@ export const {
   addSavingPost,
   addFollowing,
   removeFollowing,
+  updateUser,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -4,7 +4,7 @@ import SignUpForm from "features/Auth/components/SignUpForm";
 import { setUser } from "features/Auth/userSlice";
 import {
   createUserWithEmailAndPassword,
-  FacebookAuthProvider,
+  //FacebookAuthProvider,
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
@@ -17,7 +17,7 @@ import db from "utils/db";
 import "./SignUp.scss";
 
 const googleProvider = new GoogleAuthProvider();
-const facebookProvider = new FacebookAuthProvider();
+//const facebookProvider = new FacebookAuthProvider();
 
 function SignUp(props) {
   const [error, setError] = useState("");

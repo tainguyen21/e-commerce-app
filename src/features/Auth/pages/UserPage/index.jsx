@@ -8,9 +8,8 @@ import {
 import Footer from "components/Footer";
 import Profile from "features/Auth/components/Profile";
 import { addFollowing, removeFollowing } from "features/Auth/userSlice";
-import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouteMatch } from "react-router";
 import db from "utils/db";
 
@@ -27,7 +26,7 @@ function UserPage() {
   const userId = match.params.id;
   const [products, setProducts] = useState([]);
   const [productsSaving, setProductsSaving] = useState([]);
-  const productsIdOfUser = useMemo(() => [], []);
+  const [productsIdOfUser, setProductsIdOfUser] = useState([]);
   const currentUser = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const isFollowing =
@@ -75,8 +74,6 @@ function UserPage() {
     window.scrollTo(0, 0);
   });
 
-  console.log(followingTemp);
-
   useEffect(() => {
     const fetchUserInfo = async () => {
       const userSnapshot = await getDoc(doc(db, `users/${userId}`));
@@ -91,14 +88,16 @@ function UserPage() {
       if (Object.keys(user).length === 0) return;
 
       const products = [];
+      const productsId = [];
 
       for (let productId of user.products) {
         const productSnapshot = await getDoc(doc(db, `products/${productId}`));
-        productsIdOfUser.push(productId);
+        productsId.push(productId);
         products.push(productSnapshot.data());
       }
 
       setProducts(products);
+      setProductsIdOfUser(productsId);
     };
 
     fetchProductPosting();
