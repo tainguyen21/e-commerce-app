@@ -14,6 +14,7 @@ Profile.propTypes = {
   productsIdOfUser: PropTypes.array,
   onFollowClick: PropTypes.func,
   isFollowing: PropTypes.bool,
+  followingTemp: PropTypes.number,
 };
 
 Profile.defaultProps = {
@@ -27,6 +28,7 @@ Profile.defaultProps = {
   productsIdOfUser: [],
   onFollowClick: null,
   isFollowing: false,
+  followingTemp: 0,
 };
 
 function Profile(props) {
@@ -38,6 +40,7 @@ function Profile(props) {
     productsIdOfUser,
     onFollowClick,
     isFollowing,
+    followingTemp,
   } = props;
   const rating = calculateRating(user.rating);
   const response = calculateResponse(user.response);
@@ -59,7 +62,8 @@ function Profile(props) {
                   <h3 className="profile__name">{user.name}</h3>
                   <div className="profile__follow">
                     <div className="profile__follower">
-                      <span>{user.follower.length + isFollowing}</span> Follower
+                      <span>{user.follower.length + followingTemp}</span>{" "}
+                      Follower
                     </div>
                     <div className="profile__following">
                       <span>{user.following.length}</span> Following

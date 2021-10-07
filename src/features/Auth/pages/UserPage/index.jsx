@@ -33,6 +33,7 @@ function UserPage() {
   const isFollowing =
     Object.keys(currentUser).length &&
     currentUser.following.indexOf(userId) !== -1;
+  let [followingTemp, setFollowingTemp] = useState(0);
 
   const handleFollowClick = async () => {
     if (!Object.keys(currentUser).length) {
@@ -53,6 +54,7 @@ function UserPage() {
       await updateDoc(doc(db, `users/${userId}`), {
         follower: arrayUnion(currentUser.id),
       });
+      setFollowingTemp(1);
 
       dispatch(addFollowing(userId));
     } else {
@@ -63,6 +65,7 @@ function UserPage() {
       await updateDoc(doc(db, `users/${userId}`), {
         follower: arrayRemove(currentUser.id),
       });
+      setFollowingTemp(0);
 
       dispatch(removeFollowing(userId));
     }
@@ -71,6 +74,8 @@ function UserPage() {
   useEffect(() => {
     window.scrollTo(0, 0);
   });
+
+  console.log(followingTemp);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -127,6 +132,7 @@ function UserPage() {
           productsIdOfUser={productsIdOfUser}
           onFollowClick={handleFollowClick}
           isFollowing={isFollowing}
+          followingTemp={followingTemp}
         />
       </section>
       <Footer />
