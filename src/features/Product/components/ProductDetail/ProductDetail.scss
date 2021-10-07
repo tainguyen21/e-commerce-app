@@ -48,11 +48,11 @@
   }
 
   &__right {
-    a {
+    button {
       color: $red-color;
-      text-decoration: none;
       font-weight: 500;
       font-size: 1.4rem;
+      background-color: transparent;
 
       padding: 8px 10px;
       border: 1px solid $red-color;
@@ -62,6 +62,15 @@
       &:hover {
         background-color: $red-color;
         color: $white-color;
+        border: 1px solid $red-color;
+      }
+
+      &:active,
+      &:focus {
+        background-color: transparent;
+        color: $red-color;
+        border: 1px solid $red-color;
+        box-shadow: none;
       }
     }
 

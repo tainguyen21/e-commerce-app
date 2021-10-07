@@ -11,13 +11,14 @@ ProfilePage.propTypes = {};
 function ProfilePage() {
   const user = useSelector((state) => state.user);
   const [products, setProducts] = useState([]);
+  const [productsSaving, setProductsSaving] = useState([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   });
 
   useEffect(() => {
-    const fetchProduct = async (user) => {
+    const fetchProductPosting = async () => {
       if (Object.keys(user).length === 0) return;
 
       const products = [];
@@ -30,13 +31,34 @@ function ProfilePage() {
       setProducts(products);
     };
 
-    fetchProduct(user);
+    fetchProductPosting();
+  }, [user]);
+
+  useEffect(() => {
+    const fetchProductSaving = async () => {
+      if (Object.keys(user).length === 0) return;
+
+      const productsSaving = [];
+
+      for (let productId of user.saving) {
+        const productSnapshot = await getDoc(doc(db, `products/${productId}`));
+        productsSaving.push(productSnapshot.data());
+      }
+
+      setProductsSaving(productsSaving);
+    };
+
+    fetchProductSaving();
   }, [user]);
 
   return (
     <div style={{ paddingTop: "80px" }}>
       <section className="profile-section">
-        <Profile user={user} productsOfUser={products} />
+        <Profile
+          user={user}
+          productsOfUser={products}
+          productsSaving={productsSaving}
+        />
       </section>
       <Footer />
     </div>

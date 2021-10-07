@@ -9,15 +9,17 @@ import { calculateRating, calculateResponse, formatDate } from "utils/common";
 Profile.propTypes = {
   user: PropTypes.object,
   productsOfUser: PropTypes.array,
+  productsSaving: PropTypes.array,
 };
 
 Profile.defaultProps = {
   user: {},
   productsOfUser: [],
+  productsSaving: [],
 };
 
 function Profile(props) {
-  const { user, productsOfUser } = props;
+  const { user, productsOfUser, productsSaving } = props;
   const rating = calculateRating(user.rating);
   const response = calculateResponse(user.response);
   const memberFrom = formatDate(user.memberFrom);
@@ -88,6 +90,24 @@ function Profile(props) {
           <div className="profile-product__content">
             {productsOfUser ? (
               productsOfUser.map((product, index) => (
+                <ProductItem key={index} product={product} />
+              ))
+            ) : (
+              <p className="profile-product__message">
+                You have not posted product yet
+              </p>
+            )}
+          </div>
+        </div>
+
+        <div className="profile-product">
+          <h2 className="border-bottom">
+            Saving post:{" "}
+            <span>{productsSaving ? productsSaving.length : 0}</span>
+          </h2>
+          <div className="profile-product__content">
+            {productsSaving ? (
+              productsSaving.map((product, index) => (
                 <ProductItem key={index} product={product} />
               ))
             ) : (

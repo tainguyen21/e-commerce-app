@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
-import { Col, Container, Row } from "reactstrap";
+import { Button, Col, Container, Row } from "reactstrap";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { calculateRating, calculateResponse } from "utils/common";
@@ -11,11 +11,13 @@ import "./ProductDetail.scss";
 ProductDetail.propTypes = {
   product: PropTypes.object,
   user: PropTypes.object,
+  onSavePostClick: PropTypes.func,
 };
 
 ProductDetail.defaultProps = {
-  product: {},
+  product: { image: [] },
   user: {},
+  onSavePostClick: null,
 };
 
 function ProductDetail(props) {
@@ -28,12 +30,14 @@ function ProductDetail(props) {
     arrows: false,
   };
 
-  const { product, user } = props;
+  const { product, user, onSavePostClick } = props;
 
   const rating = calculateRating(user.rating);
   const response = calculateResponse(user.response);
 
-  console.log(product);
+  const handleSavePostClick = () => {
+    if (onSavePostClick) onSavePostClick();
+  };
 
   return (
     <div>
@@ -64,9 +68,9 @@ function ProductDetail(props) {
                   </p>
                 </div>
                 <div className="product-detail__right">
-                  <Link to="/">
+                  <Button onClick={handleSavePostClick}>
                     Save <i className="far fa-heart"></i>
-                  </Link>
+                  </Button>
                 </div>
               </div>
               <div className="product-detail__address">{product.address}</div>

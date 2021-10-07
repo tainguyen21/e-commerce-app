@@ -9,12 +9,19 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       return action.payload;
     },
+
+    addSavingPost: (state, action) => {
+      if (state.saving.indexOf(action.payload) === -1) {
+        state.saving.push(action.payload);
+      }
+    },
+
     addUserProduct: (state, action) => {
       state.products.push(action.payload);
     },
   },
 });
 
-export const { setUser, addUserProduct } = userSlice.actions;
+export const { setUser, addUserProduct, addSavingPost } = userSlice.actions;
 
 export default userSlice.reducer;
