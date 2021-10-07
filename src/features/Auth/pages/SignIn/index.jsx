@@ -1,6 +1,7 @@
 import { doc, getDoc, setDoc } from "@firebase/firestore";
 import Footer from "components/Footer";
 import SignInForm from "features/Auth/components/SignInForm";
+import { setUser } from "features/Auth/userSlice";
 import {
   FacebookAuthProvider,
   getAuth,
@@ -9,6 +10,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import db from "utils/db";
 import "./SignIn.scss";
@@ -21,6 +23,7 @@ const facebookProvider = new FacebookAuthProvider();
 function SignIn(props) {
   const [error, setError] = useState("");
   const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -88,8 +91,8 @@ function SignIn(props) {
             rep: 0,
             total: 0,
           },
-          following: 0,
-          follower: 0,
+          following: [],
+          follower: [],
           saving: [],
           phoneNumber: null,
           name: userCredential.user.displayName,
@@ -97,6 +100,14 @@ function SignIn(props) {
         };
 
         await setDoc(doc(db, `users/${id}`), extraInfo);
+
+        const userInfo = {
+          ...extraInfo,
+          id,
+          email: userCredential.user.email,
+        };
+
+        dispatch(setUser(userInfo));
       }
 
       history.push("/");

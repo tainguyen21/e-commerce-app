@@ -1,19 +1,72 @@
-import { doc, getDoc } from "@firebase/firestore";
+import {
+  arrayRemove,
+  arrayUnion,
+  doc,
+  getDoc,
+  updateDoc,
+} from "@firebase/firestore";
 import Footer from "components/Footer";
 import Profile from "features/Auth/components/Profile";
+import { addFollowing, removeFollowing } from "features/Auth/userSlice";
 import React, { useEffect, useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useRouteMatch } from "react-router";
 import db from "utils/db";
 
 UserPage.propTypes = {};
 
 function UserPage() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    following: [],
+    follower: [],
+    products: [],
+    saving: [],
+  });
   const match = useRouteMatch();
   const userId = match.params.id;
   const [products, setProducts] = useState([]);
   const [productsSaving, setProductsSaving] = useState([]);
-  const productsIdOfUser = useMemo(() => [], [userId]);
+  const productsIdOfUser = useMemo(() => [], []);
+  const currentUser = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const isFollowing =
+    Object.keys(currentUser).length &&
+    currentUser.following.indexOf(userId) !== -1;
+
+  const handleFollowClick = async () => {
+    if (!Object.keys(currentUser).length) {
+      alert("You must login");
+      return;
+    }
+
+    if (currentUser.id === userId) {
+      alert("You can't follow yourself");
+      return;
+    }
+
+    if (!isFollowing) {
+      await updateDoc(doc(db, `users/${currentUser.id}`), {
+        following: arrayUnion(userId),
+      });
+
+      await updateDoc(doc(db, `users/${userId}`), {
+        follower: arrayUnion(currentUser.id),
+      });
+
+      dispatch(addFollowing(userId));
+    } else {
+      await updateDoc(doc(db, `users/${currentUser.id}`), {
+        following: arrayRemove(userId),
+      });
+
+      await updateDoc(doc(db, `users/${userId}`), {
+        follower: arrayRemove(currentUser.id),
+      });
+
+      dispatch(removeFollowing(userId));
+    }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -72,6 +125,8 @@ function UserPage() {
           productsSaving={productsSaving}
           otherUser={true}
           productsIdOfUser={productsIdOfUser}
+          onFollowClick={handleFollowClick}
+          isFollowing={isFollowing}
         />
       </section>
       <Footer />

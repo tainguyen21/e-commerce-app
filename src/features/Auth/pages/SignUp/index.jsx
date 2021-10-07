@@ -1,6 +1,7 @@
 import { doc, getDoc, setDoc } from "@firebase/firestore";
 import Footer from "components/Footer";
 import SignUpForm from "features/Auth/components/SignUpForm";
+import { setUser } from "features/Auth/userSlice";
 import {
   createUserWithEmailAndPassword,
   FacebookAuthProvider,
@@ -10,6 +11,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import db from "utils/db";
 import "./SignUp.scss";
@@ -20,6 +22,8 @@ const facebookProvider = new FacebookAuthProvider();
 function SignUp(props) {
   const [error, setError] = useState("");
   const history = useHistory();
+  const dispatch = useDispatch();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   });
@@ -50,8 +54,8 @@ function SignUp(props) {
           rep: 0,
           total: 0,
         },
-        following: 0,
-        follower: 0,
+        following: [],
+        follower: [],
         saving: [],
         phoneNumber: phone,
         name: name,
@@ -63,6 +67,7 @@ function SignUp(props) {
       });
 
       await setDoc(doc(db, `users/${id}`), extraInfo);
+
       history.push("/");
     } catch (error) {
       console.log(error);
@@ -108,8 +113,8 @@ function SignUp(props) {
             rep: 0,
             total: 0,
           },
-          following: 0,
-          follower: 0,
+          following: [],
+          follower: [],
           saving: [],
           phoneNumber: null,
           name: userCredential.user.displayName,
@@ -117,6 +122,14 @@ function SignUp(props) {
         };
 
         await setDoc(doc(db, `users/${id}`), extraInfo);
+
+        const userInfo = {
+          ...extraInfo,
+          id,
+          email: userCredential.user.email,
+        };
+
+        dispatch(setUser(userInfo));
       }
 
       history.push("/");

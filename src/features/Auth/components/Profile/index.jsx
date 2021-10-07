@@ -12,19 +12,33 @@ Profile.propTypes = {
   productsSaving: PropTypes.array,
   otherUser: PropTypes.bool,
   productsIdOfUser: PropTypes.array,
+  onFollowClick: PropTypes.func,
+  isFollowing: PropTypes.bool,
 };
 
 Profile.defaultProps = {
-  user: {},
+  user: {
+    following: [],
+    follower: [],
+  },
   productsOfUser: [],
   productsSaving: [],
   otherUser: false,
   productsIdOfUser: [],
+  onFollowClick: null,
+  isFollowing: false,
 };
 
 function Profile(props) {
-  const { user, productsOfUser, productsSaving, otherUser, productsIdOfUser } =
-    props;
+  const {
+    user,
+    productsOfUser,
+    productsSaving,
+    otherUser,
+    productsIdOfUser,
+    onFollowClick,
+    isFollowing,
+  } = props;
   const rating = calculateRating(user.rating);
   const response = calculateResponse(user.response);
   const memberFrom = formatDate(user.memberFrom);
@@ -45,14 +59,16 @@ function Profile(props) {
                   <h3 className="profile__name">{user.name}</h3>
                   <div className="profile__follow">
                     <div className="profile__follower">
-                      <span>{user.follower}</span> Follower
+                      <span>{user.follower.length + isFollowing}</span> Follower
                     </div>
                     <div className="profile__following">
-                      <span>{user.following}</span> Following
+                      <span>{user.following.length}</span> Following
                     </div>
                   </div>
                   {otherUser ? (
-                    <Button className="profile__update">Follow</Button>
+                    <span onClick={onFollowClick} className="profile__update">
+                      {isFollowing ? "Unfollow" : "Follow"}
+                    </span>
                   ) : (
                     <Link to="/" className="profile__update">
                       Update profile

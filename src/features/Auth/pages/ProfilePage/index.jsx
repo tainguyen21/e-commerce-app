@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import "./ProfilePage.scss";
 import db from "utils/db";
+import { Redirect } from "react-router";
 
 ProfilePage.propTypes = {};
 
@@ -12,10 +13,6 @@ function ProfilePage() {
   const user = useSelector((state) => state.user);
   const [products, setProducts] = useState([]);
   const [productsSaving, setProductsSaving] = useState([]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  });
 
   useEffect(() => {
     const fetchProductPosting = async () => {
@@ -50,6 +47,8 @@ function ProfilePage() {
 
     fetchProductSaving();
   }, [user]);
+
+  if (Object.keys(user).length === 0) return <Redirect to="" />;
 
   return (
     <div style={{ paddingTop: "80px" }}>
