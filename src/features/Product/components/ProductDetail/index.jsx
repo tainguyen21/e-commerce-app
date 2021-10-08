@@ -12,12 +12,14 @@ ProductDetail.propTypes = {
   product: PropTypes.object,
   user: PropTypes.object,
   onSavePostClick: PropTypes.func,
+  hasSaved: PropTypes.bool,
 };
 
 ProductDetail.defaultProps = {
   product: { image: [] },
   user: {},
   onSavePostClick: null,
+  hasSaved: false,
 };
 
 function ProductDetail(props) {
@@ -30,7 +32,7 @@ function ProductDetail(props) {
     arrows: false,
   };
 
-  const { product, user, onSavePostClick } = props;
+  const { product, user, onSavePostClick, hasSaved } = props;
 
   const rating = calculateRating(user.rating);
   const response = calculateResponse(user.response);
@@ -69,7 +71,8 @@ function ProductDetail(props) {
                 </div>
                 <div className="product-detail__right">
                   <Button onClick={handleSavePostClick}>
-                    Save <i className="far fa-heart"></i>
+                    {hasSaved ? "Unsave" : "Save"}{" "}
+                    <i className="far fa-heart"></i>
                   </Button>
                 </div>
               </div>

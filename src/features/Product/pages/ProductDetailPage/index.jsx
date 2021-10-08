@@ -1,6 +1,12 @@
-import { arrayUnion, doc, getDoc, updateDoc } from "@firebase/firestore";
+import {
+  arrayRemove,
+  arrayUnion,
+  doc,
+  getDoc,
+  updateDoc,
+} from "@firebase/firestore";
 import Footer from "components/Footer";
-import { addSavingPost } from "features/Auth/userSlice";
+import { addSavingPost, removeSavingPost } from "features/Auth/userSlice";
 import ProductDetail from "features/Product/components/ProductDetail";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -19,8 +25,21 @@ function ProductDetailPage(props) {
   });
   const [user, setUser] = useState({});
   const dispatch = useDispatch();
+  const hasSaved =
+    Object.keys(currentUser).length !== 0
+      ? currentUser.saving.indexOf(id) !== -1
+      : false;
 
   const handleSavePostClick = async () => {
+    if (hasSaved) {
+      dispatch(removeSavingPost(id));
+
+      await updateDoc(doc(db, `users/${currentUser.id}`), {
+        saving: arrayRemove(id),
+      });
+      return;
+    }
+
     if (Object.keys(currentUser).length) {
       if (currentUser.id === product.userId) {
         alert("Can't save your post");
@@ -31,8 +50,6 @@ function ProductDetailPage(props) {
       await updateDoc(doc(db, `users/${currentUser.id}`), {
         saving: arrayUnion(id),
       });
-
-      alert("Save success");
     } else {
       alert("You must login");
     }
@@ -54,6 +71,8 @@ function ProductDetailPage(props) {
     window.scrollTo(0, 0);
   }, [id]);
 
+  console.log(hasSaved);
+
   return (
     <div style={{ paddingTop: "80px" }}>
       <div className="product-detail-section">
@@ -61,6 +80,7 @@ function ProductDetailPage(props) {
           product={product}
           user={user}
           onSavePostClick={handleSavePostClick}
+          hasSaved={hasSaved}
         />
       </div>
       <Footer />
