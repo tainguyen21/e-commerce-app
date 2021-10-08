@@ -45,6 +45,12 @@
     font-size: 1.4rem;
     color: $gray-text-color;
     line-height: 1.6;
+
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
   }
 
   &__review {
