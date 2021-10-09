@@ -15,6 +15,7 @@ import { Redirect } from "react-router";
 import { useDispatch } from "react-redux";
 import { removeProduct } from "features/Product/productsSlice";
 import { removeProductOfUser } from "features/Auth/userSlice";
+import { deleteImagesOfProduct } from "utils/storage";
 
 ProfilePage.propTypes = {};
 
@@ -68,6 +69,7 @@ function ProfilePage() {
     if (window.confirm("Do you want to delete this product?")) {
       dispatch(removeProduct(id));
       dispatch(removeProductOfUser(id));
+      await deleteImagesOfProduct(user.id, id);
       await deleteDoc(doc(db, `products/${id}`));
       await updateDoc(doc(db, `users/${user.id}`), {
         products: arrayRemove(id),

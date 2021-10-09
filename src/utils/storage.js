@@ -1,5 +1,13 @@
 import { app } from "utils/firebase";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
+import { doc, getDoc } from "@firebase/firestore";
+import db from "./db";
 
 const storage = getStorage(app);
 
@@ -16,4 +24,12 @@ export const uploadImagesToStorage = async (images, userId, docId) => {
   }
 
   return imagesUrl;
+};
+
+export const deleteImagesOfProduct = async (userId, productId) => {
+  const productSnapshot = await getDoc(doc(db, `products/${productId}`));
+  const numberImages = productSnapshot.data().image.length;
+  for (let i = 0; i < numberImages; i++) {
+    await deleteObject(ref(storage, `products/${userId}/${productId}/${i}`));
+  }
 };
