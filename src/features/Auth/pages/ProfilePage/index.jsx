@@ -49,7 +49,13 @@ function ProfilePage() {
 
       for (let productId of user.saving) {
         const productSnapshot = await getDoc(doc(db, `products/${productId}`));
-        productsSaving.push(productSnapshot.data());
+        if (!productSnapshot.data()) {
+          await updateDoc(doc(db, `users/${user.id}`), {
+            saving: arrayRemove(productId),
+          });
+        } else {
+          productsSaving.push(productSnapshot.data());
+        }
       }
 
       setProductsSaving(productsSaving);
@@ -68,6 +74,8 @@ function ProfilePage() {
       });
     }
   };
+
+  console.log(productsSaving);
 
   if (Object.keys(user).length === 0) return <Redirect to="/" />;
 

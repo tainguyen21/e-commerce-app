@@ -92,10 +92,10 @@ function Profile(props) {
                   <i className="fas fa-calendar-week"></i> Member from:{" "}
                   <span>{memberFrom}</span>
                 </div>
-                <div className="profile-other">
+                {/* <div className="profile-other">
                   <i className="fas fa-map-marker-alt"></i> Address:{" "}
                   <span>{user.address ? user.address : "Not update"}</span>
-                </div>
+                </div> */}
                 <div className="profile-other">
                   <i className="far fa-comments"></i> Response:{" "}
                   <span>
