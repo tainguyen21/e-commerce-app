@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
@@ -17,14 +17,16 @@ import { options } from "constants/product";
 
 AddProductForm.propTypes = {
   onSubmit: PropTypes.func,
+  product: PropTypes.object,
 };
 
 AddProductForm.defaultProps = {
   obSubmit: () => {},
+  product: {},
 };
 
 const schema = yup.object({
-  type: yup.object().required("123"),
+  type: yup.object().required(""),
   name: yup.string().required("This field is required"),
   address: yup.string().required("This field is required"),
   description: yup.string().required("This field is required"),
@@ -32,17 +34,18 @@ const schema = yup.object({
 });
 
 function AddProductForm(props) {
+  const { onSubmit, product } = props;
+
   const {
     register,
     control,
     handleSubmit,
     setError,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
-
-  const { onSubmit } = props;
 
   const name = register("name");
   const description = register("description");
@@ -67,6 +70,24 @@ function AddProductForm(props) {
     onSubmit(data);
   };
 
+  useEffect(() => {
+    if (Object.keys(product).length) {
+      const optionIndex = options.findIndex(
+        (option) => option.value === product.type
+      );
+
+      setValue("type", {
+        label: options[optionIndex].label,
+        value: product.type,
+      });
+
+      setValue("name", product.name);
+      setValue("description", product.description);
+      setValue("address", product.address);
+      setValue("price", product.price);
+    }
+  }, [product]);
+
   return (
     <div className="signin-form">
       <h2 className="signin-form__heading">
@@ -81,7 +102,6 @@ function AddProductForm(props) {
             id="type"
             name="type"
             control={control}
-            defaultValue=""
             render={({ field }) => (
               <Select {...field} options={options} id="type" />
             )}
@@ -143,7 +163,7 @@ function AddProductForm(props) {
             type="file"
             multiple
             style={{ padding: "6px 0" }}
-            required
+            required={Object.keys(product).length ? false : true}
           />
           <FormFeedback>{errors.image && errors.image.message}</FormFeedback>
         </FormGroup>
@@ -190,7 +210,7 @@ function AddProductForm(props) {
           {isSubmitting && (
             <Spinner color="light" style={{ marginRight: "12px" }} />
           )}
-          Add
+          {Object.keys(product).length ? "Update" : "Add"}
         </Button>
       </Form>
     </div>

@@ -49,7 +49,12 @@ function ProductItem(props) {
         </div>
       ) : (
         <div className="product-item__right">
-          <span className="button button--red update">Update</span>
+          <Link
+            to={`/products/update/${productId}`}
+            className="button button--red update"
+          >
+            Update
+          </Link>
           <span
             className="button button--red"
             onClick={() => onDeleteClick(productId)}
