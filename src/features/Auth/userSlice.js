@@ -36,6 +36,14 @@ export const userSlice = createSlice({
       }
     },
 
+    removeProductOfUser: (state, action) => {
+      const index = state.products.indexOf(action.payload);
+
+      if (index !== -1) {
+        state.products.splice(index, 1);
+      }
+    },
+
     updateUser: (state, action) => {
       return {
         ...state,
@@ -57,6 +65,7 @@ export const {
   removeFollowing,
   updateUser,
   removeSavingPost,
+  removeProductOfUser,
 } = userSlice.actions;
 
 export default userSlice.reducer;

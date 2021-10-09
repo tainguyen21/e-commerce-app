@@ -15,6 +15,7 @@ Profile.propTypes = {
   onFollowClick: PropTypes.func,
   isFollowing: PropTypes.bool,
   followingTemp: PropTypes.number,
+  onDeleteClick: PropTypes.func,
 };
 
 Profile.defaultProps = {
@@ -29,6 +30,7 @@ Profile.defaultProps = {
   onFollowClick: null,
   isFollowing: false,
   followingTemp: 0,
+  onDeleteClick: null,
 };
 
 function Profile(props) {
@@ -37,10 +39,10 @@ function Profile(props) {
     productsOfUser,
     productsSaving,
     otherUser,
-    productsIdOfUser,
     onFollowClick,
     isFollowing,
     followingTemp,
+    onDeleteClick,
   } = props;
   const rating = calculateRating(user.rating);
   const response = calculateResponse(user.response);
@@ -133,7 +135,8 @@ function Profile(props) {
                   key={index}
                   product={product}
                   otherUser={otherUser}
-                  productId={productsIdOfUser[index]}
+                  productId={user.products[index]}
+                  onDeleteClick={onDeleteClick}
                 />
               ))
             ) : (

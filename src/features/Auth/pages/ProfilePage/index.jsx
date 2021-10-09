@@ -1,4 +1,10 @@
-import { doc, getDoc } from "@firebase/firestore";
+import {
+  arrayRemove,
+  deleteDoc,
+  doc,
+  getDoc,
+  updateDoc,
+} from "@firebase/firestore";
 import Footer from "components/Footer";
 import Profile from "features/Auth/components/Profile";
 import React, { useEffect, useState } from "react";
@@ -6,6 +12,9 @@ import { useSelector } from "react-redux";
 import "./ProfilePage.scss";
 import db from "utils/db";
 import { Redirect } from "react-router";
+import { useDispatch } from "react-redux";
+import { removeProduct } from "features/Product/productsSlice";
+import { removeProductOfUser } from "features/Auth/userSlice";
 
 ProfilePage.propTypes = {};
 
@@ -13,19 +22,20 @@ function ProfilePage() {
   const user = useSelector((state) => state.user);
   const [products, setProducts] = useState([]);
   const [productsSaving, setProductsSaving] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProductPosting = async () => {
       if (Object.keys(user).length === 0) return;
 
-      const products = [];
+      const productsDB = [];
 
       for (let productId of user.products) {
         const productSnapshot = await getDoc(doc(db, `products/${productId}`));
-        products.push(productSnapshot.data());
+        productsDB.push(productSnapshot.data());
       }
 
-      setProducts(products);
+      setProducts(productsDB);
     };
 
     fetchProductPosting();
@@ -48,7 +58,18 @@ function ProfilePage() {
     fetchProductSaving();
   }, [user]);
 
-  if (Object.keys(user).length === 0) return <Redirect to="" />;
+  const handleDeleteClick = async (id) => {
+    if (window.confirm("Do you want to delete this product?")) {
+      dispatch(removeProduct(id));
+      dispatch(removeProductOfUser(id));
+      await deleteDoc(doc(db, `products/${id}`));
+      await updateDoc(doc(db, `users/${user.id}`), {
+        products: arrayRemove(id),
+      });
+    }
+  };
+
+  if (Object.keys(user).length === 0) return <Redirect to="/" />;
 
   return (
     <div style={{ paddingTop: "80px" }}>
@@ -57,6 +78,7 @@ function ProfilePage() {
           user={user}
           productsOfUser={products}
           productsSaving={productsSaving}
+          onDeleteClick={handleDeleteClick}
         />
       </section>
       <Footer />

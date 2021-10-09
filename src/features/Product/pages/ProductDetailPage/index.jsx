@@ -71,8 +71,6 @@ function ProductDetailPage(props) {
     window.scrollTo(0, 0);
   }, [id]);
 
-  console.log(hasSaved);
-
   return (
     <div style={{ paddingTop: "80px" }}>
       <div className="product-detail-section">

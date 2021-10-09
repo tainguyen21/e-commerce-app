@@ -29,9 +29,9 @@ function UserPage() {
   const [productsIdOfUser, setProductsIdOfUser] = useState([]);
   const currentUser = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const isFollowing =
-    Object.keys(currentUser).length &&
-    currentUser.following.indexOf(userId) !== -1;
+  const isFollowing = Object.keys(currentUser).length
+    ? currentUser.following.indexOf(userId) !== -1
+    : false;
   let [followingTemp, setFollowingTemp] = useState(0);
 
   const handleFollowClick = async () => {
@@ -64,15 +64,12 @@ function UserPage() {
       await updateDoc(doc(db, `users/${userId}`), {
         follower: arrayRemove(currentUser.id),
       });
+
       setFollowingTemp(0);
 
       dispatch(removeFollowing(userId));
     }
   };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  });
 
   useEffect(() => {
     const fetchUserInfo = async () => {

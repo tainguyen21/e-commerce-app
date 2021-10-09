@@ -28,7 +28,7 @@ function MainPage(props) {
         <Container>
           <div className="lastest-product-section__heading border-bottom">
             <h3>Lastest Product</h3>
-            <Link to="/">View all products</Link>
+            <Link to="/products">View all products</Link>
           </div>
         </Container>
         <ProductList products={products} />

@@ -7,16 +7,18 @@ ProductItem.propTypes = {
   product: PropTypes.object,
   otherUser: PropTypes.bool,
   productId: PropTypes.string,
+  onDeleteClick: PropTypes.func,
 };
 
 ProductItem.defaultProps = {
   product: {},
   otherUser: false,
   productId: null,
+  onDeleteClick: null,
 };
 
 function ProductItem(props) {
-  const { product, otherUser, productId } = props;
+  const { product, otherUser, productId, onDeleteClick } = props;
 
   return (
     <div className="product-item">
@@ -47,12 +49,13 @@ function ProductItem(props) {
         </div>
       ) : (
         <div className="product-item__right">
-          <Link to="/" className="button button--red update">
-            Update
-          </Link>
-          <Link to="/" className="button button--red">
+          <span className="button button--red update">Update</span>
+          <span
+            className="button button--red"
+            onClick={() => onDeleteClick(productId)}
+          >
             Delete
-          </Link>
+          </span>
         </div>
       )}
     </div>

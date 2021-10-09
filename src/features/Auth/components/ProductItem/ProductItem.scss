@@ -53,11 +53,13 @@
   }
 
   &__right {
+    span,
     a {
       text-decoration: none;
       color: $white-color;
 
       transition: all 0.25s linear;
+      cursor: pointer;
 
       &.update {
         background-color: #6d6dfb;
