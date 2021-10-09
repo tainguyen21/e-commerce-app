@@ -149,7 +149,9 @@ function AddProductForm(props) {
             for="image"
             style={{ display: "block" }}
           >
-            Image
+            {Object.keys(product).length
+              ? "Image (new images will replace all old images)"
+              : "Image"}
           </Label>
           <Input
             id="image"

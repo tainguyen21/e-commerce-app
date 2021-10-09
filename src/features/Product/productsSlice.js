@@ -41,6 +41,13 @@ export const productsSlice = createSlice({
 
       return filteredProduct;
     },
+
+    updateProduct: (state, action) => {
+      return {
+        ...state,
+        ...action.payload,
+      };
+    },
   },
   extraReducers: {
     [fetchProducts.fulfilled]: (state, action) => {
@@ -49,6 +56,7 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { addProduct, removeProduct } = productsSlice.actions;
+export const { addProduct, removeProduct, updateProduct } =
+  productsSlice.actions;
 
 export default productsSlice.reducer;

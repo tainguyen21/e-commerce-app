@@ -21,9 +21,11 @@
   &__info {
     margin-left: 32px;
 
-    h3 {
+    a {
       font-size: 1.8rem;
       font-weight: 500;
+      text-decoration: none;
+      color: $red-color;
     }
 
     p {

@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useRouteMatch } from "react-router";
-import { doc, getDoc } from "@firebase/firestore";
+import { useHistory, useRouteMatch } from "react-router";
+import { doc, getDoc, updateDoc } from "@firebase/firestore";
 import db from "utils/db";
 import "./UpdateProductPage.scss";
 import Footer from "components/Footer";
 import AddProductForm from "features/Product/components/AddProductForm";
+import { useDispatch } from "react-redux";
+import { converFileListToArray } from "utils/common";
+import { uploadImagesToStorage } from "utils/storage";
+import { updateProduct } from "features/Product/productsSlice";
 
 UpdateProductPage.propTypes = {};
 
@@ -13,6 +17,8 @@ function UpdateProductPage(props) {
   const match = useRouteMatch();
   const productId = match.params.id;
   const [product, setProduct] = useState({});
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -23,8 +29,42 @@ function UpdateProductPage(props) {
     fetchProduct();
   }, [productId]);
 
-  const onSubmit = (data) => {
-    console.log("Form data: ", data);
+  const onSubmit = async (data) => {
+    const changedValue = {};
+
+    for (let key in data) {
+      switch (key) {
+        case "image":
+          if (data[key].length) {
+            changedValue[key] = data[key];
+          }
+          break;
+
+        case "type":
+          if (product.type !== data.type.value)
+            changedValue[key] = data[key].value;
+          break;
+        default:
+          if (product[key] !== data[key]) changedValue[key] = data[key];
+          break;
+      }
+    }
+
+    if (changedValue.image) {
+      console.log("x");
+      const images = converFileListToArray(data.image);
+      const imagesUrl = await uploadImagesToStorage(
+        images,
+        product.userId,
+        productId
+      );
+      changedValue["image"] = imagesUrl;
+    }
+
+    console.log("Change value: ", changedValue);
+    dispatch(updateProduct(changedValue));
+    await updateDoc(doc(db, `products/${productId}`), changedValue);
+    history.push("/profile");
   };
 
   return (
