@@ -31,7 +31,9 @@ function MainPage(props) {
             <Link to="/products">View all products</Link>
           </div>
         </Container>
-        <ProductList products={products} />
+        <Container>
+          <ProductList products={products} />
+        </Container>
       </section>
 
       <section className="info-section">

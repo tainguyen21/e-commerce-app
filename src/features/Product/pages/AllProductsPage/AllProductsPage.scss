@@ -29,3 +29,13 @@
     }
   }
 }
+
+.product-list {
+  max-height: calc(388px * 3);
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  scroll-behavior: smooth;
+}
