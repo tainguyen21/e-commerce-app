@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, { useEffect } from "react";
-import { Col, Container, Row } from "reactstrap";
+import { Col, Row } from "reactstrap";
 import ProductCard from "../ProductCard";
 import "./ProductList.scss";
 
@@ -30,7 +30,7 @@ function ProductList(props) {
 
       component.addEventListener("scroll", handleScroll);
     }
-  }, []);
+  }, [fetchMoreProduct]);
 
   return (
     <div className="product-list">

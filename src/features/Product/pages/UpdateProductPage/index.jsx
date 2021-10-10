@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { useHistory, useRouteMatch } from "react-router";
 import { doc, getDoc, updateDoc } from "@firebase/firestore";
-import db from "utils/db";
-import "./UpdateProductPage.scss";
 import Footer from "components/Footer";
 import AddProductForm from "features/Product/components/AddProductForm";
-import { useDispatch } from "react-redux";
-import { converFileListToArray } from "utils/common";
-import { uploadImagesToStorage } from "utils/storage";
 import { updateProduct } from "features/Product/productsSlice";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory, useRouteMatch } from "react-router";
+import { converFileListToArray } from "utils/common";
+import db from "utils/db";
+import { uploadImagesToStorage } from "utils/storage";
+import "./UpdateProductPage.scss";
 
 UpdateProductPage.propTypes = {};
 

@@ -23,7 +23,7 @@ function AllProductsPage(props) {
   }, []);
 
   const [, setAllProductsTemp] = useState([]);
-  const [, setTypeTemp] = useState("all");
+  const [typeTemp, setTypeTemp] = useState("all");
   const type = useRef("all");
   const allProducts = useRef([]);
   const hasProduct = useRef(true);
@@ -45,7 +45,7 @@ function AllProductsPage(props) {
       const q = query(
         collection(db, "products"),
         startAfter(lastProduct.current),
-        limit(12)
+        limit(9)
       );
       const productsSnapshot = await getDocs(q);
 
@@ -68,7 +68,7 @@ function AllProductsPage(props) {
         collection(db, "products"),
         where("type", "==", type),
         startAfter(lastProduct.current),
-        limit(12)
+        limit(9)
       );
       const productsSnapshot = await getDocs(q);
 
@@ -98,7 +98,7 @@ function AllProductsPage(props) {
       const products = [];
 
       if (type.current === "all") {
-        const q = query(collection(db, "products"), limit(12));
+        const q = query(collection(db, "products"), limit(9));
         const productsSnapshot = await getDocs(q);
 
         productsSnapshot.forEach((product) =>
@@ -114,7 +114,7 @@ function AllProductsPage(props) {
         const q = query(
           collection(db, "products"),
           where("type", "==", type.current),
-          limit(12)
+          limit(9)
         );
         const productsSnapshot = await getDocs(q);
 
@@ -134,7 +134,7 @@ function AllProductsPage(props) {
     };
 
     fetchProduct();
-  }, [type.current]);
+  }, [typeTemp]);
 
   return (
     <div style={{ paddingTop: "80px" }}>

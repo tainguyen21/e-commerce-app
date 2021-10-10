@@ -86,7 +86,7 @@ function AddProductForm(props) {
       setValue("address", product.address);
       setValue("price", product.price);
     }
-  }, [product]);
+  }, [product, setValue]);
 
   return (
     <div className="signin-form">
