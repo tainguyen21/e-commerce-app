@@ -29,7 +29,7 @@ function ProductItem(props) {
           alt="product"
         />
         <div className="product-item__info">
-          <Link to={`products/${productId}`}>{product.name}</Link>
+          <Link to={`/products/${productId}`}>{product.name}</Link>
           <p>{product.description}</p>
           <span>{product.address}</span>
         </div>

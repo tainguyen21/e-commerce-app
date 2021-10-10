@@ -1,5 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  limit,
+  query,
+} from "firebase/firestore";
 
 const db = getFirestore();
 
@@ -8,8 +14,9 @@ const initialState = [];
 export const fetchProducts = createAsyncThunk(
   "products/featchProducts",
   async (params, thunkAPI) => {
-    const productsRef = await collection(db, "products");
-    const productsSnapShot = await getDocs(productsRef);
+    const productsRef = collection(db, "products");
+    const q = query(productsRef, limit(9));
+    const productsSnapShot = await getDocs(q);
     const products = [];
 
     productsSnapShot.forEach((product) => {

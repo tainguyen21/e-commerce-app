@@ -20,9 +20,7 @@ function ProductDetailPage(props) {
   const match = useRouteMatch();
   const currentUser = useSelector((state) => state.user);
   const id = match.params.id;
-  const product = useSelector((state) => {
-    return state.products.find((product) => product.id === id);
-  });
+  const [product, setProduct] = useState({ image: [] });
   const [user, setUser] = useState({});
   const dispatch = useDispatch();
   const hasSaved =
@@ -54,6 +52,15 @@ function ProductDetailPage(props) {
       alert("You must login");
     }
   };
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const productSnapshot = await getDoc(doc(db, `products/${id}`));
+      setProduct(productSnapshot.data());
+    };
+
+    fetchProduct();
+  }, [id]);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
