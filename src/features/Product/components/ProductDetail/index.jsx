@@ -13,6 +13,7 @@ ProductDetail.propTypes = {
   user: PropTypes.object,
   onSavePostClick: PropTypes.func,
   hasSaved: PropTypes.bool,
+  onChatClick: PropTypes.func,
 };
 
 ProductDetail.defaultProps = {
@@ -20,6 +21,7 @@ ProductDetail.defaultProps = {
   user: {},
   onSavePostClick: null,
   hasSaved: false,
+  onChatClick: null,
 };
 
 function ProductDetail(props) {
@@ -32,7 +34,7 @@ function ProductDetail(props) {
     arrows: false,
   };
 
-  const { product, user, onSavePostClick, hasSaved } = props;
+  const { product, user, onSavePostClick, hasSaved, onChatClick } = props;
 
   const rating = calculateRating(user.rating);
   const response = calculateResponse(user.response);
@@ -113,10 +115,13 @@ function ProductDetail(props) {
                       ? user.phoneNumber
                       : "Don't have phone number"}
                   </div>
-                  <Link to="/chat" className="product-detail-user__chat">
+                  <div
+                    onClick={() => onChatClick(product.userId)}
+                    className="product-detail-user__chat"
+                  >
                     <i className="far fa-comments"></i>
                     Chat with seller
-                  </Link>
+                  </div>
                 </div>
               </div>
             </Col>

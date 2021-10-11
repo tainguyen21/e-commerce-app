@@ -1,20 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Col, Form, Input, Row } from "reactstrap";
+import { Col, Form, Input, Row, Spinner } from "reactstrap";
 import "./ChatForm.scss";
 import { useForm } from "react-hook-form";
 
 ChatForm.propTypes = {
   onSubmit: PropTypes.func,
+  allUsers: PropTypes.array,
+  messages: PropTypes.array,
+  activeUser: PropTypes.string,
+  isLoading: PropTypes.bool,
+  onUserClick: PropTypes.func,
 };
 
 ChatForm.defaultProps = {
   onSubmit: null,
+  allUsers: null,
+  messages: null,
+  activeUser: null,
+  isLoading: true,
+  onUserClick: null,
 };
 
 function ChatForm(props) {
   const { register, handleSubmit, setValue } = useForm();
-  const { onSubmit } = props;
+  const { onSubmit, allUsers, messages, activeUser, isLoading, onUserClick } =
+    props;
 
   const submitForm = (data) => {
     if (onSubmit) {
@@ -29,23 +40,56 @@ function ChatForm(props) {
     <div className="chat-form">
       <Row>
         <Col lg="4">
-          <ul className="chat-form__user-list">
-            <li className="chat-form__user-item">
-              <img
-                src="https://images.unsplash.com/photo-1633114128174-2f8aa49759b0?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80"
-                alt="user"
-                className="chat-form__user-avatar"
-              />
-              <span className="chat-form__user-name">Ryannnn</span>
-            </li>
-          </ul>
+          {isLoading ? (
+            <div className="chat-form__user-loading-container">
+              <Spinner className="chat-form__user-loading" />
+            </div>
+          ) : (
+            <ul className="chat-form__user-list">
+              {allUsers.length ? (
+                allUsers.map((user, index) => (
+                  <li
+                    className={`chat-form__user-item ${
+                      activeUser === user.id ? "active" : ""
+                    }`}
+                    key={index}
+                    onClick={() => onUserClick(user.id)}
+                  >
+                    <img
+                      src="https://images.unsplash.com/photo-1633114128174-2f8aa49759b0?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80"
+                      alt="user"
+                      className="chat-form__user-avatar"
+                    />
+                    <span className="chat-form__user-name">{user.name}</span>
+                  </li>
+                ))
+              ) : (
+                <div>Dont' have message</div>
+              )}
+            </ul>
+          )}
         </Col>
         <Col lg="8">
           <div className="chat-form__right">
-            <ul className="chat-form-message">
-              <li className="chat-form-message__item">Hello guys</li>
-              <li className="chat-form-message__item other">Hello guys</li>
-            </ul>
+            {isLoading ? (
+              <div className="chat-form__user-loading-container">
+                <Spinner className="chat-form__user-loading" />
+              </div>
+            ) : (
+              <ul className="chat-form-message">
+                {messages.map((item, index) => (
+                  <li
+                    className={`chat-form-message__item ${
+                      item.other ? "" : "right"
+                    }`}
+                    key={index}
+                  >
+                    {item.message}
+                  </li>
+                ))}
+              </ul>
+            )}
+
             <Form
               className="chat-form__main"
               onSubmit={handleSubmit(submitForm)}

@@ -34,7 +34,7 @@ function SignIn(props) {
       const auth = getAuth();
       const { email, password } = data;
 
-      signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password);
 
       history.push("/");
     } catch (error) {

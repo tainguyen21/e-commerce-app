@@ -48,8 +48,13 @@ const routes = [
     component: () => <ProfilePage />,
   },
   {
+    exact: true,
+    route: ["/chat"],
+    component: () => <ChatPage />,
+  },
+  {
     exact: false,
-    route: "/chat",
+    route: ["/chat/:id"],
     component: () => <ChatPage />,
   },
   {

@@ -9,6 +9,11 @@
   &__user-list {
     list-style: none;
     padding-right: 48px;
+
+    div {
+      text-align: center;
+      margin-top: 32px;
+    }
   }
 
   &__user-item {
@@ -25,9 +30,21 @@
       background-color: $gray-color;
     }
 
+    &:not(:first-child) {
+      margin-top: 24px;
+    }
+
     &.active {
       background-color: $gray-color;
     }
+  }
+
+  &__user-loading {
+    &-container {
+      text-align: center;
+    }
+
+    margin-top: 32px;
   }
 
   &__user-avatar {
@@ -62,7 +79,7 @@
         margin-top: 12px;
       }
 
-      &.other {
+      &.right {
         margin-left: auto;
       }
     }

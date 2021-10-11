@@ -11,13 +11,14 @@ import ProductDetail from "features/Product/components/ProductDetail";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { useRouteMatch } from "react-router";
+import { useHistory, useLocation, useRouteMatch } from "react-router";
 import db from "utils/db";
 
 ProductDetailPage.propTypes = {};
 
 function ProductDetailPage(props) {
   const match = useRouteMatch();
+  const history = useHistory();
   const currentUser = useSelector((state) => state.user);
   const id = match.params.id;
   const [product, setProduct] = useState({ image: [] });
@@ -54,6 +55,14 @@ function ProductDetailPage(props) {
     }
   };
 
+  const handleChatClick = (id) => {
+    if (currentUser.id === id) {
+      window.alert("Can't chat with yourself");
+    } else {
+      history.push(`/chat/${id}`);
+    }
+  };
+
   useEffect(() => {
     const fetchProduct = async () => {
       const productSnapshot = await getDoc(doc(db, `products/${id}`));
@@ -82,6 +91,7 @@ function ProductDetailPage(props) {
           user={user}
           onSavePostClick={handleSavePostClick}
           hasSaved={hasSaved}
+          onChatClick={handleChatClick}
         />
       </div>
       <Footer />
