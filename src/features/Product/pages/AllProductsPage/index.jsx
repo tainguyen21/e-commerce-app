@@ -2,7 +2,7 @@ import Banner from "components/Banner";
 import Footer from "components/Footer";
 import ProductList from "features/Product/components/ProductList";
 import React, { useEffect, useRef, useState } from "react";
-import { Container } from "reactstrap";
+import { Container, Spinner } from "reactstrap";
 import "./AllProductsPage.scss";
 import { options } from "constants/product";
 import {
@@ -28,6 +28,7 @@ function AllProductsPage(props) {
   const allProducts = useRef([]);
   const hasProduct = useRef(true);
   const lastProduct = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
   const optionTypes = [
     {
       label: "All",
@@ -38,6 +39,8 @@ function AllProductsPage(props) {
 
   const fetchMoreProduct = async () => {
     if (!hasProduct.current) return;
+
+    setIsLoading(true);
 
     const products = [];
 
@@ -89,6 +92,7 @@ function AllProductsPage(props) {
     }
 
     allProducts.current = [...allProducts.current, ...products];
+    setIsLoading(false);
     setAllProductsTemp(products);
   };
 
@@ -96,6 +100,7 @@ function AllProductsPage(props) {
     hasProduct.current = true;
     const fetchProduct = async () => {
       const products = [];
+      setIsLoading(true);
 
       if (type.current === "all") {
         const q = query(collection(db, "products"), limit(9));
@@ -130,9 +135,9 @@ function AllProductsPage(props) {
       }
 
       allProducts.current = products;
+      setIsLoading(false);
       setAllProductsTemp(products);
     };
-
     fetchProduct();
   }, [typeTemp]);
 
@@ -165,6 +170,12 @@ function AllProductsPage(props) {
             products={allProducts.current}
             fetchMoreProduct={fetchMoreProduct}
           />
+          <div
+            className="products-loading"
+            style={isLoading ? { display: "flex" } : { display: "none" }}
+          >
+            <Spinner /> <span>Loading</span>
+          </div>
         </Container>
       </section>
       <Footer />
