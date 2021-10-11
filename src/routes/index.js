@@ -9,6 +9,7 @@ import ProfilePage from "features/Auth/pages/ProfilePage";
 import NotFound from "components/NotFound";
 import UserPage from "features/Auth/pages/UserPage";
 import UpdateProfile from "features/Auth/pages/UpdateProfile";
+import ChatPage from "features/Chat/pages/MainPage";
 
 const routes = [
   {
@@ -45,6 +46,11 @@ const routes = [
     exact: true,
     route: "/profile",
     component: () => <ProfilePage />,
+  },
+  {
+    exact: false,
+    route: "/chat",
+    component: () => <ChatPage />,
   },
   {
     exact: false,

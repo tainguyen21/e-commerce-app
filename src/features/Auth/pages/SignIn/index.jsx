@@ -97,6 +97,7 @@ function SignIn(props) {
           phoneNumber: null,
           name: userCredential.user.displayName,
           memberFrom: createAtDate.toLocaleString().split(",")[0],
+          messages: {},
         };
 
         await setDoc(doc(db, `users/${id}`), extraInfo);

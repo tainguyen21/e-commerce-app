@@ -113,10 +113,10 @@ function ProductDetail(props) {
                       ? user.phoneNumber
                       : "Don't have phone number"}
                   </div>
-                  <div className="product-detail-user__chat">
+                  <Link to="/chat" className="product-detail-user__chat">
                     <i className="far fa-comments"></i>
                     Chat with seller
-                  </div>
+                  </Link>
                 </div>
               </div>
             </Col>

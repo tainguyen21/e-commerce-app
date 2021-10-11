@@ -60,6 +60,7 @@ function SignUp(props) {
         phoneNumber: phone,
         name: name,
         memberFrom: createAtDate.toLocaleString().split(",")[0],
+        messages: {},
       };
 
       updateProfile(userCredential.user.auth.currentUser, {
@@ -119,6 +120,7 @@ function SignUp(props) {
           phoneNumber: null,
           name: userCredential.user.displayName,
           memberFrom: createAtDate.toLocaleString().split(",")[0],
+          messages: {},
         };
 
         await setDoc(doc(db, `users/${id}`), extraInfo);

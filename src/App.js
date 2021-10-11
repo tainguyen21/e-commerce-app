@@ -22,15 +22,15 @@ function App() {
         const createAtDate = new Date(createAt);
         const extraInfo = await getDoc(doc(db, `users/${user.uid}`));
 
-        onSnapshot(doc(db, `users/${user.uid}`), (doc) => {
-          dispatch(
-            setUser({
-              email: user.email,
-              id: user.uid,
-              ...doc.data(),
-            })
-          );
-        });
+        // onSnapshot(doc(db, `users/${user.uid}`), (doc) => {
+        //   dispatch(
+        //     setUser({
+        //       email: user.email,
+        //       id: user.uid,
+        //       ...doc.data(),
+        //     })
+        //   );
+        // });
 
         const userInfo = {
           name: user.displayName,

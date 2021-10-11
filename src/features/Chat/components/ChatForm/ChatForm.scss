@@ -1,0 +1,81 @@
+@import "assets/styles/colors.scss";
+
+.chat-form {
+  border: 1px solid $gray-color;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 0 16px 8px $gray-color;
+
+  &__user-list {
+    list-style: none;
+    padding-right: 48px;
+  }
+
+  &__user-item {
+    border: 1px solid $gray-color;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+
+    border-radius: 24px;
+    cursor: pointer;
+    transition: all 0.2s linear;
+
+    &:hover {
+      background-color: $gray-color;
+    }
+
+    &.active {
+      background-color: $gray-color;
+    }
+  }
+
+  &__user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+    margin-right: 14px;
+  }
+
+  &__right {
+    border-left: 1px solid $gray-color;
+    padding-left: 48px;
+  }
+
+  &-message {
+    list-style: none;
+    padding: 0;
+    height: 400px;
+    overflow: auto;
+
+    &__item {
+      width: fit-content;
+      background-color: $blue-color;
+      color: $white-color;
+
+      padding: 12px;
+      border-radius: 16px;
+      font-size: 1.4rem;
+
+      &:not(:first-child) {
+        margin-top: 12px;
+      }
+
+      &.other {
+        margin-left: auto;
+      }
+    }
+  }
+
+  &__main {
+    margin-top: 38px;
+    padding: 24px;
+    border-radius: 8px;
+    background-color: $gray-text-color;
+  }
+
+  &__input {
+    font-size: 1.4rem;
+  }
+}

@@ -190,6 +190,16 @@
       }
     }
 
+    &__chat {
+      display: block;
+      text-decoration: none;
+      color: $black-color;
+
+      &:hover {
+        color: $black-color;
+      }
+    }
+
     &__phone {
       background-color: #149314;
       color: $white-color;
