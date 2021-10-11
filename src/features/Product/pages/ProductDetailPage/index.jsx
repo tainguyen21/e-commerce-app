@@ -8,7 +8,7 @@ import {
 import Footer from "components/Footer";
 import { addSavingPost, removeSavingPost } from "features/Auth/userSlice";
 import ProductDetail from "features/Product/components/ProductDetail";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useRouteMatch } from "react-router";
@@ -22,6 +22,7 @@ function ProductDetailPage(props) {
   const id = match.params.id;
   const [product, setProduct] = useState({ image: [] });
   const [user, setUser] = useState({});
+  const userIdRef = useRef(null);
   const dispatch = useDispatch();
   const hasSaved =
     Object.keys(currentUser).length !== 0
@@ -29,18 +30,18 @@ function ProductDetailPage(props) {
       : false;
 
   const handleSavePostClick = async () => {
-    if (hasSaved) {
-      dispatch(removeSavingPost(id));
-
-      await updateDoc(doc(db, `users/${currentUser.id}`), {
-        saving: arrayRemove(id),
-      });
-      return;
-    }
-
     if (Object.keys(currentUser).length) {
-      if (currentUser.id === product.userId) {
+      if (currentUser.id === userIdRef.current) {
         alert("Can't save your post");
+        return;
+      }
+
+      if (hasSaved) {
+        dispatch(removeSavingPost(id));
+
+        await updateDoc(doc(db, `users/${currentUser.id}`), {
+          saving: arrayRemove(id),
+        });
         return;
       }
 
@@ -56,23 +57,18 @@ function ProductDetailPage(props) {
   useEffect(() => {
     const fetchProduct = async () => {
       const productSnapshot = await getDoc(doc(db, `products/${id}`));
+
+      const userSnapshot = await getDoc(
+        doc(db, `users/${productSnapshot.data().userId}`)
+      );
+
+      userIdRef.current = productSnapshot.data().userId;
       setProduct(productSnapshot.data());
+      setUser(userSnapshot.data());
     };
 
     fetchProduct();
   }, [id]);
-
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      if (!product) return;
-
-      const userSnapshot = await getDoc(doc(db, `users/${product.userId}`));
-
-      setUser(userSnapshot.data());
-    };
-
-    fetchUserInfo();
-  }, [id, product]);
 
   useEffect(() => {
     window.scrollTo(0, 0);

@@ -77,8 +77,6 @@ function ProfilePage() {
     }
   };
 
-  console.log(productsSaving);
-
   if (Object.keys(user).length === 0) return <Redirect to="/" />;
 
   return (

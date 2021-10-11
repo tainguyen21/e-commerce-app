@@ -100,6 +100,8 @@ function AllProductsPage(props) {
     hasProduct.current = true;
     const fetchProduct = async () => {
       const products = [];
+      allProducts.current = products;
+      setAllProductsTemp(products);
       setIsLoading(true);
 
       if (type.current === "all") {
@@ -143,9 +145,9 @@ function AllProductsPage(props) {
 
   return (
     <div style={{ paddingTop: "80px" }}>
-      <div className="products-banner">
+      {/* <div className="products-banner">
         <Banner />
-      </div>
+      </div> */}
       <section className="products-section">
         <Container>
           <div className="products-filter">
