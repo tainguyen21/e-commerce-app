@@ -9,6 +9,12 @@
   &__user-list {
     list-style: none;
     padding-right: 48px;
+    height: 516px;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     div {
       text-align: center;

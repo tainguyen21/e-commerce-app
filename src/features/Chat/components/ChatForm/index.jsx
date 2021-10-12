@@ -29,7 +29,9 @@ function ChatForm(props) {
 
   const submitForm = (data) => {
     if (onSubmit) {
-      onSubmit(data);
+      const chattingUser = allUsers.find((user) => user.id === activeUser);
+
+      onSubmit(data, chattingUser);
       setValue("message", "");
     }
   };

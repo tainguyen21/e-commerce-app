@@ -1,36 +1,111 @@
-import React, { useEffect, useState } from "react";
-import ChatForm from "features/Chat/components/ChatForm";
+import { doc, getDoc, onSnapshot, updateDoc } from "@firebase/firestore";
 import Footer from "components/Footer";
-import "./MainPage.scss";
-import { Container } from "reactstrap";
+import ChatForm from "features/Chat/components/ChatForm";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { doc, getDoc } from "@firebase/firestore";
+import { useRouteMatch } from "react-router";
+import { Container } from "reactstrap";
 import db from "utils/db";
-import { useLocation, useRouteMatch } from "react-router";
+import "./MainPage.scss";
 
 ChatPage.propTypes = {};
 
 function ChatPage(props) {
   const match = useRouteMatch();
+  const dispatch = useDispatch();
   const userId = match.params.id;
   const currentUser = useSelector((state) => state.user);
-  const [users, setUsers] = useState([]);
 
+  const [users, setUsers] = useState([]);
+  const [currentUserMessages, setCurrentUserMessages] = useState({});
   const [activeUser, setActiveUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = (data) => {
-    console.log("User: ", currentUser);
-    console.log("Data: ", data);
+  const currentUserMessagesRef = useRef(null);
+
+  const onSubmit = async (data, chattingUser) => {
+    if (currentUserMessagesRef.current[userId]) {
+      setCurrentUserMessages({
+        ...currentUserMessagesRef.current,
+        [userId]: [
+          ...currentUserMessagesRef.current[userId],
+          {
+            message: data.message,
+            other: false,
+          },
+        ],
+      });
+    } else {
+      setCurrentUserMessages({
+        ...currentUserMessagesRef.current,
+        [userId]: [
+          {
+            message: data.message,
+            other: false,
+          },
+        ],
+      });
+    }
+
+    if (currentUser.messages[userId]) {
+      await updateDoc(doc(db, `users/${currentUser.id}`), {
+        messages: {
+          ...currentUser.messages,
+          [userId]: [
+            ...currentUser.messages[userId],
+            {
+              message: data.message,
+              other: false,
+            },
+          ],
+        },
+      });
+    } else {
+      await updateDoc(doc(db, `users/${currentUser.id}`), {
+        messages: {
+          ...currentUser.messages,
+          [userId]: [
+            {
+              message: data.message,
+              other: false,
+            },
+          ],
+        },
+      });
+    }
+
+    if (chattingUser.messages[currentUser.id]) {
+      await updateDoc(doc(db, `users/${userId}`), {
+        messages: {
+          ...chattingUser.messages,
+          [currentUser.id]: [
+            ...chattingUser.messages[currentUser.id],
+            {
+              message: data.message,
+              other: true,
+            },
+          ],
+        },
+      });
+    } else {
+      await updateDoc(doc(db, `users/${userId}`), {
+        messages: {
+          ...chattingUser.messages,
+          [currentUser.id]: [
+            {
+              message: data.message,
+              other: true,
+            },
+          ],
+        },
+      });
+    }
   };
 
   const onUserClick = (id) => {
     setActiveUser(id);
   };
-
-  console.log("Active user: ", activeUser);
-  console.log("All users: ", users);
-  console.log("User id: ", userId);
 
   useEffect(() => {
     const fetchAllUsers = async () => {
@@ -53,12 +128,11 @@ function ChatPage(props) {
         });
       }
 
-      console.log("User in side: ", allUsers);
-
       if (allUsers.length >= 1) {
         if (!userId) {
           setUsers(allUsers);
           setActiveUser(allUsers[0].id);
+
           setIsLoading(false);
 
           return;
@@ -85,7 +159,23 @@ function ChatPage(props) {
     };
 
     fetchAllUsers();
+  }, [currentUser, userId]);
+
+  useEffect(() => {
+    if (Object.keys(currentUser).length) {
+      const unsub = onSnapshot(doc(db, `users/${currentUser.id}`), (doc) => {
+        setCurrentUserMessages(doc.data().messages);
+        currentUserMessagesRef.current = doc.data().messages;
+      });
+
+      return () => unsub();
+    }
   }, [currentUser]);
+
+  useEffect(() => {
+    setCurrentUserMessages(currentUser.messages);
+    currentUserMessagesRef.current = currentUser.messages;
+  }, [currentUser.messages, dispatch]);
 
   return (
     <div style={{ paddingTop: "80px" }}>
@@ -95,7 +185,7 @@ function ChatPage(props) {
             onSubmit={onSubmit}
             allUsers={users}
             messages={
-              activeUser && currentUser ? currentUser.messages[activeUser] : []
+              (currentUserMessages && currentUserMessages[activeUser]) || []
             }
             activeUser={activeUser}
             isLoading={isLoading}

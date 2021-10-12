@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import routes from "routes";
-import { doc, getDoc, onSnapshot } from "@firebase/firestore";
+import { doc, getDoc } from "@firebase/firestore";
 import db from "utils/db";
 
 function App() {
@@ -21,16 +21,6 @@ function App() {
         const createAt = user.metadata.creationTime;
         const createAtDate = new Date(createAt);
         const extraInfo = await getDoc(doc(db, `users/${user.uid}`));
-
-        // onSnapshot(doc(db, `users/${user.uid}`), (doc) => {
-        //   dispatch(
-        //     setUser({
-        //       email: user.email,
-        //       id: user.uid,
-        //       ...doc.data(),
-        //     })
-        //   );
-        // });
 
         const userInfo = {
           name: user.displayName,

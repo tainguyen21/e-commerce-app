@@ -1,4 +1,3 @@
-import Banner from "components/Banner";
 import Footer from "components/Footer";
 import ProductList from "features/Product/components/ProductList";
 import React, { useEffect, useRef, useState } from "react";

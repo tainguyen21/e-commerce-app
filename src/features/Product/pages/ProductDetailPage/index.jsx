@@ -11,7 +11,7 @@ import ProductDetail from "features/Product/components/ProductDetail";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { useHistory, useLocation, useRouteMatch } from "react-router";
+import { useHistory, useRouteMatch } from "react-router";
 import db from "utils/db";
 
 ProductDetailPage.propTypes = {};
