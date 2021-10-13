@@ -31,10 +31,11 @@ function Footer(props) {
             <div className="footer_right">
               <h3 className="footer__about">About the company</h3>
               <p className="footer__desc">
-                This template is free to use for your business websites.
-                However, you have no permission to redistribute the downloadable
-                ZIP file on any template collection website. Contact us for more
-                info.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed
+                voluptate nihil eum consectetur similique? Consectetur, quod,
+                incidunt, harum nisi dolores delectus reprehenderit voluptatem
+                perferendis dicta dolorem non blanditiis ex fugiat. Lorem ipsum
+                dolor sit amet, consectetur adipisicing elit.
               </p>
               <ul className="footer__social">
                 <li className="footer-social__item">

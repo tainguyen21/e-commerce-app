@@ -110,20 +110,7 @@
     }
 
     &__name {
-      display: block;
       font-weight: 500;
-      margin-bottom: 4px;
-    }
-    &__status {
-      font-size: 1.4rem;
-      display: flex;
-      align-items: center;
-
-      i {
-        color: green;
-        margin-right: 6px;
-        font-size: 1rem;
-      }
     }
 
     a {

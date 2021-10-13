@@ -47,14 +47,15 @@ const routes = [
     route: "/profile",
     component: () => <ProfilePage />,
   },
+
   {
-    exact: true,
-    route: ["/chat"],
+    exact: false,
+    route: "/chat",
     component: () => <ChatPage />,
   },
   {
     exact: false,
-    route: ["/chat/:id"],
+    route: "/chat/:id",
     component: () => <ChatPage />,
   },
   {

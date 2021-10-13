@@ -65,7 +65,7 @@ function Header(props) {
             className="navbar-brand header__brand"
             to="/"
           >
-            Sixteen <span>Clothing</span>
+            Ryan <span>Company</span>
           </Link>
           <NavbarToggler className="header__btn" onClick={toggle} />
           <Collapse className="justify-content-end" isOpen={isOpen} navbar>
@@ -86,7 +86,7 @@ function Header(props) {
                   className="header__link"
                   to="/products"
                 >
-                  Our Products
+                  Products
                 </NavLink>
               </NavItem>
               <NavItem>

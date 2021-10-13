@@ -12,7 +12,7 @@ function Purchase(props) {
           <div className="purchase__content">
             <div className="purchase__heading">
               <h3>
-                Creative &amp; Unique <span>Sixteen</span> Product
+                Creative &amp; Unique <span>Ryan</span> Product
               </h3>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque

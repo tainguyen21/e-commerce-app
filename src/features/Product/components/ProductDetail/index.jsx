@@ -91,9 +91,6 @@ function ProductDetail(props) {
                       <span className="product-detail-user__name">
                         {user.name}
                       </span>
-                      <span className="product-detail-user__status">
-                        <i className="fas fa-circle"></i>Active
-                      </span>
                     </div>
                   </div>
                   <Link to={`/user/${product.userId}`}>See detail</Link>

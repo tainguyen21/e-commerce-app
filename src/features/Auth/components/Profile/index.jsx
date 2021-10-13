@@ -93,10 +93,6 @@ function Profile(props) {
                   <i className="fas fa-calendar-week"></i> Member from:{" "}
                   <span>{memberFrom}</span>
                 </div>
-                {/* <div className="profile-other">
-                  <i className="fas fa-map-marker-alt"></i> Address:{" "}
-                  <span>{user.address ? user.address : "Not update"}</span>
-                </div> */}
                 <div className="profile-other">
                   <i className="far fa-comments"></i> Response:{" "}
                   <span>
@@ -117,12 +113,24 @@ function Profile(props) {
         </div>
 
         {!otherUser && (
-          <Link
-            to="/products/add"
-            className="button button--red profile-add-product"
-          >
-            Add product
-          </Link>
+          <div>
+            <Link
+              to="/products/add"
+              className="button button--red profile-add-product"
+            >
+              Add product
+            </Link>
+            <Link
+              to={`/chat/${
+                Object.keys(user.messages).length
+                  ? Object.keys(user.messages)[0]
+                  : ""
+              }`}
+              className="button button--red profile-add-product"
+            >
+              Go to chat
+            </Link>
+          </div>
         )}
 
         <div className="profile-product">

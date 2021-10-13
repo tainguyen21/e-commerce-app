@@ -4,7 +4,7 @@ import ChatForm from "features/Chat/components/ChatForm";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { useRouteMatch } from "react-router";
+import { useHistory, useRouteMatch } from "react-router";
 import { Container } from "reactstrap";
 import db from "utils/db";
 import "./MainPage.scss";
@@ -13,6 +13,7 @@ ChatPage.propTypes = {};
 
 function ChatPage(props) {
   const match = useRouteMatch();
+  const history = useHistory();
   const dispatch = useDispatch();
   const userId = match.params.id;
   const currentUser = useSelector((state) => state.user);
@@ -23,6 +24,8 @@ function ChatPage(props) {
   const [isLoading, setIsLoading] = useState(false);
 
   const currentUserMessagesRef = useRef(null);
+
+  console.log(1);
 
   const onSubmit = async (data, chattingUser) => {
     if (currentUserMessagesRef.current[userId]) {
@@ -36,6 +39,19 @@ function ChatPage(props) {
           },
         ],
       });
+
+      await updateDoc(doc(db, `users/${currentUser.id}`), {
+        messages: {
+          ...currentUserMessagesRef.current,
+          [userId]: [
+            ...currentUserMessagesRef.current[userId],
+            {
+              message: data.message,
+              other: false,
+            },
+          ],
+        },
+      });
     } else {
       setCurrentUserMessages({
         ...currentUserMessagesRef.current,
@@ -46,25 +62,10 @@ function ChatPage(props) {
           },
         ],
       });
-    }
 
-    if (currentUser.messages[userId]) {
       await updateDoc(doc(db, `users/${currentUser.id}`), {
         messages: {
-          ...currentUser.messages,
-          [userId]: [
-            ...currentUser.messages[userId],
-            {
-              message: data.message,
-              other: false,
-            },
-          ],
-        },
-      });
-    } else {
-      await updateDoc(doc(db, `users/${currentUser.id}`), {
-        messages: {
-          ...currentUser.messages,
+          ...currentUserMessagesRef.current,
           [userId]: [
             {
               message: data.message,
@@ -104,6 +105,7 @@ function ChatPage(props) {
   };
 
   const onUserClick = (id) => {
+    history.push(`/chat/${id}`);
     setActiveUser(id);
   };
 
@@ -166,6 +168,7 @@ function ChatPage(props) {
       const unsub = onSnapshot(doc(db, `users/${currentUser.id}`), (doc) => {
         setCurrentUserMessages(doc.data().messages);
         currentUserMessagesRef.current = doc.data().messages;
+        console.log(doc.data().messages);
       });
 
       return () => unsub();

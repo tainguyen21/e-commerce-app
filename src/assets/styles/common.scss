@@ -17,6 +17,10 @@
 
 .button.button--red {
   background-color: $red-color;
+
+  &:hover {
+    background-color: #953535;
+  }
 }
 
 .border-bottom {

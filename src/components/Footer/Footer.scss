@@ -63,8 +63,22 @@ $blue-color: #5d85c4;
 
   &-social {
     &__item {
-      font-size: 2.8rem;
+      padding: 8px;
+      border-radius: 4px;
+      background-color: $gray-color;
+      color: $black-color;
+
+      transition: all 0.25s linear;
       cursor: pointer;
+
+      &:hover {
+        background-color: $red-color;
+        color: $white-color;
+      }
+
+      i {
+        font-size: 2.6rem;
+      }
 
       &:not(:last-child) {
         margin-right: 20px;

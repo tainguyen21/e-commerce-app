@@ -8,16 +8,17 @@ function Info(props) {
   return (
     <div className="info">
       <Container>
-        <h3 className="info__heading border-bottom">About Sixteen Clothing</h3>
+        <h3 className="info__heading border-bottom">About Ryan Company</h3>
         <Row>
           <Col lg="6">
             <div className="info__left">
               <span>Looking for the best products?</span>
               <p>
-                This template is free to use for your business websites.
-                However, you have no permission to redistribute the downloadable
-                ZIP file on any template collection website. Contact us for more
-                info.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed
+                voluptate nihil eum consectetur similique? Consectetur, quod,
+                incidunt, harum nisi dolores delectus reprehenderit voluptatem
+                perferendis dicta dolorem non blanditiis ex fugiat. Lorem ipsum
+                dolor sit amet, consectetur adipisicing elit.
               </p>
               <ul>
                 <li>Lorem ipsum dolor sit amet</li>
