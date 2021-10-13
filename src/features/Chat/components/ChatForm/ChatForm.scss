@@ -72,6 +72,10 @@
     height: 400px;
     overflow: auto;
 
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
     &__item {
       width: fit-content;
       background-color: $blue-color;

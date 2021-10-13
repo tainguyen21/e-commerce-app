@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Col, Form, Input, Row, Spinner } from "reactstrap";
 import "./ChatForm.scss";
@@ -36,6 +36,8 @@ function ChatForm(props) {
     chattingUser,
   } = props;
 
+  console.log("Chatting user: ", chattingUser);
+
   const submitForm = (data) => {
     if (onSubmit) {
       onSubmit(data, chattingUser);
@@ -44,6 +46,14 @@ function ChatForm(props) {
   };
 
   const message = register("message");
+
+  useEffect(() => {
+    let form = document.querySelector(".chat-form-message");
+
+    if (form) {
+      form.scrollTop = form.scrollHeight - form.offsetHeight;
+    }
+  });
 
   return (
     <div className="chat-form">

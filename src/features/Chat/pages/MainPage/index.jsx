@@ -27,6 +27,8 @@ function ChatPage(props) {
   const currentUserMessagesRef = useRef(null);
 
   const onSubmit = async (data, inboxUser) => {
+    console.log(inboxUser);
+
     if (currentUserMessagesRef.current[userId]) {
       setCurrentUserMessages({
         ...currentUserMessagesRef.current,
@@ -77,14 +79,17 @@ function ChatPage(props) {
 
     if (inboxUser.messages[currentUser.id]) {
       setChattingUser({
-        ...inboxUser.messages,
-        [currentUser.id]: [
-          ...inboxUser.messages[userId],
-          {
-            message: data.message,
-            other: false,
-          },
-        ],
+        ...inboxUser,
+        messages: {
+          ...inboxUser.messages,
+          [currentUser.id]: [
+            ...inboxUser.messages[currentUser.id],
+            {
+              message: data.message,
+              other: true,
+            },
+          ],
+        },
       });
 
       await updateDoc(doc(db, `users/${userId}`), {
@@ -101,13 +106,16 @@ function ChatPage(props) {
       });
     } else {
       setChattingUser({
-        ...inboxUser.messages,
-        [currentUser.id]: [
-          {
-            message: data.message,
-            other: false,
-          },
-        ],
+        ...inboxUser,
+        messages: {
+          ...inboxUser.messages,
+          [currentUser.id]: [
+            {
+              message: data.message,
+              other: true,
+            },
+          ],
+        },
       });
 
       await updateDoc(doc(db, `users/${userId}`), {
