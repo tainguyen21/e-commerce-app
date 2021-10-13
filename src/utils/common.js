@@ -11,14 +11,6 @@ export const calculateRating = (rating) => {
   return totalRating === 0 ? "Don't have rating" : stars / totalRating;
 };
 
-export const calculateResponse = (response) => {
-  if (!response) return null;
-
-  let { rep, total } = response;
-
-  return total === 0 ? null : (rep / total) * 100;
-};
-
 export const formatDate = (date) => {
   if (!date) return null;
 
@@ -39,4 +31,17 @@ export const converFileListToArray = (image) => {
   }
 
   return images;
+};
+
+export const calculateResponse = (messages) => {
+  let totalInbox = 0;
+  let replied = 0;
+
+  for (let key in messages) {
+    totalInbox++;
+    if (messages[key].findIndex((item) => item.other === false) !== -1)
+      replied++;
+  }
+
+  return totalInbox === 0 ? null : parseInt((replied / totalInbox) * 100);
 };

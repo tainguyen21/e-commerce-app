@@ -44,8 +44,9 @@ function Profile(props) {
     followingTemp,
     onDeleteClick,
   } = props;
+
   const rating = calculateRating(user.rating);
-  const response = calculateResponse(user.response);
+  const response = calculateResponse(user.messages);
   const memberFrom = formatDate(user.memberFrom);
 
   return (
