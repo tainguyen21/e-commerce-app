@@ -22,14 +22,11 @@ function ChatPage(props) {
   const [currentUserMessages, setCurrentUserMessages] = useState({});
   const [activeUser, setActiveUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [chattingUser, setChattingUser] = useState({});
 
   const currentUserMessagesRef = useRef(null);
 
-  console.log(userId);
-
-  const onSubmit = async (data, chattingUser) => {
-    console.log("Submit: ", currentUser);
-    console.log("Chatting: ", chattingUser);
+  const onSubmit = async (data, inboxUser) => {
     if (currentUserMessagesRef.current[userId]) {
       setCurrentUserMessages({
         ...currentUserMessagesRef.current,
@@ -78,12 +75,23 @@ function ChatPage(props) {
       });
     }
 
-    if (chattingUser.messages[currentUser.id]) {
+    if (inboxUser.messages[currentUser.id]) {
+      setChattingUser({
+        ...inboxUser.messages,
+        [currentUser.id]: [
+          ...inboxUser.messages[userId],
+          {
+            message: data.message,
+            other: false,
+          },
+        ],
+      });
+
       await updateDoc(doc(db, `users/${userId}`), {
         messages: {
-          ...chattingUser.messages,
+          ...inboxUser.messages,
           [currentUser.id]: [
-            ...chattingUser.messages[currentUser.id],
+            ...inboxUser.messages[currentUser.id],
             {
               message: data.message,
               other: true,
@@ -92,9 +100,19 @@ function ChatPage(props) {
         },
       });
     } else {
+      setChattingUser({
+        ...inboxUser.messages,
+        [currentUser.id]: [
+          {
+            message: data.message,
+            other: false,
+          },
+        ],
+      });
+
       await updateDoc(doc(db, `users/${userId}`), {
         messages: {
-          ...chattingUser.messages,
+          ...inboxUser.messages,
           [currentUser.id]: [
             {
               message: data.message,
@@ -106,9 +124,10 @@ function ChatPage(props) {
     }
   };
 
-  const onUserClick = (id) => {
+  const onUserClick = (id, chattingUser) => {
     history.push(`/chat/${id}`);
     setActiveUser(id);
+    setChattingUser(chattingUser);
   };
 
   useEffect(() => {
@@ -170,7 +189,6 @@ function ChatPage(props) {
       const unsub = onSnapshot(doc(db, `users/${currentUser.id}`), (doc) => {
         setCurrentUserMessages(doc.data().messages);
         currentUserMessagesRef.current = doc.data().messages;
-        console.log(doc.data().messages);
       });
 
       return () => unsub();
@@ -195,6 +213,7 @@ function ChatPage(props) {
             activeUser={activeUser}
             isLoading={isLoading}
             onUserClick={onUserClick}
+            chattingUser={chattingUser}
           />
         </Container>
       </section>

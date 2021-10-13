@@ -11,6 +11,7 @@ ChatForm.propTypes = {
   activeUser: PropTypes.string,
   isLoading: PropTypes.bool,
   onUserClick: PropTypes.func,
+  chattingUser: PropTypes.object,
 };
 
 ChatForm.defaultProps = {
@@ -20,17 +21,23 @@ ChatForm.defaultProps = {
   activeUser: null,
   isLoading: true,
   onUserClick: null,
+  chattingUser: null,
 };
 
 function ChatForm(props) {
   const { register, handleSubmit, setValue } = useForm();
-  const { onSubmit, allUsers, messages, activeUser, isLoading, onUserClick } =
-    props;
+  const {
+    onSubmit,
+    allUsers,
+    messages,
+    activeUser,
+    isLoading,
+    onUserClick,
+    chattingUser,
+  } = props;
 
   const submitForm = (data) => {
     if (onSubmit) {
-      const chattingUser = allUsers.find((user) => user.id === activeUser);
-
       onSubmit(data, chattingUser);
       setValue("message", "");
     }
@@ -55,7 +62,7 @@ function ChatForm(props) {
                       activeUser === user.id ? "active" : ""
                     }`}
                     key={index}
-                    onClick={() => onUserClick(user.id)}
+                    onClick={() => onUserClick(user.id, chattingUser)}
                   >
                     <img
                       src="https://images.unsplash.com/photo-1633114128174-2f8aa49759b0?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80"
