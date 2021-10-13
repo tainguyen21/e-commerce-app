@@ -155,6 +155,7 @@ function ChatPage(props) {
         if (!userId) {
           setUsers(allUsers);
           setActiveUser(allUsers[0].id);
+          setChattingUser(allUsers[0]);
 
           setIsLoading(false);
 
@@ -174,6 +175,7 @@ function ChatPage(props) {
         filteredUsers.unshift(userInChatWithId);
         setUsers(filteredUsers);
         setActiveUser(userId);
+        setChattingUser(allUsers.find((item) => item.id === userId));
       }
 
       if (Object.keys(currentUser).length) {
