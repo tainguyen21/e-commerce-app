@@ -49,7 +49,7 @@ const routes = [
   },
 
   {
-    exact: false,
+    exact: true,
     route: "/chat",
     component: () => <ChatPage />,
   },

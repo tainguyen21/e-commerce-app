@@ -25,9 +25,11 @@ function ChatPage(props) {
 
   const currentUserMessagesRef = useRef(null);
 
-  console.log(1);
+  console.log(userId);
 
   const onSubmit = async (data, chattingUser) => {
+    console.log("Submit: ", currentUser);
+    console.log("Chatting: ", chattingUser);
     if (currentUserMessagesRef.current[userId]) {
       setCurrentUserMessages({
         ...currentUserMessagesRef.current,
