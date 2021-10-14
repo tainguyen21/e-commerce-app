@@ -50,10 +50,16 @@ export const productsSlice = createSlice({
     },
 
     updateProduct: (state, action) => {
-      return {
-        ...state,
-        ...action.payload,
-      };
+      const updatedProduct = state.map((product) => {
+        if (product.id === action.payload.id)
+          return {
+            ...product,
+            ...action.payload,
+          };
+        else return product;
+      });
+
+      return updatedProduct;
     },
   },
   extraReducers: {

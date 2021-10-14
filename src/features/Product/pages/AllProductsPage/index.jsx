@@ -24,8 +24,9 @@ function AllProductsPage(props) {
   const [, setAllProductsTemp] = useState([]);
   const [typeTemp, setTypeTemp] = useState("all");
   const type = useRef("all");
+  const isLoadingRef = useRef(false);
   const allProducts = useRef([]);
-  const hasProduct = useRef(true);
+  const hasProduct = useRef(false);
   const lastProduct = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const optionTypes = [
@@ -36,14 +37,18 @@ function AllProductsPage(props) {
     ...options,
   ];
 
-  const fetchMoreProduct = async () => {
-    if (!hasProduct.current) return;
+  console.log(isLoadingRef.current);
 
+  const fetchMoreProduct = async () => {
+    console.log("Call fetch more");
+    if (!hasProduct.current || isLoadingRef.current) return;
+
+    isLoadingRef.current = true;
     setIsLoading(true);
 
     const products = [];
 
-    if (type === "all") {
+    if (type.current === "all") {
       const q = query(
         collection(db, "products"),
         startAfter(lastProduct.current),
@@ -53,6 +58,8 @@ function AllProductsPage(props) {
 
       if (productsSnapshot.docs.length === 0) {
         hasProduct.current = false;
+        isLoadingRef.current = false;
+        setIsLoading(false);
         return;
       }
 
@@ -68,7 +75,7 @@ function AllProductsPage(props) {
     } else {
       const q = query(
         collection(db, "products"),
-        where("type", "==", type),
+        where("type", "==", type.current),
         startAfter(lastProduct.current),
         limit(9)
       );
@@ -76,6 +83,9 @@ function AllProductsPage(props) {
 
       if (productsSnapshot.docs.length === 0) {
         hasProduct.current = false;
+        isLoadingRef.current = false;
+        setIsLoading(false);
+
         return;
       }
 
@@ -91,6 +101,7 @@ function AllProductsPage(props) {
     }
 
     allProducts.current = [...allProducts.current, ...products];
+    isLoadingRef.current = false;
     setIsLoading(false);
     setAllProductsTemp(products);
   };
@@ -101,6 +112,7 @@ function AllProductsPage(props) {
       const products = [];
       allProducts.current = products;
       setAllProductsTemp(products);
+      isLoadingRef.current = true;
       setIsLoading(true);
 
       if (type.current === "all") {
@@ -136,6 +148,7 @@ function AllProductsPage(props) {
       }
 
       allProducts.current = products;
+      isLoadingRef.current = false;
       setIsLoading(false);
       setAllProductsTemp(products);
     };
@@ -144,9 +157,6 @@ function AllProductsPage(props) {
 
   return (
     <div style={{ paddingTop: "80px" }}>
-      {/* <div className="products-banner">
-        <Banner />
-      </div> */}
       <section className="products-section">
         <Container>
           <div className="products-filter">

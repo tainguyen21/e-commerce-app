@@ -128,7 +128,7 @@ function SignUpForm(props) {
           <Input
             id="phone"
             className="signin-form__input"
-            placeholder="Price here"
+            placeholder="Phone number"
             name={phone.name}
             onChange={phone.onChange}
             onBlur={phone.onBlur}

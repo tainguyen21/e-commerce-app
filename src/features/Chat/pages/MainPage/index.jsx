@@ -26,8 +26,6 @@ function ChatPage(props) {
   const currentUserMessagesRef = useRef(null);
 
   const onSubmit = async (data, inboxUser) => {
-    console.log(inboxUser);
-
     if (currentUserMessagesRef.current[userId]) {
       setCurrentUserMessages({
         ...currentUserMessagesRef.current,
@@ -201,16 +199,13 @@ function ChatPage(props) {
     if (Object.keys(currentUser).length) {
       const unsub = onSnapshot(
         doc(db, `users/${currentUser.id}`),
-        async (doc) => {
-          setCurrentUserMessages(doc.data().messages);
-          currentUserMessagesRef.current = doc.data().messages;
-
+        async (newData) => {
           if (
-            Object.keys(doc.data().messages).length !==
+            Object.keys(newData.data().messages).length !==
             Object.keys(currentUserMessagesRef.current).length
           ) {
             const allUsers = [];
-            for (let key in doc.data().messages) {
+            for (let key in newData.data().messages) {
               const userSnapshot = await getDoc(doc(db, `users/${key}`));
               allUsers.push({
                 ...userSnapshot.data(),
@@ -220,6 +215,9 @@ function ChatPage(props) {
 
             setUsers(allUsers);
           }
+
+          setCurrentUserMessages(newData.data().messages);
+          currentUserMessagesRef.current = newData.data().messages;
         }
       );
 

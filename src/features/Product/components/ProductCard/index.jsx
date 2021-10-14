@@ -21,7 +21,7 @@ function ProductCard(props) {
         <div className="product__content">
           <div className="product__info">
             <span className="product__name">{product.name}</span>
-            <span className="product__price">${product.price}</span>
+            <span className="product__price">{`$${product.price}`}</span>
           </div>
           <p className="product__desc">{product.description}</p>
           <div className="product__review">{product.address}</div>

@@ -33,6 +33,14 @@
   }
 
   &__name {
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  &__name {
     color: $blue-color;
   }
 

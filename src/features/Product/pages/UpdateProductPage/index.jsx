@@ -50,7 +50,6 @@ function UpdateProductPage(props) {
     }
 
     if (changedValue.image) {
-      console.log("x");
       const images = converFileListToArray(data.image);
       const imagesUrl = await uploadImagesToStorage(
         images,
@@ -60,7 +59,7 @@ function UpdateProductPage(props) {
       changedValue["image"] = imagesUrl;
     }
 
-    console.log("Change value: ", changedValue);
+    changedValue["id"] = productId;
     dispatch(updateProduct(changedValue));
     await updateDoc(doc(db, `products/${productId}`), changedValue);
     history.push("/profile");

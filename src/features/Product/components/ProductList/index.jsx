@@ -23,6 +23,10 @@ function ProductList(props) {
       const handleScroll = () => {
         const { scrollHeight, scrollTop, offsetHeight } = component;
 
+        console.log("Scroll height: ", scrollHeight);
+        console.log("Scroll top: ", scrollTop);
+        console.log("Offset: ", offsetHeight);
+
         if (scrollTop + offsetHeight >= scrollHeight) {
           fetchMoreProduct();
         }

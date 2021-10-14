@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { Col, Form, Input, Row, Spinner } from "reactstrap";
-import "./ChatForm.scss";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { Col, Form, Input, Row } from "reactstrap";
+import "./ChatForm.scss";
 
 ChatForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -32,8 +32,6 @@ function ChatForm(props) {
     onUserClick,
     chattingUser,
   } = props;
-
-  console.log("Chatting user: ", chattingUser);
 
   const submitForm = (data) => {
     if (onSubmit) {

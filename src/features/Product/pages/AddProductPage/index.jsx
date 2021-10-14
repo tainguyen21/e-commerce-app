@@ -12,6 +12,7 @@ import { addProduct } from "features/Product/productsSlice";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import { getMockData } from "utils/addRandomData";
 import { converFileListToArray } from "utils/common";
 import db from "utils/db";
 import { uploadImagesToStorage } from "utils/storage";
@@ -53,6 +54,7 @@ function AddProductPage(props) {
         image: imagesUrl,
       });
 
+      //Comment this block to add mock data
       const completeProductData = {
         ...productData,
         image: imagesUrl,
@@ -67,6 +69,19 @@ function AddProductPage(props) {
       console.log(error);
     }
   };
+
+  //Script to add mock data
+  // useEffect(() => {
+  //   const addData = async () => {
+  //     const data = await getMockData();
+
+  //     for (let i = 0; i < data.length; i++) {
+  //       await handleSubmit(data[i]);
+  //     }
+  //   };
+
+  //   if (userId) addData();
+  // }, [userId]);
 
   return (
     <div style={{ paddingTop: "80px" }}>
