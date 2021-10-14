@@ -21,7 +21,6 @@ function ChatPage(props) {
   const [users, setUsers] = useState([]);
   const [currentUserMessages, setCurrentUserMessages] = useState({});
   const [activeUser, setActiveUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [chattingUser, setChattingUser] = useState({});
 
   const currentUserMessagesRef = useRef(null);
@@ -140,7 +139,6 @@ function ChatPage(props) {
 
   useEffect(() => {
     const fetchAllUsers = async () => {
-      setIsLoading(true);
       let userInChatWithId = {};
 
       const allUsers = [];
@@ -165,8 +163,6 @@ function ChatPage(props) {
           setActiveUser(allUsers[0].id);
           setChattingUser(allUsers[0]);
 
-          setIsLoading(false);
-
           return;
         }
 
@@ -184,10 +180,17 @@ function ChatPage(props) {
         setUsers(filteredUsers);
         setActiveUser(userId);
         setChattingUser(allUsers.find((item) => item.id === userId));
-      }
-
-      if (Object.keys(currentUser).length) {
-        setIsLoading(false);
+      } else {
+        if (userId) {
+          const newUserSnapshot = await getDoc(doc(db, `users/${userId}`));
+          userInChatWithId = {
+            ...newUserSnapshot.data(),
+            id: userId,
+          };
+          setUsers([userInChatWithId]);
+          setActiveUser(userId);
+          setChattingUser(userInChatWithId);
+        }
       }
     };
 
@@ -196,10 +199,29 @@ function ChatPage(props) {
 
   useEffect(() => {
     if (Object.keys(currentUser).length) {
-      const unsub = onSnapshot(doc(db, `users/${currentUser.id}`), (doc) => {
-        setCurrentUserMessages(doc.data().messages);
-        currentUserMessagesRef.current = doc.data().messages;
-      });
+      const unsub = onSnapshot(
+        doc(db, `users/${currentUser.id}`),
+        async (doc) => {
+          setCurrentUserMessages(doc.data().messages);
+          currentUserMessagesRef.current = doc.data().messages;
+
+          if (
+            Object.keys(doc.data().messages).length !==
+            Object.keys(currentUserMessagesRef.current).length
+          ) {
+            const allUsers = [];
+            for (let key in doc.data().messages) {
+              const userSnapshot = await getDoc(doc(db, `users/${key}`));
+              allUsers.push({
+                ...userSnapshot.data(),
+                id: key,
+              });
+            }
+
+            setUsers(allUsers);
+          }
+        }
+      );
 
       return () => unsub();
     }
@@ -221,7 +243,6 @@ function ChatPage(props) {
               (currentUserMessages && currentUserMessages[activeUser]) || []
             }
             activeUser={activeUser}
-            isLoading={isLoading}
             onUserClick={onUserClick}
             chattingUser={chattingUser}
           />
