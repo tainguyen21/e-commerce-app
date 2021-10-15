@@ -8,3 +8,14 @@
 .contact-info-section {
   margin-bottom: $section-spacing;
 }
+
+@media only screen and (max-width: 1023px) {
+  .contact-info-section,
+  .contact-location-section {
+    margin-top: 32px;
+  }
+
+  .contact-info-section {
+    margin-bottom: 32px;
+  }
+}

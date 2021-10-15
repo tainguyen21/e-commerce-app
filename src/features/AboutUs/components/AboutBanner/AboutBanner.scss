@@ -49,3 +49,21 @@
     margin-top: 24px;
   }
 }
+
+@media only screen and (max-width: 767px) {
+  .about-banner {
+    h3 {
+      font-size: 3.6rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 374px) {
+  .about-banner {
+    height: 260px;
+
+    h3 {
+      font-size: 3rem;
+    }
+  }
+}

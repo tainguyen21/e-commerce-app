@@ -89,12 +89,22 @@ $blue-color: #5d85c4;
 
 @media only screen and (max-width: 767px) {
   .footer {
+    padding: 48px 0;
+
     &__right {
       margin-top: 24px;
     }
 
     &__about {
       font-size: 1.8rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 374px) {
+  .footer {
+    &__about {
+      margin-top: 12px;
     }
   }
 }

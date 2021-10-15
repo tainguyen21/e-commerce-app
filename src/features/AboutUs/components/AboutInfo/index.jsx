@@ -10,14 +10,14 @@ function AboutInfo(props) {
       <Container>
         <h3 className="about-info__heading border-bottom">Our Background</h3>
         <Row>
-          <Col>
+          <Col md="6">
             <img
               className="about-info__image"
               src="https://images.unsplash.com/photo-1628191081676-8f40d4ce6c44?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
               alt="about-info"
             />
           </Col>
-          <Col>
+          <Col md="6">
             <div className="about-info__right">
               <h3>Who we are &amp; What we do?</h3>
               <p>

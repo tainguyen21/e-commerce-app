@@ -53,7 +53,7 @@ function ChatForm(props) {
   return (
     <div className="chat-form">
       <Row>
-        <Col lg="4">
+        <Col md="4">
           <ul className="chat-form__user-list">
             {allUsers.length ? (
               allUsers.map((user, index) => (
@@ -77,7 +77,7 @@ function ChatForm(props) {
             )}
           </ul>
         </Col>
-        <Col lg="8">
+        <Col md="8">
           <div className="chat-form__right">
             <ul className="chat-form-message">
               {messages.map((item, index) => (

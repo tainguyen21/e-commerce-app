@@ -23,11 +23,13 @@ function ProductItem(props) {
   return (
     <div className="product-item">
       <div className="product-item__left">
-        <img
-          className="product-item__avatar"
-          src={product.image[0]}
-          alt="product"
-        />
+        <div>
+          <img
+            className="product-item__avatar"
+            src={product.image[0]}
+            alt="product"
+          />
+        </div>
         <div className="product-item__info">
           <Link to={`/products/${productId}`}>{product.name}</Link>
           <p>{product.description}</p>

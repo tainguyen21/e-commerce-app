@@ -4,3 +4,9 @@
   margin-top: 48px;
   margin-bottom: $section-spacing;
 }
+
+@media only screen and (max-width: 767px) {
+  .profile-section {
+    margin-bottom: 48px;
+  }
+}

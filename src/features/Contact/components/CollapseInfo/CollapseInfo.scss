@@ -29,3 +29,10 @@
     }
   }
 }
+
+@media only screen and (max-width: 1023px) {
+  .collapse-info {
+    margin-top: 32px;
+    padding: 0;
+  }
+}

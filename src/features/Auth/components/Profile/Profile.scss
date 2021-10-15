@@ -125,6 +125,12 @@
 
     &__content {
       margin-top: 32px;
+      max-height: 400px;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
     &__message {
@@ -139,5 +145,48 @@
 .product-item {
   &:not(:last-child) {
     margin-bottom: 32px;
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .profile {
+    &-info {
+      padding: 32px;
+    }
+
+    &-other {
+      margin-bottom: 12px;
+    }
+
+    &__right {
+      padding: 0;
+      margin-top: 24px;
+
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .profile {
+    &__avatar {
+      width: 7rem;
+      height: 7rem;
+    }
+
+    &__right {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    &-product {
+      margin-left: 16px;
+      margin-right: 16px;
+      padding: 16px;
+
+      &__message {
+        font-size: 1.4rem;
+      }
+    }
   }
 }

@@ -9,3 +9,15 @@
   background-position: center;
   background-attachment: fixed;
 }
+
+@media only screen and (max-width: 1279px) {
+  .about-service {
+    height: 50vh;
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .about-service {
+    height: auto;
+  }
+}

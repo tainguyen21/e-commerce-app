@@ -13,7 +13,7 @@ function MemberList(props) {
       <Container>
         <Row>
           {members.map((item, index) => (
-            <Col lg="4" key={index}>
+            <Col lg="4" md="6" key={index}>
               <MemberCard member={item} />
             </Col>
           ))}

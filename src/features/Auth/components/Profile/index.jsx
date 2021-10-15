@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Col, Container, Row } from "reactstrap";
+import { Col, Container, Row, Spinner } from "reactstrap";
 import { calculateRating, calculateResponse, formatDate } from "utils/common";
 import ProductItem from "../ProductItem";
 import "./Profile.scss";
@@ -16,6 +16,10 @@ Profile.propTypes = {
   isFollowing: PropTypes.bool,
   followingTemp: PropTypes.number,
   onDeleteClick: PropTypes.func,
+  fetchMoreProductPosting: PropTypes.func,
+  fetchMoreProductSaving: PropTypes.func,
+  isFetchingMorePosting: PropTypes.bool,
+  isFetchingMoreSaving: PropTypes.bool,
 };
 
 Profile.defaultProps = {
@@ -31,6 +35,10 @@ Profile.defaultProps = {
   isFollowing: false,
   followingTemp: 0,
   onDeleteClick: null,
+  fetchMoreProductPosting: null,
+  fetchMoreProductSaving: null,
+  isFetchingMorePosting: null,
+  isFetchingMoreSaving: null,
 };
 
 function Profile(props) {
@@ -43,11 +51,39 @@ function Profile(props) {
     isFollowing,
     followingTemp,
     onDeleteClick,
+    fetchMoreProductPosting,
+    fetchMoreProductSaving,
+    isFetchingMorePosting,
+    isFetchingMoreSaving,
   } = props;
 
   const rating = calculateRating(user.rating);
   const response = calculateResponse(user.messages);
   const memberFrom = formatDate(user.memberFrom);
+
+  useEffect(() => {
+    if (fetchMoreProductPosting && fetchMoreProductSaving) {
+      const components = document.querySelectorAll(".profile-product__content");
+      const handlePostingScroll = () => {
+        const { scrollHeight, scrollTop, offsetHeight } = components[0];
+
+        if (scrollTop + offsetHeight >= scrollHeight) {
+          fetchMoreProductPosting();
+        }
+      };
+
+      const handleSavingScroll = () => {
+        const { scrollHeight, scrollTop, offsetHeight } = components[1];
+
+        if (scrollTop + offsetHeight >= scrollHeight) {
+          fetchMoreProductSaving();
+        }
+      };
+
+      components[0].addEventListener("scroll", handlePostingScroll);
+      components[1].addEventListener("scroll", handleSavingScroll);
+    }
+  }, [fetchMoreProductPosting, fetchMoreProductSaving]);
 
   return (
     <div>
@@ -138,7 +174,7 @@ function Profile(props) {
             Products: <span>{productsOfUser ? productsOfUser.length : 0}</span>
           </h2>
           <div className="profile-product__content">
-            {productsOfUser ? (
+            {productsOfUser && productsOfUser.length ? (
               productsOfUser.map((product, index) => (
                 <ProductItem
                   key={index}
@@ -148,10 +184,22 @@ function Profile(props) {
                   onDeleteClick={onDeleteClick}
                 />
               ))
-            ) : (
+            ) : !isFetchingMorePosting ? (
               <p className="profile-product__message">
                 You have not posted product yet
               </p>
+            ) : (
+              ""
+            )}
+            {isFetchingMorePosting ? (
+              <Spinner
+                style={{
+                  display: "block",
+                  margin: "0 auto",
+                }}
+              ></Spinner>
+            ) : (
+              ""
             )}
           </div>
         </div>
@@ -163,14 +211,26 @@ function Profile(props) {
               <span>{productsSaving ? productsSaving.length : 0}</span>
             </h2>
             <div className="profile-product__content">
-              {productsSaving ? (
+              {productsSaving && productsSaving.length ? (
                 productsSaving.map((product, index) => (
                   <ProductItem key={index} product={product} />
                 ))
-              ) : (
+              ) : !isFetchingMoreSaving ? (
                 <p className="profile-product__message">
-                  You have not posted product yet
+                  You have not saved product yet
                 </p>
+              ) : (
+                ""
+              )}
+              {isFetchingMoreSaving ? (
+                <Spinner
+                  style={{
+                    display: "block",
+                    margin: "0 auto",
+                  }}
+                ></Spinner>
+              ) : (
+                ""
               )}
             </div>
           </div>
