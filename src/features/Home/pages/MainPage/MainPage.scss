@@ -33,3 +33,17 @@
 .purchase-section {
   margin-top: $section-spacing;
 }
+
+@media only screen and (max-width: 767px) {
+  .lastest-product-section {
+    &__heading {
+      h3 {
+        font-size: 2rem;
+      }
+
+      a {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}

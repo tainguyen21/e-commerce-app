@@ -38,6 +38,14 @@
     }
   }
 
+  &__btn {
+    color: white;
+
+    i {
+      font-size: 3rem;
+    }
+  }
+
   &__link {
     display: block;
     padding: 28px 8px 10px;
@@ -70,6 +78,30 @@
 
       padding-bottom: 25px;
       border-bottom: 3px solid $red-color;
+    }
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .header {
+    padding: 20px 0;
+
+    &__brand {
+      margin-left: 32px;
+    }
+
+    &__btn {
+      margin-right: 32px;
+    }
+
+    &__link {
+      max-width: 50%;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .navbar-nav {
+      padding-bottom: 12px;
     }
   }
 }

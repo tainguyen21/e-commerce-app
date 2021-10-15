@@ -78,3 +78,31 @@
     }
   }
 }
+
+@media only screen and (max-width: 1023px) {
+  .banner {
+    &__title {
+      font-size: 3.6rem;
+    }
+
+    &__slide {
+      height: 500px;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .banner {
+    &__title {
+      font-size: 1.8rem;
+    }
+
+    &__slide {
+      height: 300px;
+    }
+
+    &__type {
+      font-size: 1.8rem;
+    }
+  }
+}

@@ -9,7 +9,7 @@ function Footer(props) {
     <div className="footer">
       <Container>
         <Row>
-          <Col>
+          <Col md="6">
             <div className="footer__left">
               <div className="footer__address">
                 <i className="fas fa-map-marker-alt"></i>
@@ -27,7 +27,7 @@ function Footer(props) {
               </div>
             </div>
           </Col>
-          <Col>
+          <Col md="6">
             <div className="footer_right">
               <h3 className="footer__about">About the company</h3>
               <p className="footer__desc">

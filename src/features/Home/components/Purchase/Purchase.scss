@@ -34,3 +34,36 @@
     }
   }
 }
+
+@media only screen and (max-width: 1023px) {
+  .purchase {
+    &__inner {
+      padding: 32px 0;
+    }
+
+    &__heading {
+      width: 70%;
+    }
+
+    &-section {
+      margin-top: 56px;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .purchase {
+    &__content {
+      display: block;
+
+      button {
+        margin-top: 12px;
+        font-size: 1.2rem;
+      }
+    }
+
+    &__heading {
+      width: 100%;
+    }
+  }
+}

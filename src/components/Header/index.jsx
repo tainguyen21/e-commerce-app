@@ -2,15 +2,7 @@ import { getAuth, signOut } from "@firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, NavLink, useHistory } from "react-router-dom";
-import {
-  Button,
-  Collapse,
-  Container,
-  Nav,
-  Navbar,
-  NavbarToggler,
-  NavItem,
-} from "reactstrap";
+import { Button, Collapse, Container, Nav, Navbar, NavItem } from "reactstrap";
 import "./Header.scss";
 
 Header.propTypes = {};
@@ -40,6 +32,9 @@ function Header(props) {
           top: "0",
           boxShadow: "0px 1px 10px rgb(0 0 0 / 10%)",
         },
+        header_btn: {
+          color: "black",
+        },
         brand: {
           color: "black",
         },
@@ -58,7 +53,7 @@ function Header(props) {
 
   return (
     <header className="header" style={style.header}>
-      <Navbar className="header__nav" expand="md">
+      <Navbar className="header__nav" expand="lg">
         <Container>
           <Link
             style={style.brand}
@@ -67,7 +62,13 @@ function Header(props) {
           >
             Ryan <span>Company</span>
           </Link>
-          <NavbarToggler className="header__btn" onClick={toggle} />
+          <div
+            className="header__btn navbar-toggler"
+            onClick={toggle}
+            style={style.header_btn}
+          >
+            <i className="fas fa-grip-lines"></i>
+          </div>
           <Collapse className="justify-content-end" isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar>
               <NavItem>

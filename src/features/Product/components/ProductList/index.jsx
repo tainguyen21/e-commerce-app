@@ -40,7 +40,7 @@ function ProductList(props) {
     <div className="product-list">
       <Row>
         {products.map((product, index) => (
-          <Col lg="4" key={index}>
+          <Col lg="4" md="6" key={index}>
             <ProductCard product={product} />
           </Col>
         ))}
