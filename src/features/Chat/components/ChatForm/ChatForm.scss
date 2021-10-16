@@ -92,9 +92,112 @@
     padding: 24px;
     border-radius: 8px;
     background-color: $gray-text-color;
+
+    button {
+      margin-top: 12px;
+      color: #fff;
+      padding: 6px 12px;
+      display: none;
+    }
   }
 
   &__input {
     font-size: 1.4rem;
+  }
+}
+
+@media only screen and (max-width: 1279px) {
+  .chat-form {
+    &__main {
+      padding-bottom: 12px;
+
+      button {
+        display: block;
+        margin: 12px auto 0 auto;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .chat-form {
+    &__user-list {
+      padding: 0;
+    }
+
+    &__user-item {
+      padding: 6px 12px;
+      overflow: hidden;
+    }
+
+    &__user-avatar {
+      width: 30px;
+      height: 30px;
+      margin-right: 8px;
+    }
+
+    &__user-name {
+      font-size: 1.4rem;
+    }
+
+    &-message {
+      &__item {
+        font-size: 1.2rem;
+        padding: 8px;
+
+        &:not(:first-child) {
+          margin-top: 8px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .chat-form {
+    padding: 16px;
+
+    &__user-list {
+      display: flex;
+      align-items: center;
+      overflow: auto;
+      height: auto;
+    }
+
+    &__user-item {
+      flex-shrink: 0;
+      width: 40%;
+      flex-direction: column;
+      padding: 4px;
+
+      &:not(:first-child) {
+        margin: 0 0 0 8px;
+      }
+    }
+
+    &__user-avatar {
+      width: 20px;
+      height: 20px;
+      margin: 0;
+    }
+
+    &__user-name {
+      font-size: 1.2rem;
+    }
+
+    &__right {
+      margin-top: 12px;
+      padding: 12px 0 0 0;
+      border: none;
+      border-top: 1px solid #eee;
+    }
+
+    &-message {
+      height: 300px;
+    }
+
+    &__main {
+      margin-top: 24px;
+    }
   }
 }

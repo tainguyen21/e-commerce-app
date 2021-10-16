@@ -10,6 +10,10 @@ export const userSlice = createSlice({
       return action.payload;
     },
 
+    setMessages: (state, action) => {
+      state.messages = action.payload;
+    },
+
     addSavingPost: (state, action) => {
       if (state.saving.indexOf(action.payload) === -1) {
         state.saving.push(action.payload);
@@ -66,6 +70,7 @@ export const {
   updateUser,
   removeSavingPost,
   removeProductOfUser,
+  setMessages,
 } = userSlice.actions;
 
 export default userSlice.reducer;

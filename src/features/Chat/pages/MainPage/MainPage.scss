@@ -3,3 +3,9 @@
 .chat-section {
   margin: $heading-content-spacing;
 }
+
+@media only screen and (max-width: 767px) {
+  .chat-section {
+    margin: 0 12px;
+  }
+}

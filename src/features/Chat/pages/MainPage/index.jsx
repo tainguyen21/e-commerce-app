@@ -1,5 +1,6 @@
 import { doc, getDoc, onSnapshot, updateDoc } from "@firebase/firestore";
 import Footer from "components/Footer";
+import { setMessages } from "features/Auth/userSlice";
 import ChatForm from "features/Chat/components/ChatForm";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -21,13 +22,16 @@ function ChatPage(props) {
   const [users, setUsers] = useState([]);
   const [currentUserMessages, setCurrentUserMessages] = useState({});
   const [activeUser, setActiveUser] = useState(null);
-  const [chattingUser, setChattingUser] = useState({});
 
   const currentUserMessagesRef = useRef(null);
+  const chattingUserMessagesRef = useRef(null);
 
-  const onSubmit = async (data, inboxUser) => {
+  console.log("Chatting: ", chattingUserMessagesRef.current);
+
+  const onSubmit = async (data) => {
+    //Chatted
     if (currentUserMessagesRef.current[userId]) {
-      setCurrentUserMessages({
+      currentUserMessagesRef.current = {
         ...currentUserMessagesRef.current,
         [userId]: [
           ...currentUserMessagesRef.current[userId],
@@ -36,22 +40,15 @@ function ChatPage(props) {
             other: false,
           },
         ],
-      });
+      };
+
+      setCurrentUserMessages(currentUserMessagesRef.current);
 
       await updateDoc(doc(db, `users/${currentUser.id}`), {
-        messages: {
-          ...currentUserMessagesRef.current,
-          [userId]: [
-            ...currentUserMessagesRef.current[userId],
-            {
-              message: data.message,
-              other: false,
-            },
-          ],
-        },
+        messages: currentUserMessagesRef.current,
       });
     } else {
-      setCurrentUserMessages({
+      currentUserMessagesRef.current = {
         ...currentUserMessagesRef.current,
         [userId]: [
           {
@@ -59,80 +56,49 @@ function ChatPage(props) {
             other: false,
           },
         ],
-      });
+      };
+
+      setCurrentUserMessages(currentUserMessagesRef.current);
 
       await updateDoc(doc(db, `users/${currentUser.id}`), {
-        messages: {
-          ...currentUserMessagesRef.current,
-          [userId]: [
-            {
-              message: data.message,
-              other: false,
-            },
-          ],
-        },
+        messages: currentUserMessagesRef.current,
       });
     }
 
-    if (inboxUser.messages[currentUser.id]) {
-      setChattingUser({
-        ...inboxUser,
-        messages: {
-          ...inboxUser.messages,
-          [currentUser.id]: [
-            ...inboxUser.messages[currentUser.id],
-            {
-              message: data.message,
-              other: true,
-            },
-          ],
-        },
-      });
+    if (chattingUserMessagesRef.current[currentUser.id]) {
+      chattingUserMessagesRef.current = {
+        ...chattingUserMessagesRef.current,
+        [currentUser.id]: [
+          ...chattingUserMessagesRef.current[currentUser.id],
+          {
+            message: data.message,
+            other: true,
+          },
+        ],
+      };
 
       await updateDoc(doc(db, `users/${userId}`), {
-        messages: {
-          ...inboxUser.messages,
-          [currentUser.id]: [
-            ...inboxUser.messages[currentUser.id],
-            {
-              message: data.message,
-              other: true,
-            },
-          ],
-        },
+        messages: chattingUserMessagesRef.current,
       });
     } else {
-      setChattingUser({
-        ...inboxUser,
-        messages: {
-          ...inboxUser.messages,
-          [currentUser.id]: [
-            {
-              message: data.message,
-              other: true,
-            },
-          ],
-        },
-      });
+      chattingUserMessagesRef.current = {
+        ...chattingUserMessagesRef.current,
+        [currentUser.id]: [
+          {
+            message: data.message,
+            other: true,
+          },
+        ],
+      };
 
       await updateDoc(doc(db, `users/${userId}`), {
-        messages: {
-          ...inboxUser.messages,
-          [currentUser.id]: [
-            {
-              message: data.message,
-              other: true,
-            },
-          ],
-        },
+        messages: chattingUserMessagesRef.current,
       });
     }
   };
 
-  const onUserClick = (id, chattingUser) => {
+  const onUserClick = (id) => {
     history.push(`/chat/${id}`);
-    setActiveUser(id);
-    setChattingUser(chattingUser);
   };
 
   useEffect(() => {
@@ -159,7 +125,7 @@ function ChatPage(props) {
         if (!userId) {
           setUsers(allUsers);
           setActiveUser(allUsers[0].id);
-          setChattingUser(allUsers[0]);
+          chattingUserMessagesRef.current = allUsers[0].messages;
 
           return;
         }
@@ -175,9 +141,9 @@ function ChatPage(props) {
         const filteredUsers = allUsers.filter((user) => user.id !== userId);
 
         filteredUsers.unshift(userInChatWithId);
+        chattingUserMessagesRef.current = userInChatWithId.messages;
         setUsers(filteredUsers);
         setActiveUser(userId);
-        setChattingUser(allUsers.find((item) => item.id === userId));
       } else {
         if (userId) {
           const newUserSnapshot = await getDoc(doc(db, `users/${userId}`));
@@ -185,15 +151,17 @@ function ChatPage(props) {
             ...newUserSnapshot.data(),
             id: userId,
           };
+          chattingUserMessagesRef.current = userInChatWithId.messages;
           setUsers([userInChatWithId]);
           setActiveUser(userId);
-          setChattingUser(userInChatWithId);
         }
       }
     };
 
     fetchAllUsers();
   }, [currentUser, userId]);
+
+  console.log("User outside: ", users);
 
   useEffect(() => {
     if (Object.keys(currentUser).length) {
@@ -213,9 +181,16 @@ function ChatPage(props) {
               });
             }
 
+            console.log("Users: ", allUsers);
             setUsers(allUsers);
+            dispatch(setMessages(newData.data().messages));
           }
 
+          const chattingUserSnapshot = await getDoc(doc(db, `users/${userId}`));
+          const chattingUser = chattingUserSnapshot.data();
+          if (chattingUser) {
+            chattingUserMessagesRef.current = chattingUser.messages;
+          }
           setCurrentUserMessages(newData.data().messages);
           currentUserMessagesRef.current = newData.data().messages;
         }
@@ -242,7 +217,6 @@ function ChatPage(props) {
             }
             activeUser={activeUser}
             onUserClick={onUserClick}
-            chattingUser={chattingUser}
           />
         </Container>
       </section>

@@ -10,7 +10,6 @@ ChatForm.propTypes = {
   messages: PropTypes.array,
   activeUser: PropTypes.string,
   onUserClick: PropTypes.func,
-  chattingUser: PropTypes.object,
 };
 
 ChatForm.defaultProps = {
@@ -19,23 +18,15 @@ ChatForm.defaultProps = {
   messages: null,
   activeUser: null,
   onUserClick: null,
-  chattingUser: null,
 };
 
 function ChatForm(props) {
   const { register, handleSubmit, setValue } = useForm();
-  const {
-    onSubmit,
-    allUsers,
-    messages,
-    activeUser,
-    onUserClick,
-    chattingUser,
-  } = props;
+  const { onSubmit, allUsers, messages, activeUser, onUserClick } = props;
 
   const submitForm = (data) => {
     if (onSubmit) {
-      onSubmit(data, chattingUser);
+      onSubmit(data);
       setValue("message", "");
     }
   };
@@ -62,7 +53,7 @@ function ChatForm(props) {
                     activeUser === user.id ? "active" : ""
                   }`}
                   key={index}
-                  onClick={() => onUserClick(user.id, chattingUser)}
+                  onClick={() => onUserClick(user.id)}
                 >
                   <img
                     src="https://images.unsplash.com/photo-1633114128174-2f8aa49759b0?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80"
@@ -105,6 +96,9 @@ function ChatForm(props) {
                 onBlurCapture={message.onBlur}
                 innerRef={message.ref}
               />
+              <button className="button button--red" type="submit">
+                Send
+              </button>
             </Form>
           </div>
         </Col>
