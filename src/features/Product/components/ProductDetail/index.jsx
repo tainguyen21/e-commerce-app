@@ -36,8 +36,6 @@ function ProductDetail(props) {
 
   const { product, user, onSavePostClick, hasSaved, onChatClick } = props;
 
-  console.log("User: ", user);
-
   const rating = calculateRating(user.rating);
   const response = calculateResponse(user.messages);
 

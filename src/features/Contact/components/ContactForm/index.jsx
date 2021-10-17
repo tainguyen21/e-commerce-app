@@ -31,7 +31,7 @@ function ContactForm(props) {
   const subject = register("subject");
   const message = register("message");
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = () => {};
 
   return (
     <Form

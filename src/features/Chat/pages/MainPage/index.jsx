@@ -26,8 +26,6 @@ function ChatPage(props) {
   const currentUserMessagesRef = useRef(null);
   const chattingUserMessagesRef = useRef(null);
 
-  console.log("Chatting: ", chattingUserMessagesRef.current);
-
   const onSubmit = async (data) => {
     //Chatted
     if (currentUserMessagesRef.current[userId]) {
@@ -161,8 +159,6 @@ function ChatPage(props) {
     fetchAllUsers();
   }, [currentUser, userId]);
 
-  console.log("User outside: ", users);
-
   useEffect(() => {
     if (Object.keys(currentUser).length) {
       const unsub = onSnapshot(
@@ -181,7 +177,6 @@ function ChatPage(props) {
               });
             }
 
-            console.log("Users: ", allUsers);
             setUsers(allUsers);
             dispatch(setMessages(newData.data().messages));
           }
@@ -198,7 +193,7 @@ function ChatPage(props) {
 
       return () => unsub();
     }
-  }, [currentUser]);
+  }, [currentUser, dispatch, userId]);
 
   useEffect(() => {
     setCurrentUserMessages(currentUser.messages);

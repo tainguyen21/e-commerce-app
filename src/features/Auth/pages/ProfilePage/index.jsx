@@ -130,8 +130,6 @@ function ProfilePage() {
 
       const productsSaving = [];
 
-      console.log(user);
-
       for (let i = 0; i < 5; i++) {
         if (productSavingFetched.current === user.saving.length) {
           isFetchingMoreSaving.current = false;

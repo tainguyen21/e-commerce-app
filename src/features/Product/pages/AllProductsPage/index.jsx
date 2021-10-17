@@ -1,9 +1,3 @@
-import Footer from "components/Footer";
-import ProductList from "features/Product/components/ProductList";
-import React, { useEffect, useRef, useState } from "react";
-import { Container, Spinner } from "reactstrap";
-import "./AllProductsPage.scss";
-import { options } from "constants/product";
 import {
   collection,
   getDocs,
@@ -12,7 +6,13 @@ import {
   startAfter,
   where,
 } from "@firebase/firestore";
+import Footer from "components/Footer";
+import { options } from "constants/product";
+import ProductList from "features/Product/components/ProductList";
+import React, { useEffect, useRef, useState } from "react";
+import { Container, Spinner } from "reactstrap";
 import db from "utils/db";
+import "./AllProductsPage.scss";
 
 AllProductsPage.propTypes = {};
 
@@ -37,12 +37,8 @@ function AllProductsPage(props) {
     ...options,
   ];
 
-  console.log(isLoadingRef.current);
-
   const fetchMoreProduct = async () => {
-    console.log("Call fetch more");
     if (!hasProduct.current || isLoadingRef.current) return;
-
     isLoadingRef.current = true;
     setIsLoading(true);
 
@@ -103,7 +99,6 @@ function AllProductsPage(props) {
     allProducts.current = [...allProducts.current, ...products];
     isLoadingRef.current = false;
     setIsLoading(false);
-    setAllProductsTemp(products);
   };
 
   useEffect(() => {

@@ -71,7 +71,6 @@ function SignUp(props) {
 
       history.push("/");
     } catch (error) {
-      console.log(error);
       if (error.code === "auth/email-already-in-use")
         setError("Email is already in use ");
     }
@@ -81,7 +80,6 @@ function SignUp(props) {
     // try {
     //   const auth = getAuth();
     //   const user = await signInWithPopup(auth, facebookProvider);
-    //   console.log(user);
     //   history.push("/");
     // } catch (error) {
     //   const errorCode = error.code;
